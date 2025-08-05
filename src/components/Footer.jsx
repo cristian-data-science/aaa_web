@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react'
 import logo1 from '../assets/logos/datacef-logo-1.png'
 
@@ -52,12 +51,8 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <motion.div
+          <div
             className="lg:col-span-1"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
           >
             <div className="flex items-center space-x-3 mb-6">
               <img 
@@ -89,16 +84,12 @@ const Footer = () => {
                 <span>América Latina</span>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Footer Sections */}
           {footerSections.map((section, index) => (
-            <motion.div
+            <div
               key={section.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
             >
               <h3 className="text-xl font-bold mb-6 text-white">
                 {section.title}
@@ -115,17 +106,13 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* Newsletter */}
-        <motion.div
+        <div
           className="border-t border-gray-800 pt-8 mt-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          viewport={{ once: true }}
         >
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
@@ -142,24 +129,18 @@ const Footer = () => {
                 placeholder="Tu email"
                 className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
-              <motion.button
+              <button
                 className="px-6 py-3 bg-gradient-primary text-white rounded-lg font-semibold hover:opacity-90 transition-opacity"
-                
-                whileTap={{ scale: 0.95 }}
               >
                 Suscribirse
-              </motion.button>
+              </button>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Bottom Bar */}
-        <motion.div
+        <div
           className="border-t border-gray-800 pt-8 mt-8"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
         >
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
@@ -181,26 +162,24 @@ const Footer = () => {
 
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
-                  <motion.a
+                  <a
                     key={social.label}
                     href={social.href}
                     className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
-                    
-                    whileTap={{ scale: 0.9 }}
                     aria-label={social.label}
                   >
                     <social.icon className="h-5 w-5" />
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Background Pattern */}
+      {/* Background Pattern - Static */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600"></div>
+        <div className="absolute inset-0 bg-gray-800"></div>
       </div>
     </footer>
   )
