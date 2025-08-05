@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import TypewriterAnimation from './TypewriterAnimation'
+import DatabaseAnimations from './DatabaseAnimations'
 // import TechBackground from './TechBackground'
 // import QuantumEffects from './QuantumEffects'
 import { useState, useEffect, useMemo } from 'react'
@@ -15,9 +16,6 @@ const Hero = () => {
       })
     }
   }
-
-  // Estado para las tablas de base de datos animadas
-  const [activeTableRelations, setActiveTableRelations] = useState([])
 
   // Valores fijos para partículas para evitar re-renders
   const particlesData = useMemo(() => 
@@ -59,101 +57,34 @@ const Hero = () => {
     })), []
   )
 
-  // Datos de tablas para animaciones de fondo (optimizado)
-  const tableData = useMemo(() => ({
-    leftSideTables: [
-      {
-        name: 'products',
-        fields: ['id', 'name', 'price', 'category_id'],
-        color: '#22C55E',
-        records: 1653,
-        side: 'left'
-      },
-      {
-        name: 'clients',
-        fields: ['id', 'company', 'contact', 'location'],
-        color: '#06B6D4',
-        records: 892,
-        side: 'left'
-      }
-    ],
-    rightSideTables: [
-      {
-        name: 'transactions',
-        fields: ['id', 'amount', 'type', 'product_id'],
-        color: '#A855F7',
-        records: 5834,
-        side: 'right'
-      },
-      {
-        name: 'stock',
-        fields: ['id', 'quantity', 'reserved', 'location'],
-        color: '#EF4444',
-        records: 2341,
-        side: 'right'
-      }
-    ]
-  }), [])
+  // Valores fijos para ondas de energía
+  const energyWavesData = useMemo(() => 
+    Array.from({ length: 3 }, (_, i) => ({
+      id: i,
+      x: 30 + i * 25,
+      y: 40 + i * 20,
+      duration: 8 + i * 2,
+      delay: i * 2
+    })), []
+  )
 
-  // Efecto para manejar las relaciones de tablas animadas (optimizado)
-  useEffect(() => {
-    let intervalId
-    let timeoutId
+  // Valores fijos para pulsos de energía
+  const energyPulsesData = useMemo(() => [
+    { id: 'top-left', position: 'top-0 left-0', duration: 15, delay: 0 },
+    { id: 'top-right', position: 'top-0 right-0', duration: 18, delay: 1 },
+    { id: 'bottom-left', position: 'bottom-0 left-0', duration: 21, delay: 2 },
+    { id: 'bottom-right', position: 'bottom-0 right-0', duration: 24, delay: 3 }
+  ], [])
 
-    const createRelation = () => {
-      // Solo una animación a la vez para evitar conflictos
-      if (activeTableRelations.length === 0) {
-        const isLeftSide = Date.now() % 2 === 0 // Alternancia determinística
-        const tables = isLeftSide ? tableData.leftSideTables : tableData.rightSideTables
-        
-        const screenWidth = window.innerWidth || 1200
-        const baseX = isLeftSide ? 100 : screenWidth - 300
-        const baseY = 250 // Posición fija más estable
-        
-        const table1 = {
-          ...tables[0],
-          id: `table1-${Date.now()}`,
-          x: baseX,
-          y: baseY,
-          duration: 10000 // Duración fija
-        }
-        
-        const table2 = {
-          ...tables[1],
-          id: `table2-${Date.now()}`,
-          x: baseX,
-          y: baseY + 180,
-          duration: 10000 // Duración fija
-        }
-
-        const relation = {
-          id: Date.now(),
-          table1,
-          table2,
-          side: isLeftSide ? 'left' : 'right',
-          duration: 10000
-        }
-
-        setActiveTableRelations([relation]) // Solo una relación
-
-        // Remover después de la duración
-        timeoutId = setTimeout(() => {
-          setActiveTableRelations([])
-        }, relation.duration)
-      }
-
-      // Programar próxima relación
-      intervalId = setTimeout(createRelation, 8000) // Intervalo fijo
-    }
-
-    // Iniciar primera relación después de un delay
-    intervalId = setTimeout(createRelation, 3000)
-
-    return () => {
-      clearTimeout(intervalId)
-      clearTimeout(timeoutId)
-    }
-  }, [tableData]) // Dependencia solo de tableData, no de activeTableRelations
+  // Valores fijos para líneas de escaneado
+  const scanLinesData = useMemo(() => 
+    Array.from({ length: 3 }, (_, i) => ({
+      id: i,
+      left: 25 + i * 25,
+      duration: 4 + i,
+      delay: i * 1.5
+    })), []
+  )
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
@@ -327,13 +258,13 @@ const Hero = () => {
           </motion.div>
         ))}
 
-        {/* Ondas de energía */}
-        {[...Array(3)].map((_, i) => (
+        {/* Ondas de energía optimizadas */}
+        {energyWavesData.map((wave) => (
           <motion.div
-            key={`wave-${i}`}
+            key={`wave-${wave.id}`}
             className="absolute inset-0"
             style={{
-              background: `radial-gradient(circle at ${30 + i * 25}% ${40 + i * 20}%, 
+              background: `radial-gradient(circle at ${wave.x}% ${wave.y}%, 
                 rgba(34, 197, 94, 0.02) 0%, 
                 transparent 70%)`,
             }}
@@ -342,10 +273,10 @@ const Hero = () => {
               opacity: [0.3, 0.1, 0.3],
             }}
             transition={{
-              duration: 8 + i * 2,
+              duration: wave.duration,
               repeat: Infinity,
               ease: "easeInOut",
-              delay: i * 2,
+              delay: wave.delay,
             }}
           />
         ))}
@@ -374,457 +305,10 @@ const Hero = () => {
           </motion.div>
         ))}
 
-        {/* Animaciones de relaciones de tablas de base de datos */}
-        <AnimatePresence>
-          {activeTableRelations.map((relation) => (
-            <motion.div
-              key={relation.id}
-              className="absolute pointer-events-none z-50"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-            >
-              {/* Tabla 1 */}
-              <motion.div
-                className="absolute z-50"
-                style={{
-                  left: `${relation.table1.x}px`,  // USAR PIXELES ABSOLUTOS
-                  top: `${relation.table1.y}px`,   // USAR PIXELES ABSOLUTOS
-                  transform: 'none', // SIN TRANSFORM que cause problemas
-                }}
-                initial={{ 
-                  opacity: 0, 
-                  scale: 0.3,
-                  rotateX: -90
-                }}
-                animate={{ 
-                  opacity: [0, 0.9, 0.8],  // Más visible
-                  scale: [0.3, 1.1, 1],    // Efecto bounce ligero
-                  rotateX: [-90, 0, 0]
-                }}
-                exit={{ 
-                  opacity: 0, 
-                  scale: 0.2,
-                  rotateX: 90,
-                  transition: { duration: 0.8 }
-                }}
-                transition={{
-                  duration: 1.5,  // Más rápido
-                  ease: "easeOut"
-                }}
-              >
-                {/* Contenedor de la tabla 1 */}
-                <div 
-                  className="database-table relative bg-slate-900/98 backdrop-blur-md border rounded-lg p-4 min-w-[220px] shadow-2xl"
-                  style={{
-                    borderColor: `${relation.table1.color}70`,
-                    boxShadow: `
-                      0 0 20px ${relation.table1.color}40, 
-                      0 0 40px ${relation.table1.color}20,
-                      inset 0 1px 1px rgba(255, 255, 255, 0.15)
-                    `,
-                  }}
-                >
-                  {/* Header de la tabla */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <motion.div 
-                        className="w-2 h-2 rounded-full"
-                        style={{ backgroundColor: relation.table1.color }}
-                        animate={{ 
-                          scale: [1, 1.3, 1],
-                          boxShadow: [`0 0 4px ${relation.table1.color}`, `0 0 10px ${relation.table1.color}`, `0 0 4px ${relation.table1.color}`]
-                        }}
-                        transition={{ 
-                          duration: 2, 
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                      <span 
-                        className="text-sm font-mono font-bold uppercase tracking-wider"
-                        style={{ color: relation.table1.color }}
-                      >
-                        {relation.table1.name}
-                      </span>
-                      <motion.span 
-                        className="text-[10px] text-gray-400 px-1 py-0.5 rounded border"
-                        style={{ borderColor: `${relation.table1.color}40` }}
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        ACTIVE
-                      </motion.span>
-                    </div>
-                    <div className="text-[11px] text-gray-400 font-mono">
-                      {relation.table1.records.toLocaleString()}
-                    </div>
-                  </div>
-
-                  {/* Campos de la tabla (solo los primeros 3) */}
-                  <div className="space-y-1.5">
-                    {relation.table1.fields.slice(0, 3).map((field, index) => (
-                      <motion.div
-                        key={field}
-                        className="flex items-center space-x-2 text-[11px] font-mono"
-                        initial={{ opacity: 0, x: -15 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + index * 0.1 }}
-                      >
-                        <motion.div 
-                          className="w-1.5 h-1.5 rounded-full"
-                          style={{ backgroundColor: index === 0 ? relation.table1.color : '#6B7280' }}
-                          animate={{ 
-                            scale: index === 0 ? [1, 1.2, 1] : 1,
-                            opacity: index === 0 ? [0.7, 1, 0.7] : 0.6
-                          }}
-                          transition={{ 
-                            duration: 1.5, 
-                            repeat: Infinity,
-                            delay: index * 0.2
-                          }}
-                        />
-                        <span className="text-gray-300 min-w-[45px]">{field}</span>
-                        <div className="flex-1 border-b border-dashed border-gray-600/30" />
-                        <span 
-                          className="text-[9px] px-1 py-0.5 rounded"
-                          style={{ 
-                            backgroundColor: index === 0 ? `${relation.table1.color}20` : 'rgba(107, 114, 128, 0.15)',
-                            color: index === 0 ? relation.table1.color : '#9CA3AF'
-                          }}
-                        >
-                          {index === 0 ? 'PK' : ['FK', 'VAR', 'INT'][Math.floor(Math.random() * 3)]}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Línea de conexión animada */}
-              <motion.svg
-                className="absolute"
-                style={{
-                  left: `${relation.table1.x + 220}px`,   // Desde el final del nombre de la tabla 1
-                  top: `${relation.table1.y + 50}px`,     // Desde la altura del nombre de la tabla 1
-                  width: '160px',   // Ancho más amplio para las dobladuras
-                  height: `${Math.abs(relation.table2.y - relation.table1.y) + 20}px`, // Altura exacta entre tablas
-                  pointerEvents: 'none'
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.8 }}
-                transition={{ delay: 1.0 }}
-              >
-                <defs>
-                  <linearGradient id={`connectionGrad-${relation.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor={relation.table1.color} />
-                    <stop offset="50%" stopColor={relation.table1.color} />
-                    <stop offset="100%" stopColor={relation.table2.color} />
-                  </linearGradient>
-                </defs>
-                
-                {/* Camino con dobladuras rectas: horizontal → vertical → horizontal */}
-                <motion.path
-                  d={`M 0 0 
-                      L 50 0 
-                      L 50 ${Math.abs(relation.table2.y - relation.table1.y) - 30} 
-                      L -220 ${Math.abs(relation.table2.y - relation.table1.y) - 30} 
-                      L -220 ${Math.abs(relation.table2.y - relation.table1.y)}`}
-                  stroke={`url(#connectionGrad-${relation.id})`}
-                  strokeWidth="2"
-                  fill="none"
-                  strokeDasharray="8,4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{ 
-                    pathLength: 1, 
-                    opacity: [0, 1, 0.8],
-                    strokeDashoffset: [0, -24, -48]
-                  }}
-                  transition={{ 
-                    pathLength: { duration: 2.5, delay: 1.0 },
-                    opacity: { duration: 0.8, delay: 1.0 },
-                    strokeDashoffset: { duration: 4, repeat: Infinity, ease: "linear" }
-                  }}
-                />
-                
-                {/* Punto de conexión inicial (desde el nombre de tabla 1) */}
-                <motion.circle
-                  cx="0"
-                  cy="0"
-                  r="4"
-                  fill={relation.table1.color}
-                  stroke="rgba(255,255,255,0.3)"
-                  strokeWidth="1"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.3, 1] }}
-                  transition={{ delay: 1.8, duration: 0.6 }}
-                />
-                
-                {/* Punto de conexión final (hacia el nombre de tabla 2) */}
-                <motion.circle
-                  cx="-220"
-                  cy={`${Math.abs(relation.table2.y - relation.table1.y)}`}
-                  r="4"
-                  fill={relation.table2.color}
-                  stroke="rgba(255,255,255,0.3)"
-                  strokeWidth="1"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.3, 1] }}
-                  transition={{ delay: 2.0, duration: 0.6 }}
-                />
-
-                {/* Puntos en las esquinas de las dobladuras */}
-                <motion.circle
-                  cx="50"
-                  cy="0"
-                  r="2"
-                  fill={relation.table1.color}
-                  opacity="0.7"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.2, 1] }}
-                  transition={{ delay: 2.2, duration: 0.4 }}
-                />
-                
-                <motion.circle
-                  cx="50"
-                  cy={`${Math.abs(relation.table2.y - relation.table1.y) - 30}`}
-                  r="2"
-                  fill={relation.table2.color}
-                  opacity="0.7"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.2, 1] }}
-                  transition={{ delay: 2.4, duration: 0.4 }}
-                />
-                
-                <motion.circle
-                  cx="-220"
-                  cy={`${Math.abs(relation.table2.y - relation.table1.y) - 30}`}
-                  r="2"
-                  fill={relation.table2.color}
-                  opacity="0.7"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: [0, 1.2, 1] }}
-                  transition={{ delay: 2.6, duration: 0.4 }}
-                />
-
-                {/* Texto de relación en el centro */}
-                <motion.text
-                  x="-85"
-                  y={`${(Math.abs(relation.table2.y - relation.table1.y) - 30) / 2}`}
-                  textAnchor="middle"
-                  className="text-[10px] font-mono font-bold fill-white"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.9 }}
-                  transition={{ delay: 2.8 }}
-                >
-                  {relation.side === 'left' ? '1:N' : 'M:N'}
-                </motion.text>
-                
-                {/* Flecha de dirección apuntando hacia la tabla 2 */}
-                <motion.polygon
-                  points={`-225,${Math.abs(relation.table2.y - relation.table1.y) - 10} -220,${Math.abs(relation.table2.y - relation.table1.y)} -215,${Math.abs(relation.table2.y - relation.table1.y) - 10}`}
-                  fill={relation.table2.color}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.8 }}
-                  transition={{ delay: 2.5 }}
-                />
-              </motion.svg>
-
-              {/* Tabla 2 */}
-              <motion.div
-                className="absolute z-50"
-                style={{
-                  left: `${relation.table2.x}px`,  // USAR PIXELES ABSOLUTOS
-                  top: `${relation.table2.y}px`,   // USAR PIXELES ABSOLUTOS
-                  transform: 'none', // SIN TRANSFORM que cause problemas
-                }}
-                initial={{ 
-                  opacity: 0, 
-                  scale: 0.3,
-                  rotateX: -90
-                }}
-                animate={{ 
-                  opacity: [0, 0.9, 0.8],  // Más visible
-                  scale: [0.3, 1.1, 1],    // Efecto bounce ligero
-                  rotateX: [-90, 0, 0]
-                }}
-                exit={{ 
-                  opacity: 0, 
-                  scale: 0.2,
-                  rotateX: 90,
-                  transition: { duration: 0.8 }
-                }}
-                transition={{
-                  duration: 1.5,  // Más rápido
-                  delay: 0.5,     // Menos delay
-                  ease: "easeOut"
-                }}
-              >
-                {/* Contenedor de la tabla 2 */}
-                <div 
-                  className="database-table relative bg-slate-900/98 backdrop-blur-md border rounded-lg p-4 min-w-[220px] shadow-2xl"
-                  style={{
-                    borderColor: `${relation.table2.color}70`,
-                    boxShadow: `
-                      0 0 20px ${relation.table2.color}40, 
-                      0 0 40px ${relation.table2.color}20,
-                      inset 0 1px 1px rgba(255, 255, 255, 0.15)
-                    `,
-                  }}
-                >
-                  {/* Header de la tabla */}
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center space-x-2">
-                      <motion.div 
-                        className="w-2 h-2 rounded-full"
-                        style={{ backgroundColor: relation.table2.color }}
-                        animate={{ 
-                          scale: [1, 1.3, 1],
-                          boxShadow: [`0 0 4px ${relation.table2.color}`, `0 0 10px ${relation.table2.color}`, `0 0 4px ${relation.table2.color}`]
-                        }}
-                        transition={{ 
-                          duration: 2, 
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                      <span 
-                        className="text-sm font-mono font-bold uppercase tracking-wider"
-                        style={{ color: relation.table2.color }}
-                      >
-                        {relation.table2.name}
-                      </span>
-                      <motion.span 
-                        className="text-[10px] text-gray-400 px-1 py-0.5 rounded border"
-                        style={{ borderColor: `${relation.table2.color}40` }}
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        ACTIVE
-                      </motion.span>
-                    </div>
-                    <div className="text-[11px] text-gray-400 font-mono">
-                      {relation.table2.records.toLocaleString()}
-                    </div>
-                  </div>
-
-                  {/* Campos de la tabla (solo los primeros 3) */}
-                  <div className="space-y-1.5">
-                    {relation.table2.fields.slice(0, 3).map((field, index) => (
-                      <motion.div
-                        key={field}
-                        className="flex items-center space-x-2 text-[11px] font-mono"
-                        initial={{ opacity: 0, x: -15 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.3 + index * 0.1 }}
-                      >
-                        <motion.div 
-                          className="w-1.5 h-1.5 rounded-full"
-                          style={{ backgroundColor: index === 0 ? relation.table2.color : '#6B7280' }}
-                          animate={{ 
-                            scale: index === 0 ? [1, 1.2, 1] : 1,
-                            opacity: index === 0 ? [0.7, 1, 0.7] : 0.6
-                          }}
-                          transition={{ 
-                            duration: 1.5, 
-                            repeat: Infinity,
-                            delay: index * 0.2
-                          }}
-                        />
-                        <span className="text-gray-300 min-w-[45px]">{field}</span>
-                        <div className="flex-1 border-b border-dashed border-gray-600/30" />
-                        <span 
-                          className="text-[9px] px-1 py-0.5 rounded"
-                          style={{ 
-                            backgroundColor: index === 0 ? `${relation.table2.color}20` : 'rgba(107, 114, 128, 0.15)',
-                            color: index === 0 ? relation.table2.color : '#9CA3AF'
-                          }}
-                        >
-                          {index === 0 ? 'PK' : ['FK', 'VAR', 'INT'][Math.floor(Math.random() * 3)]}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Stream de datos de la relación */}
-              <motion.div
-                className="absolute text-[10px] font-mono font-bold opacity-80"
-                style={{ 
-                  left: `${relation.table1.x + 150}px`,  // Al lado del camino
-                  top: `${relation.table1.y + 90 + (Math.abs(relation.table2.y - relation.table1.y) / 2)}px`,   // En el centro vertical
-                  color: relation.table1.color,
-                  textShadow: `0 0 10px ${relation.table1.color}`
-                }}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ 
-                  opacity: [0, 1, 0.8], 
-                  x: [0, 5, 0]
-                }}
-                transition={{ duration: 2, repeat: Infinity, delay: 3.5, ease: "easeInOut" }}
-              >
-                JOIN
-              </motion.div>
-              
-              {/* Partículas de datos siguiendo el camino con dobladuras */}
-              {[...Array(2)].map((_, i) => (
-                <motion.div
-                  key={`data-particle-${i}`}
-                  className="absolute w-1.5 h-1.5 rounded-full"
-                  style={{ 
-                    left: `${relation.table1.x + 90}px`,  // Punto inicial
-                    top: `${relation.table1.y + 80}px`,
-                    backgroundColor: relation.table1.color,
-                    boxShadow: `0 0 8px ${relation.table1.color}`
-                  }}
-                  animate={{ 
-                    // Secuencia de movimientos: horizontal → vertical → horizontal
-                    x: [0, 40, 40, 80, 80],
-                    y: [0, 0, Math.abs(relation.table2.y - relation.table1.y) - 80, Math.abs(relation.table2.y - relation.table1.y) - 80, Math.abs(relation.table2.y - relation.table1.y) - 40],
-                    opacity: [0, 1, 1, 1, 0],
-                    scale: [0.5, 1, 1, 1, 0.5]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    delay: 4 + i * 1.5,
-                    ease: "easeInOut",
-                    times: [0, 0.2, 0.6, 0.8, 1]  // Timing para cada punto del camino
-                  }}
-                />
-              ))}
-              
-              {/* Partículas extras en las dobladuras para efecto de flujo */}
-              {[...Array(3)].map((_, i) => (
-                <motion.div
-                  key={`flow-particle-${i}`}
-                  className="absolute w-1 h-1 rounded-full opacity-60"
-                  style={{ 
-                    left: `${relation.table1.x + 130 + i * 8}px`,
-                    top: `${relation.table1.y + 80}px`,
-                    backgroundColor: relation.table2.color,
-                    boxShadow: `0 0 4px ${relation.table2.color}`
-                  }}
-                  animate={{ 
-                    y: [0, Math.abs(relation.table2.y - relation.table1.y) - 60],
-                    opacity: [0, 0.6, 0.6, 0],
-                    scale: [0, 1, 1, 0]
-                  }}
-                  transition={{ 
-                    duration: 3, 
-                    repeat: Infinity, 
-                    delay: 5 + i * 0.3,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
-            </motion.div>
-          ))}
-        </AnimatePresence>        {/* Efecto de matriz 3D */}
+        {/* Animaciones de tablas de base de datos */}
+        {/* <DatabaseAnimations /> */}
+        
+        {/* Efecto de matriz 3D */}
         <div 
           className="absolute inset-0"
           style={{
@@ -837,16 +321,11 @@ const Hero = () => {
           }}
         />
 
-        {/* Pulsos de energía en las esquinas */}
-        {['top-left', 'top-right', 'bottom-left', 'bottom-right'].map((position, i) => (
+        {/* Pulsos de energía optimizados */}
+        {energyPulsesData.map((pulse) => (
           <motion.div
-            key={`pulse-${position}`}
-            className={`absolute w-32 h-32 ${
-              position === 'top-left' ? 'top-0 left-0' :
-              position === 'top-right' ? 'top-0 right-0' :
-              position === 'bottom-left' ? 'bottom-0 left-0' :
-              'bottom-0 right-0'
-            }`}
+            key={`pulse-${pulse.id}`}
+            className={`absolute w-32 h-32 ${pulse.position}`}
             style={{
               background: `conic-gradient(from 0deg, 
                 rgba(34, 197, 94, 0.1), 
@@ -862,9 +341,10 @@ const Hero = () => {
               opacity: [0.3, 0.6, 0.3],
             }}
             transition={{
-              duration: 15 + i * 3,
+              duration: pulse.duration,
               repeat: Infinity,
               ease: "linear",
+              delay: pulse.delay,
             }}
           />
         ))}
@@ -952,13 +432,13 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Líneas de escaneado verticales */}
-        {[...Array(3)].map((_, i) => (
+        {/* Líneas de escaneado verticales optimizadas */}
+        {scanLinesData.map((scan) => (
           <motion.div
-            key={`vscan-${i}`}
+            key={`vscan-${scan.id}`}
             className="absolute left-0 w-0.5 h-full opacity-10"
             style={{
-              left: `${25 + i * 25}%`,
+              left: `${scan.left}%`,
               background: `linear-gradient(180deg, 
                 transparent 0%, 
                 #22c55e 20%, 
@@ -972,9 +452,9 @@ const Hero = () => {
               opacity: [0, 0.3, 0],
             }}
             transition={{
-              duration: 4 + i,
+              duration: scan.duration,
               repeat: Infinity,
-              delay: i * 1.5,
+              delay: scan.delay,
               ease: "easeInOut"
             }}
           />
@@ -1003,6 +483,9 @@ const Hero = () => {
             {/* Typewriter Animation - Centered */}
             <div className="flex justify-center items-center min-h-[100px]">
               <TypewriterAnimation />
+              {/* <div className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-green-400 via-orange-400 to-purple-400 bg-clip-text text-transparent">
+                Inteligencia Artificial
+              </div> */}
             </div>
           </motion.div>
 
