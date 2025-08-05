@@ -144,7 +144,7 @@ const Footer = () => {
               />
               <motion.button
                 className="px-6 py-3 bg-gradient-primary text-white rounded-lg font-semibold hover:opacity-90 transition-opacity"
-                whileHover={{ scale: 1.05 }}
+                
                 whileTap={{ scale: 0.95 }}
               >
                 Suscribirse
@@ -185,7 +185,7 @@ const Footer = () => {
                     key={social.label}
                     href={social.href}
                     className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
-                    whileHover={{ scale: 1.2 }}
+                    
                     whileTap={{ scale: 0.9 }}
                     aria-label={social.label}
                   >

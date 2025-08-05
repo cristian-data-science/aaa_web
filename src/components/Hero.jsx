@@ -16,10 +16,50 @@ const Hero = () => {
     }
   }
 
-  // Estado para las tablas de base de datos animadas (activeDatabaseTables removido por no usarse)
+  // Estado para las tablas de base de datos animadas
   const [activeTableRelations, setActiveTableRelations] = useState([])
 
-  // Datos de tablas para animaciones de fondo (movido dentro de useMemo para optimización)
+  // Valores fijos para partículas para evitar re-renders
+  const particlesData = useMemo(() => 
+    Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      width: 1 + Math.random() * 2,
+      height: 1 + Math.random() * 2,
+      xMovement: Math.random() * 30 - 15,
+      duration: 15 + Math.random() * 10,
+      delay: Math.random() * 8,
+      color: Math.random() > 0.66 ? 'rgba(34, 197, 94, 0.6)' : 
+             Math.random() > 0.5 ? 'rgba(249, 115, 22, 0.6)' : 'rgba(168, 85, 247, 0.6)'
+    })), []
+  )
+
+  // Valores fijos para hexágonos
+  const hexagonsData = useMemo(() => 
+    Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      left: 10 + (i % 4) * 25,
+      top: 20 + Math.floor(i / 4) * 60,
+      duration: 20 + i * 3,
+      delay: i * 1.5,
+      color: i % 3 === 0 ? '#22C55E' : i % 3 === 1 ? '#F97316' : '#A855F7'
+    })), []
+  )
+
+  // Valores fijos para partículas de datos
+  const dataParticlesData = useMemo(() => 
+    Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 90,
+      top: Math.random() * 90,
+      duration: 4 + Math.random() * 4,
+      delay: Math.random() * 8,
+      text: Math.random() > 0.5 ? '101' : '010'
+    })), []
+  )
+
+  // Datos de tablas para animaciones de fondo (optimizado)
   const tableData = useMemo(() => ({
     leftSideTables: [
       {
@@ -55,38 +95,35 @@ const Hero = () => {
     ]
   }), [])
 
-  // Efecto para manejar las relaciones de tablas animadas
+  // Efecto para manejar las relaciones de tablas animadas (optimizado)
   useEffect(() => {
-    const interval = setInterval(() => {
-      const shouldCreateRelation = Math.random() > 0.3  // MÁS FRECUENTE
-      
-      // SOLO PERMITIR UNA ANIMACIÓN A LA VEZ
-      if (shouldCreateRelation && activeTableRelations.length === 0) {  // Cambié < 3 por === 0
-        // Alternar entre lados
-        const isLeftSide = Math.random() > 0.5
+    let intervalId
+    let timeoutId
+
+    const createRelation = () => {
+      // Solo una animación a la vez para evitar conflictos
+      if (activeTableRelations.length === 0) {
+        const isLeftSide = Date.now() % 2 === 0 // Alternancia determinística
         const tables = isLeftSide ? tableData.leftSideTables : tableData.rightSideTables
         
-        // Crear posiciones para las dos tablas - COORDENADAS ABSOLUTAS FIJAS
-        const screenWidth = window.innerWidth || 1200;
-        
-        // Posiciones fijas y visibles
-        const baseX = isLeftSide ? 100 : screenWidth - 300;  // 100px del borde izq, 300px del borde der
-        const baseY = 200 + Math.random() * 100;  // Entre 200px y 300px desde arriba
+        const screenWidth = window.innerWidth || 1200
+        const baseX = isLeftSide ? 100 : screenWidth - 300
+        const baseY = 250 // Posición fija más estable
         
         const table1 = {
-          ...tables[0], // Primera tabla (products o transactions)
+          ...tables[0],
           id: `table1-${Date.now()}`,
           x: baseX,
           y: baseY,
-          duration: 8000 + Math.random() * 4000
+          duration: 10000 // Duración fija
         }
         
         const table2 = {
-          ...tables[1], // Segunda tabla (clients o stock)
+          ...tables[1],
           id: `table2-${Date.now()}`,
           x: baseX,
-          y: baseY + 180, // 180px más abajo - SIN OVERLAP
-          duration: 8000 + Math.random() * 4000
+          y: baseY + 180,
+          duration: 10000 // Duración fija
         }
 
         const relation = {
@@ -94,20 +131,29 @@ const Hero = () => {
           table1,
           table2,
           side: isLeftSide ? 'left' : 'right',
-          duration: Math.min(table1.duration, table2.duration)
+          duration: 10000
         }
 
-        setActiveTableRelations(prev => [...prev, relation])
+        setActiveTableRelations([relation]) // Solo una relación
 
-        // Remover la relación después de su duración
-        setTimeout(() => {
-          setActiveTableRelations(prev => prev.filter(rel => rel.id !== relation.id))
+        // Remover después de la duración
+        timeoutId = setTimeout(() => {
+          setActiveTableRelations([])
         }, relation.duration)
       }
-    }, 2000 + Math.random() * 3000) // Cada 2-5 segundos - MÁS FRECUENTE
 
-    return () => clearInterval(interval)
-  }, [activeTableRelations.length, tableData])
+      // Programar próxima relación
+      intervalId = setTimeout(createRelation, 8000) // Intervalo fijo
+    }
+
+    // Iniciar primera relación después de un delay
+    intervalId = setTimeout(createRelation, 3000)
+
+    return () => {
+      clearTimeout(intervalId)
+      clearTimeout(timeoutId)
+    }
+  }, [tableData]) // Dependencia solo de tableData, no de activeTableRelations
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-950">
@@ -212,52 +258,48 @@ const Hero = () => {
           />
         </svg>
 
-        {/* Partículas flotantes ultra tecnológicas (reducidas para mejor rendimiento) */}
-        {[...Array(8)].map((_, i) => (
+        {/* Partículas flotantes optimizadas */}
+        {particlesData.map((particle) => (
           <motion.div
-            key={`particle-${i}`}
+            key={`particle-${particle.id}`}
             className="absolute"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              width: `${1 + Math.random() * 2}px`,
-              height: `${1 + Math.random() * 2}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              width: `${particle.width}px`,
+              height: `${particle.height}px`,
             }}
             animate={{
               y: [0, -80, 0],
-              x: [0, Math.random() * 30 - 15, 0],
+              x: [0, particle.xMovement, 0],
               opacity: [0, 0.3, 0],
               scale: [0.5, 1, 0.5],
             }}
             transition={{
-              duration: 15 + Math.random() * 10,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 8,
+              delay: particle.delay,
               ease: "easeInOut",
             }}
           >
             <div 
               className="w-full h-full rounded-full"
               style={{
-                background: Math.random() > 0.5 
-                  ? 'rgba(34, 197, 94, 0.6)' 
-                  : Math.random() > 0.5 
-                    ? 'rgba(249, 115, 22, 0.6)' 
-                    : 'rgba(168, 85, 247, 0.6)',
+                background: particle.color,
                 boxShadow: '0 0 8px currentColor',
               }}
             />
           </motion.div>
         ))}
 
-        {/* Hexágonos tecnológicos */}
-        {[...Array(8)].map((_, i) => (
+        {/* Hexágonos tecnológicos optimizados */}
+        {hexagonsData.map((hex) => (
           <motion.div
-            key={`hex-${i}`}
+            key={`hex-${hex.id}`}
             className="absolute"
             style={{
-              left: `${10 + (i % 4) * 25}%`,
-              top: `${20 + Math.floor(i / 4) * 60}%`,
+              left: `${hex.left}%`,
+              top: `${hex.top}%`,
               width: '40px',
               height: '40px',
             }}
@@ -267,16 +309,17 @@ const Hero = () => {
               scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 20 + i * 3,
+              duration: hex.duration,
               repeat: Infinity,
               ease: "linear",
+              delay: hex.delay,
             }}
           >
             <svg viewBox="0 0 100 100" className="w-full h-full">
               <polygon
                 points="50,5 85,25 85,75 50,95 15,75 15,25"
                 fill="none"
-                stroke={i % 3 === 0 ? '#22c55e' : i % 3 === 1 ? '#f97316' : '#a855f7'}
+                stroke={hex.color}
                 strokeWidth="1"
                 opacity="0.4"
               />
@@ -307,14 +350,14 @@ const Hero = () => {
           />
         ))}
 
-        {/* Partículas de datos */}
-        {[...Array(15)].map((_, i) => (
+        {/* Partículas de datos optimizadas */}
+        {dataParticlesData.map((particle) => (
           <motion.div
-            key={`data-${i}`}
+            key={`data-${particle.id}`}
             className="absolute text-xs font-mono opacity-20"
             style={{
-              left: `${Math.random() * 90}%`,
-              top: `${Math.random() * 90}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
               color: '#22c55e',
             }}
             animate={{
@@ -322,12 +365,12 @@ const Hero = () => {
               y: [0, -20, 0],
             }}
             transition={{
-              duration: 4 + Math.random() * 4,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 8,
+              delay: particle.delay,
             }}
           >
-            {Math.random() > 0.5 ? '101' : '010'}
+            {particle.text}
           </motion.div>
         ))}
 
@@ -948,7 +991,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight glitch-effect">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight">
               Transformamos tu negocio
             </h1>
             

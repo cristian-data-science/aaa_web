@@ -127,14 +127,14 @@ const About = () => {
           {/* Nodos de datos pulsantes */}
           <motion.circle cx="300" cy="200" r="4" fill="#a855f7" opacity="0.3"
             animate={{ 
-              opacity: [0.3, 0.7, 0.3],
+              opacity: 0.5,
               scale: [1, 1.5, 1]
             }}
             transition={{ duration: 4, repeat: Infinity, delay: 1 }}
           />
           <motion.circle cx="700" cy="400" r="4" fill="#f97316" opacity="0.3"
             animate={{ 
-              opacity: [0.3, 0.7, 0.3],
+              opacity: 0.5,
               scale: [1, 1.5, 1]
             }}
             transition={{ duration: 5, repeat: Infinity, delay: 2.5 }}
@@ -288,7 +288,7 @@ const About = () => {
             <div className="relative">
               <motion.div
                 className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                whileHover={{ scale: 1.02 }}
+                
               >
                 <motion.h3 
                   className="text-3xl font-bold text-white mb-4"
@@ -317,7 +317,7 @@ const About = () => {
             <div className="relative">
               <motion.div
                 className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                whileHover={{ scale: 1.02 }}
+                
               >
                 <motion.h3 
                   className="text-3xl font-bold text-white mb-4"
@@ -347,7 +347,7 @@ const About = () => {
             <div className="relative">
               <motion.div
                 className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                whileHover={{ scale: 1.02 }}
+                
               >
                 <motion.h3 
                   className="text-3xl font-bold text-white mb-4"
@@ -387,7 +387,7 @@ const About = () => {
                 src={aiWork}
                 alt="Inteligencia Artificial"
                 className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
+                
                 transition={{ duration: 0.5 }}
               />
               
@@ -406,7 +406,7 @@ const About = () => {
                   animate={{
                     y: [0, -20, 0],
                     scale: [1, 1.3, 1],
-                    opacity: [0.7, 1, 0.7],
+                    opacity: 0.8,
                   }}
                   transition={{
                     duration: 3 + i,
@@ -444,7 +444,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5 }}
+                
               >
                 <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 group-hover:shadow-2xl relative overflow-hidden">
                   {/* Gradient background on hover */}
@@ -456,7 +456,7 @@ const About = () => {
                     {/* Icon */}
                     <motion.div 
                       className="mb-6"
-                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      
                       transition={{ duration: 0.3 }}
                     >
                       <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${value.color} p-3 group-hover:shadow-lg transition-all duration-300`}>
@@ -503,13 +503,13 @@ const About = () => {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -10 }}
+                
               >
                 <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 group-hover:shadow-2xl">
                   {/* Avatar placeholder */}
                   <motion.div 
                     className={`w-24 h-24 rounded-full bg-gradient-to-r ${member.color} mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300`}
-                    whileHover={{ scale: 1.1 }}
+                    
                   >
                     <Users className="w-12 h-12 text-white" />
                   </motion.div>

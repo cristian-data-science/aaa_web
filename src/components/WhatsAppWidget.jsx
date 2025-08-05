@@ -116,7 +116,7 @@ const WhatsAppWidget = () => {
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
-        whileHover={{ scale: 1.1 }}
+        
         whileTap={{ scale: 0.95 }}
         animate={{
           boxShadow: [

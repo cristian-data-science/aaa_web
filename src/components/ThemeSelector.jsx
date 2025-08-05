@@ -75,7 +75,7 @@ const ThemeSelector = ({ currentTheme, onThemeChange }) => {
         style={{
           background: 'rgba(255, 255, 255, 0.1)',
         }}
-        whileHover={{ scale: 1.05 }}
+        
         whileTap={{ scale: 0.95 }}
       >
         <Palette className="w-5 h-5 text-white" />
@@ -130,7 +130,7 @@ const ThemeSelector = ({ currentTheme, onThemeChange }) => {
                           ? 'rgba(255, 255, 255, 0.1)' 
                           : 'rgba(255, 255, 255, 0.05)',
                       }}
-                      whileHover={{ scale: 1.02 }}
+                      
                       whileTap={{ scale: 0.98 }}
                     >
                       <div className="flex items-center justify-between">

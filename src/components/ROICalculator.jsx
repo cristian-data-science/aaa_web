@@ -127,7 +127,7 @@ const ROICalculator = () => {
         >
           <motion.div
             className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/20 to-orange-500/20 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-6"
-            whileHover={{ scale: 1.05 }}
+            
             transition={{ duration: 0.2 }}
           >
             <Calculator className="h-5 w-5 text-green-400" />
@@ -259,7 +259,7 @@ const ROICalculator = () => {
                 {/* Calculate Button */}
                 <motion.div
                   className="pt-4"
-                  whileHover={{ scale: 1.02 }}
+                  
                   whileTap={{ scale: 0.98 }}
                 >
                   <Button

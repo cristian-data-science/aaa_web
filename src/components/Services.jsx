@@ -275,10 +275,7 @@ const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ 
-                y: -8,
-                transition: { duration: 0.3 }
-              }}
+              
               style={{
                 boxShadow: '0 0 0 1px rgba(255,255,255,0.1)'
               }}
@@ -297,11 +294,7 @@ const Services = () => {
                 {/* Icono con animación */}
                 <motion.div 
                   className="text-4xl mb-6 inline-block"
-                  whileHover={{ 
-                    scale: 1.2,
-                    rotate: [0, -5, 5, 0],
-                    transition: { duration: 0.6 }
-                  }}
+                  
                 >
                   {service.icon}
                 </motion.div>
@@ -353,7 +346,7 @@ const Services = () => {
                              bg-gradient-to-r ${service.color} text-white font-semibold
                              opacity-80 hover:opacity-100 transition-all duration-300
                              hover:shadow-lg hover:scale-[1.02]`}
-                  whileHover={{ scale: 1.05 }}
+                  
                   whileTap={{ scale: 0.95 }}
                 >
                   Más información
@@ -408,7 +401,7 @@ const Services = () => {
             </div>
             <motion.button 
               className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
+              
               whileTap={{ scale: 0.95 }}
             >
               Comenzar Ahora
@@ -421,3 +414,5 @@ const Services = () => {
 };
 
 export default Services;
+
+

@@ -47,7 +47,7 @@ const Header = ({ currentTheme, onThemeChange }) => {
           {/* Brand Name con degradado */}
           <motion.div 
             className="flex items-center space-x-3"
-            whileHover={{ scale: 1.05 }}
+            
             transition={{ duration: 0.2 }}
           >
             <motion.span 
@@ -80,7 +80,7 @@ const Header = ({ currentTheme, onThemeChange }) => {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 className="text-sm font-medium text-white hover:text-green-400 transition-colors duration-200 cursor-pointer"
-                whileHover={{ y: -2 }}
+                
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -101,7 +101,7 @@ const Header = ({ currentTheme, onThemeChange }) => {
               style={{
                 background: 'linear-gradient(45deg, #22c55e, #f97316)',
               }}
-              whileHover={{ scale: 1.05 }}
+              
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -158,7 +158,7 @@ const Header = ({ currentTheme, onThemeChange }) => {
                 style={{
                   background: 'linear-gradient(45deg, #22c55e, #f97316)',
                 }}
-                whileHover={{ scale: 1.02 }}
+                
                 whileTap={{ scale: 0.98 }}
               >
                 Consulta Gratuita
