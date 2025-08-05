@@ -70,35 +70,170 @@ const About = () => {
   ]
 
   return (
-    <section id="about" className="py-20 relative overflow-hidden bg-slate-950">
-      {/* Background effects */}
+    <section id="about" className="relative py-20 overflow-hidden bg-slate-950">
+      {/* Background dinámico mejorado */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(3)].map((_, i) => (
+        {/* Grid de datos en el fondo */}
+        <div 
+          className="absolute inset-0 opacity-[0.015]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+
+        {/* Líneas de conexión de datos */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 1200 800">
+          <defs>
+            <linearGradient id="aboutDataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#a855f7" />
+              <stop offset="50%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#22c55e" />
+            </linearGradient>
+          </defs>
+          
+          {/* Líneas de flujo de datos */}
+          <motion.path
+            d="M 0 200 Q 300 150 600 200 T 1200 250"
+            stroke="url(#aboutDataGrad)"
+            strokeWidth="1.5"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.path
+            d="M 0 400 Q 200 350 500 400 T 1200 450"
+            stroke="url(#aboutDataGrad)"
+            strokeWidth="1.5"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 3 }}
+          />
+          <motion.path
+            d="M 0 600 Q 400 550 700 600 T 1200 650"
+            stroke="url(#aboutDataGrad)"
+            strokeWidth="1.5"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.5 }}
+            transition={{ duration: 14, repeat: Infinity, ease: "linear", delay: 6 }}
+          />
+
+          {/* Nodos de datos pulsantes */}
+          <motion.circle cx="300" cy="200" r="4" fill="#a855f7" opacity="0.3"
+            animate={{ 
+              opacity: [0.3, 0.7, 0.3],
+              scale: [1, 1.5, 1]
+            }}
+            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          />
+          <motion.circle cx="700" cy="400" r="4" fill="#f97316" opacity="0.3"
+            animate={{ 
+              opacity: [0.3, 0.7, 0.3],
+              scale: [1, 1.5, 1]
+            }}
+            transition={{ duration: 5, repeat: Infinity, delay: 2.5 }}
+          />
+        </svg>
+
+        {/* Partículas flotantes de información */}
+        {[...Array(8)].map((_, i) => (
           <motion.div
-            key={i}
+            key={`about-particle-${i}`}
             className="absolute"
             style={{
-              left: `${10 + i * 40}%`,
-              top: `${20 + i * 30}%`,
-              width: `${150 + i * 40}px`,
-              height: `${150 + i * 40}px`,
+              left: `${10 + i * 12}%`,
+              top: `${15 + Math.random() * 70}%`,
+              width: `${1.5 + Math.random() * 2}px`,
+              height: `${1.5 + Math.random() * 2}px`,
+            }}
+            animate={{
+              y: [0, -60, 0],
+              x: [0, Math.random() * 30 - 15, 0],
+              opacity: [0, 0.4, 0],
+              scale: [0.3, 1, 0.3],
+            }}
+            transition={{
+              duration: 12 + Math.random() * 8,
+              repeat: Infinity,
+              delay: Math.random() * 6,
+              ease: "easeInOut",
+            }}
+          >
+            <div 
+              className="w-full h-full rounded-full"
+              style={{
+                background: i % 4 === 0 
+                  ? 'rgba(168, 85, 247, 0.7)' 
+                  : i % 4 === 1 
+                    ? 'rgba(249, 115, 22, 0.7)' 
+                    : i % 4 === 2
+                      ? 'rgba(34, 197, 94, 0.7)'
+                      : 'rgba(59, 130, 246, 0.7)',
+                boxShadow: '0 0 8px currentColor',
+              }}
+            />
+          </motion.div>
+        ))}
+
+        {/* Ondas de innovación */}
+        {[...Array(2)].map((_, i) => (
+          <motion.div
+            key={`about-wave-${i}`}
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(circle at ${30 + i * 40}% ${40 + i * 20}%, 
+                rgba(168, 85, 247, 0.008) 0%, 
+                transparent 70%)`,
+            }}
+            animate={{
+              scale: [1, 1.6, 1],
+              opacity: [0.2, 0.05, 0.2],
+            }}
+            transition={{
+              duration: 8 + i * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 4,
+            }}
+          />
+        ))}
+
+        {/* Efectos circulares rotantes mejorados */}
+        {[...Array(3)].map((_, i) => (
+          <motion.div
+            key={`about-circle-${i}`}
+            className="absolute"
+            style={{
+              left: `${15 + i * 35}%`,
+              top: `${25 + i * 20}%`,
+              width: `${120 + i * 30}px`,
+              height: `${120 + i * 30}px`,
             }}
             animate={{
               rotate: 360,
-              scale: [1, 1.2, 1],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 20 + i * 10,
+              duration: 25 + i * 8,
               repeat: Infinity,
               ease: "linear",
             }}
           >
             <div
-              className="w-full h-full opacity-5"
+              className="w-full h-full opacity-[0.03]"
               style={{
-                background: `conic-gradient(from 0deg, transparent, rgba(34, 197, 94, 0.3), transparent)`,
+                background: `conic-gradient(from 0deg, transparent, 
+                  ${i === 0 ? 'rgba(168, 85, 247, 0.4)' : 
+                    i === 1 ? 'rgba(249, 115, 22, 0.4)' : 
+                    'rgba(34, 197, 94, 0.4)'}, transparent)`,
                 borderRadius: '50%',
-                filter: 'blur(40px)',
+                filter: 'blur(30px)',
               }}
             />
           </motion.div>

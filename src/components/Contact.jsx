@@ -63,12 +63,155 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="py-20 relative overflow-hidden bg-slate-950">
-      {/* Background effects */}
+    <section id="contact" className="relative py-20 overflow-hidden bg-slate-950">
+      {/* Background dinámico de contacto */}
       <div className="absolute inset-0 pointer-events-none">
+        {/* Grid de comunicación */}
+        <div 
+          className="absolute inset-0 opacity-[0.01]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px',
+          }}
+        />
+
+        {/* Líneas de comunicación */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.025]" viewBox="0 0 1200 800">
+          <defs>
+            <linearGradient id="contactCommGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#22c55e" />
+              <stop offset="25%" stopColor="#3b82f6" />
+              <stop offset="50%" stopColor="#f97316" />
+              <stop offset="75%" stopColor="#ef4444" />
+              <stop offset="100%" stopColor="#a855f7" />
+            </linearGradient>
+          </defs>
+          
+          {/* Redes de comunicación */}
+          <motion.path
+            d="M 100 200 L 300 150 L 500 200 L 700 180 L 900 220 L 1100 200"
+            stroke="url(#contactCommGrad)"
+            strokeWidth="1"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.path
+            d="M 50 400 L 250 380 L 450 420 L 650 400 L 850 440 L 1150 420"
+            stroke="url(#contactCommGrad)"
+            strokeWidth="1"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 8, repeat: Infinity, ease: "linear", delay: 2 }}
+          />
+          <motion.path
+            d="M 150 600 L 350 580 L 550 620 L 750 600 L 950 640 L 1100 620"
+            stroke="url(#contactCommGrad)"
+            strokeWidth="1"
+            fill="none"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 0.6 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 4 }}
+          />
+
+          {/* Nodos de conexión */}
+          <motion.circle cx="300" cy="200" r="3" fill="#22c55e" opacity="0.4"
+            animate={{ 
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.3, 1]
+            }}
+            transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+          />
+          <motion.circle cx="650" cy="400" r="3" fill="#3b82f6" opacity="0.4"
+            animate={{ 
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.3, 1]
+            }}
+            transition={{ duration: 3.5, repeat: Infinity, delay: 1.5 }}
+          />
+          <motion.circle cx="750" cy="600" r="3" fill="#f97316" opacity="0.4"
+            animate={{ 
+              opacity: [0.4, 0.8, 0.4],
+              scale: [1, 1.3, 1]
+            }}
+            transition={{ duration: 4, repeat: Infinity, delay: 2.5 }}
+          />
+        </svg>
+
+        {/* Partículas de mensajes flotantes */}
+        {[...Array(7)].map((_, i) => (
+          <motion.div
+            key={`contact-particle-${i}`}
+            className="absolute"
+            style={{
+              left: `${8 + i * 14}%`,
+              top: `${10 + Math.random() * 80}%`,
+              width: `${1 + Math.random() * 2}px`,
+              height: `${1 + Math.random() * 2}px`,
+            }}
+            animate={{
+              y: [0, -50, 0],
+              x: [0, Math.random() * 25 - 12.5, 0],
+              opacity: [0, 0.6, 0],
+              scale: [0.2, 1.2, 0.2],
+            }}
+            transition={{
+              duration: 10 + Math.random() * 5,
+              repeat: Infinity,
+              delay: Math.random() * 4,
+              ease: "easeInOut",
+            }}
+          >
+            <div 
+              className="w-full h-full rounded-full"
+              style={{
+                background: i % 5 === 0 
+                  ? 'rgba(34, 197, 94, 0.8)' 
+                  : i % 5 === 1 
+                    ? 'rgba(59, 130, 246, 0.8)' 
+                    : i % 5 === 2
+                      ? 'rgba(249, 115, 22, 0.8)'
+                      : i % 5 === 3
+                        ? 'rgba(239, 68, 68, 0.8)'
+                        : 'rgba(168, 85, 247, 0.8)',
+                boxShadow: '0 0 10px currentColor',
+              }}
+            />
+          </motion.div>
+        ))}
+
+        {/* Ondas de comunicación */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={`contact-wave-${i}`}
+            className="absolute inset-0"
+            style={{
+              background: `radial-gradient(circle at ${20 + i * 20}% ${30 + i * 15}%, 
+                rgba(34, 197, 94, 0.005) 0%, 
+                transparent 60%)`,
+            }}
+            animate={{
+              scale: [1, 1.8, 1],
+              opacity: [0.4, 0.1, 0.4],
+            }}
+            transition={{
+              duration: 7 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1.5,
+            }}
+          />
+        ))}
+
+        {/* Efectos circulares de comunicación */}
         {[...Array(3)].map((_, i) => (
           <motion.div
-            key={i}
+            key={`contact-circle-${i}`}
             className="absolute"
             style={{
               left: `${20 + i * 30}%`,
@@ -87,9 +230,12 @@ const Contact = () => {
             }}
           >
             <div
-              className="w-full h-full opacity-5"
+              className="w-full h-full opacity-[0.02]"
               style={{
-                background: `conic-gradient(from 0deg, transparent, rgba(34, 197, 94, 0.4), transparent)`,
+                background: `conic-gradient(from 0deg, transparent, 
+                  ${i === 0 ? 'rgba(34, 197, 94, 0.4)' : 
+                    i === 1 ? 'rgba(59, 130, 246, 0.4)' : 
+                    'rgba(249, 115, 22, 0.4)'}, transparent)`,
                 borderRadius: '50%',
                 filter: 'blur(40px)',
               }}
