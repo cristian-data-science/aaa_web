@@ -482,10 +482,10 @@ const Hero = () => {
 
             {/* Typewriter Animation - Centered */}
             <div className="flex justify-center items-center min-h-[100px]">
-              <TypewriterAnimation />
-              {/* <div className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-green-400 via-orange-400 to-purple-400 bg-clip-text text-transparent">
+              {/* <TypewriterAnimation /> */}
+              <div className="text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-green-400 via-orange-400 to-purple-400 bg-clip-text text-transparent">
                 Inteligencia Artificial
-              </div> */}
+              </div>
             </div>
           </motion.div>
 
