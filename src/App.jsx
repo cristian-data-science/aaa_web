@@ -9,7 +9,7 @@ import ROICalculator from './components/ROICalculator'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import WhatsAppWidget from './components/WhatsAppWidget'
-import DynamicBackground from './components/DynamicBackground'
+// import DynamicBackground from './components/DynamicBackground'
 
 function App() {
   const [currentTheme, setCurrentTheme] = useState('dark-green-orange')
@@ -28,9 +28,9 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-primary text-primary relative overflow-x-hidden">
-      {/* Fondo dinámico */}
-      <DynamicBackground />
+    <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden">
+      {/* Fondo dinámico desactivado */}
+      {/* <DynamicBackground /> */}
       
       {/* Header */}
       <Header currentTheme={currentTheme} onThemeChange={handleThemeChange} />
