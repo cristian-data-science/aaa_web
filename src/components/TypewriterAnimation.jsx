@@ -1,22 +1,37 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { motion } from 'framer-motion'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 const TypewriterAnimation = () => {
-  const words = [
+  const isMobile = useIsMobile()
+  
+  const words = useMemo(() => [
     'Agentes',
     'Automatizaciones', 
     'Inteligencia Artificial',
     'Análisis de Datos',
     'Vendedores Autónomos',
     'Infraestructura Tecnológica'
-  ]
+  ], [])
 
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [currentText, setCurrentText] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
+  
+  // Configuración optimizada para móviles
+  const config = useMemo(() => ({
+    typingSpeed: isMobile ? 150 : 100,    // Más lento en móvil
+    deletingSpeed: isMobile ? 80 : 50,    // Más lento en móvil
+    pauseTime: isMobile ? 3000 : 2000,    // Pausa más larga en móvil
+    enableAnimation: !isMobile || (typeof window !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches),
+    showStatic: isMobile && typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  }), [isMobile])
 
   useEffect(() => {
+    // No ejecutar efecto si es modo estático
+    if (config.showStatic) return
+    
     const currentWord = words[currentWordIndex]
     
     const timeout = setTimeout(() => {
@@ -44,50 +59,71 @@ const TypewriterAnimation = () => {
           setIsPaused(true)
         }
       }
-    }, isDeleting ? 50 : isPaused ? 2000 : 100) // Velocidades diferentes para escribir, borrar y pausar
+    }, isDeleting ? config.deletingSpeed : isPaused ? config.pauseTime : config.typingSpeed)
 
     return () => clearTimeout(timeout)
-  }, [currentText, isDeleting, isPaused, currentWordIndex, words])
+  }, [currentText, isDeleting, isPaused, currentWordIndex, words, config])
+
+  // Renderizado condicional SIN early return
+  if (config.showStatic) {
+    return (
+      <div className="relative flex items-center justify-center">
+        <div className="flex items-center justify-center min-h-[80px] md:min-h-[100px]">
+          <span
+            className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
+            style={{
+              background: 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+            }}
+          >
+            Inteligencia Artificial
+          </span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="relative flex items-center justify-center">
       {/* Contenedor con altura fija para evitar saltos */}
       <div className="flex items-center justify-center min-h-[80px] md:min-h-[100px]">
         <motion.span
-          className="inline-block text-5xl md:text-6xl lg:text-7xl font-black"
+          className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
           style={{
             background: 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
-            backgroundSize: '200% 200%',
+            backgroundSize: isMobile ? '100% 100%' : '200% 200%',
           }}
-          animate={{
+          animate={config.enableAnimation ? {
             backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-          }}
-          transition={{
-            duration: 3,
+          } : {}}
+          transition={config.enableAnimation ? {
+            duration: isMobile ? 4 : 3,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
+          } : {}}
         >
           {currentText}
         </motion.span>
         
-        {/* Cursor parpadeante más suave */}
+        {/* Cursor optimizado para móviles */}
         <motion.span
-          className="inline-block w-1 h-12 md:h-16 lg:h-20 ml-2"
+          className="inline-block w-1 h-10 md:h-16 lg:h-20 ml-2"
           style={{
-            background: 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
+            background: isMobile ? '#22C55E' : 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
           }}
-          animate={{
-            opacity: [1, 0.5, 1],
-          }}
-          transition={{
-            duration: 2,
+          animate={config.enableAnimation ? {
+            opacity: [1, 0.3, 1],
+          } : { opacity: 1 }}
+          transition={config.enableAnimation ? {
+            duration: isMobile ? 1.5 : 2,
             repeat: Infinity,
             ease: "easeInOut",
-          }}
+          } : {}}
         />
       </div>
     </div>

@@ -1,8 +1,129 @@
 @import "tailwindcss";
 
-/* Scroll suave global */
+/* Scroll suave global y optimizaciones de rendimiento */
 html {
   scroll-behavior: smooth;
+}
+
+/* Optimizaciones de rendimiento globales */
+* {
+  box-sizing: border-box;
+}
+
+/* Evitar layout shifts */
+img, video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optimizar animaciones */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Prevenir parpadeo en animaciones */
+.will-change-auto {
+  will-change: auto;
+}
+
+/* Optimizaciones anti-parpadeo */
+[data-section="services"] .group {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 1 !important;
+  visibility: visible !important;
+  contain: layout style paint;
+}
+
+[data-section="services"] .group:hover {
+  transform: translateZ(0) scale(1.005);
+}
+
+/* Prevenir cualquier parpadeo durante la carga */
+[data-section="services"] {
+  contain: layout;
+}
+
+[data-section="services"] .grid {
+  min-height: 400px;
+}
+
+/* Optimizaciones específicas para móvil */
+@media (max-width: 768px) {
+  /* Reducir efectos pesados en móvil */
+  * {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  
+  /* Deshabilitar animaciones complejas en móvil */
+  .gradient-text {
+    animation: none;
+    background: linear-gradient(135deg, #22c55e 0%, #f97316 50%, #a855f7 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* Simplificar efectos glass en móvil */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  /* Eliminar hover effects complejos en móvil */
+  [data-section="services"] .group:hover {
+    transform: none;
+  }
+}
+
+/* Clases de utilidad para efectos mejorados */
+.gradient-text {
+  background: linear-gradient(135deg, #22c55e 0%, #f97316 50%, #a855f7 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.holographic-border {
+  position: relative;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  border-radius: inherit;
+}
+
+.holographic-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, #22c55e, #f97316, #a855f7, #22c55e);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.holographic-border:hover::before {
+  opacity: 1;
 }
 
 /* Variables CSS para shadcn/ui */
@@ -44,5 +165,90 @@ html {
     background-color: #0f172a; /* Fondo estático oscuro */
     color: hsl(var(--foreground));
     font-family: 'Inter', system-ui, sans-serif;
+    /* Optimizaciones de renderizado */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Mejor scroll en móviles */
+    -webkit-overflow-scrolling: touch;
+    /* Prevenir zoom en inputs en iOS */
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  /* Animaciones optimizadas */
+  @keyframes datacef-scanY {
+    0% { transform: translateY(0%); }
+    100% { transform: translateY(100%); }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
+  }
+  
+  @keyframes data-flow {
+    0% { transform: translateX(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100vw); opacity: 0; }
+  }
+  
+  /* Utilidades de animación */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-data-flow {
+    animation: data-flow 4s linear infinite;
+  }
+  
+  /* Optimizaciones móviles */
+  @media (max-width: 767px) {
+    * {
+      /* Optimizar compositing en móviles */
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-perspective: 1000;
+      perspective: 1000;
+    }
+    
+    /* Reducir animaciones complejas en móviles */
+    .animate-pulse {
+      animation: none;
+    }
+    
+    /* Simplificar gradientes para mejor rendimiento */
+    .gradient-text {
+      background: linear-gradient(135deg, #22c55e 0%, #f97316 100%);
+      animation: none;
+    }
+    
+    /* Desactivar efectos pesados */
+    .glass-effect {
+      backdrop-filter: none;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Optimizar transforms para móviles */
+    .will-change-transform {
+      will-change: auto;
+    }
+  }
+  
+  /* Prevent animation on reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

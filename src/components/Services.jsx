@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Services = () => {
+  const isMobile = useIsMobile()
   const services = [
     {
       icon: "🤖",
@@ -83,10 +85,27 @@ const Services = () => {
     }
   ];
 
+  // Precomputar partículas de fondo para evitar Math.random en render
+  const particles = useMemo(() => {
+    const prefersReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+    const count = prefersReduced || isMobile ? 2 : 6
+    return Array.from({ length: count }).map((_, i) => ({
+      key: `service-particle-${i}`,
+      left: 15 + i * 15,
+      top: 20 + ((i * 37) % 60),
+      size: isMobile ? 2 : 2 + ((i * 13) % 3),
+      dx: (i % 2 === 0 ? 1 : -1) * (isMobile ? 4 : (5 + (i * 3) % 10)),
+      duration: isMobile ? 6 : 8 + (i * 2) % 6,
+      delay: (i * 1.3) % 5,
+      color: i % 3 === 0 ? 'rgba(34, 197, 94, 0.8)' : i % 3 === 1 ? 'rgba(59, 130, 246, 0.8)' : 'rgba(168, 85, 247, 0.8)'
+    }))
+  }, [])
+
   return (
-    <section id="services" className="relative py-20 bg-slate-950 overflow-hidden">
+    <section id="services" data-section="services" className="relative py-20 bg-slate-950 overflow-hidden">
       {/* Background dinámico tecnológico */}
-      <div className="absolute inset-0 pointer-events-none">
+  <div className="absolute inset-0 pointer-events-none">
         {/* Grid tecnológico de fondo */}
         <div 
           className="absolute inset-0 opacity-[0.02]"
@@ -99,131 +118,81 @@ const Services = () => {
           }}
         />
         
-        {/* Líneas de circuito animadas */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.03]" viewBox="0 0 1200 800">
+        {/* Líneas estáticas simples */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 1200 800">
           <defs>
             <linearGradient id="servicesCircuitGrad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#22c55e" />
-              <stop offset="25%" stopColor="#3b82f6" />
               <stop offset="50%" stopColor="#a855f7" />
-              <stop offset="75%" stopColor="#f97316" />
-              <stop offset="100%" stopColor="#ef4444" />
+              <stop offset="100%" stopColor="#f97316" />
             </linearGradient>
           </defs>
           
-          {/* Líneas horizontales flotantes */}
-          <motion.path
-            d="M 0 150 L 200 150 L 220 130 L 400 130 L 420 150 L 600 150 L 620 170 L 1200 170"
+          {/* Líneas estáticas sin animación */}
+          <path
+            d="M 0 300 L 1200 300"
             stroke="url(#servicesCircuitGrad)"
             strokeWidth="1"
             fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.4 }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+            opacity="0.3"
           />
-          <motion.path
-            d="M 0 350 L 150 350 L 170 330 L 350 330 L 370 350 L 550 350 L 570 370 L 1200 370"
+          <path
+            d="M 600 0 L 600 800"
             stroke="url(#servicesCircuitGrad)"
             strokeWidth="1"
             fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.4 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 2 }}
-          />
-          <motion.path
-            d="M 0 550 L 180 550 L 200 530 L 380 530 L 400 550 L 580 550 L 600 530 L 1200 530"
-            stroke="url(#servicesCircuitGrad)"
-            strokeWidth="1"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.4 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 4 }}
-          />
-
-          {/* Nodos de conexión pulsantes */}
-          <motion.circle cx="220" cy="330" r="3" fill="#22c55e" opacity="0.4"
-            animate={{ 
-              opacity: [0.4, 0.8, 0.4],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-          />
-          <motion.circle cx="570" cy="370" r="3" fill="#3b82f6" opacity="0.4"
-            animate={{ 
-              opacity: [0.4, 0.8, 0.4],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ duration: 3.5, repeat: Infinity, delay: 2 }}
-          />
-          <motion.circle cx="600" cy="530" r="3" fill="#a855f7" opacity="0.4"
-            animate={{ 
-              opacity: [0.4, 0.8, 0.4],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+            opacity="0.2"
           />
         </svg>
 
-        {/* Partículas flotantes de datos */}
-        {[...Array(6)].map((_, i) => (
+        {/* Partículas simplificadas - sin animación en móvil */}
+        {!isMobile && particles.slice(0, 2).map((p) => (
           <motion.div
-            key={`service-particle-${i}`}
+            key={p.key}
             className="absolute"
             style={{
-              left: `${15 + i * 15}%`,
-              top: `${20 + Math.random() * 60}%`,
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`,
+              left: `${p.left}%`,
+              top: `${p.top}%`,
+              width: `${p.size}px`,
+              height: `${p.size}px`,
             }}
             animate={{
-              y: [0, -40, 0],
-              x: [0, Math.random() * 20 - 10, 0],
-              opacity: [0, 0.5, 0],
-              scale: [0.5, 1.2, 0.5],
+              y: [0, -10, 0],
+              opacity: [0, 0.2, 0],
             }}
             transition={{
-              duration: 8 + Math.random() * 6,
+              duration: p.duration + 3,
               repeat: Infinity,
-              delay: Math.random() * 5,
+              delay: p.delay,
               ease: "easeInOut",
             }}
           >
             <div 
               className="w-full h-full rounded-full"
               style={{
-                background: i % 3 === 0 
-                  ? 'rgba(34, 197, 94, 0.8)' 
-                  : i % 3 === 1 
-                    ? 'rgba(59, 130, 246, 0.8)' 
-                    : 'rgba(168, 85, 247, 0.8)',
-                boxShadow: '0 0 12px currentColor',
+                background: p.color,
+                filter: 'blur(1px)',
               }}
             />
           </motion.div>
         ))}
 
-        {/* Ondas de energía */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={`service-wave-${i}`}
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(circle at ${25 + i * 25}% ${30 + i * 20}%, 
-                rgba(34, 197, 94, 0.01) 0%, 
-                transparent 60%)`,
-            }}
-            animate={{
-              scale: [1, 1.4, 1],
-              opacity: [0.3, 0.1, 0.3],
-            }}
-            transition={{
-              duration: 6 + i * 2,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: i * 2,
-            }}
-          />
-        ))}
+        {/* Ondas muy suaves (solo 1) */}
+        <motion.div
+          className="absolute inset-0 hidden md:block"
+          style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.005) 0%, transparent 50%)',
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.05, 0.1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
       {/* Contenido principal */}
@@ -266,43 +235,39 @@ const Services = () => {
           {services.map((service, index) => (
             <motion.div 
               key={index} 
-              className={`group relative p-8 rounded-2xl backdrop-blur-sm border ${service.borderColor} 
+              className={`group relative p-6 md:p-8 rounded-2xl backdrop-blur-sm border ${service.borderColor} 
                          bg-gradient-to-br from-white/[0.02] to-white/[0.08] 
                          hover:bg-gradient-to-br hover:from-white/[0.05] hover:to-white/[0.12]
-                         transition-all duration-500 overflow-hidden
-                         hover:scale-[1.02] hover:shadow-2xl`}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
+                         transition-all ${isMobile ? 'duration-150' : 'duration-200'} overflow-hidden
+                         ${isMobile ? '' : 'md:hover:scale-[1.005] md:hover:shadow-lg'}`}
+              initial={{ y: 20 }}
+              whileInView={{ y: 0 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.08,
+                ease: "easeOut"
+              }}
+              viewport={{ once: true, margin: '-30px' }}
               
               style={{
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.1)'
+                boxShadow: '0 0 0 1px rgba(255,255,255,0.1)',
+                opacity: 1,
+                visibility: 'visible'
               }}
             >
-              {/* Fondo animado con gradiente del servicio */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 
-                             group-hover:opacity-[0.03] transition-opacity duration-500`} />
-              
-              {/* Efecto de brillo en hover */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className={`absolute top-0 left-1/2 w-1/2 h-1/2 bg-gradient-to-br ${service.color} 
-                               blur-xl opacity-20 -translate-x-1/2 -translate-y-1/2`} />
-              </div>
+              {/* Fondo simple sin parpadeos */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-[0.005] 
+                             ${!isMobile ? 'group-hover:opacity-[0.02]' : ''} transition-opacity duration-300 ease-out`} />
 
               <div className="relative z-10">
-                {/* Icono con animación */}
-                <motion.div 
-                  className="text-4xl mb-6 inline-block"
-                  
-                >
+                {/* Icono simplificado */}
+                <div className="text-4xl mb-6 inline-block">
                   {service.icon}
-                </motion.div>
+                </div>
                 
                 {/* Título */}
-                <h3 className="text-xl font-bold text-white mb-4 group-hover:text-transparent 
-                             group-hover:bg-clip-text group-hover:bg-gradient-to-r 
-                             group-hover:from-white group-hover:to-gray-300 transition-all duration-300">
+                <h3 className={`text-xl font-bold text-white mb-4 transition-colors duration-200 
+                              ${!isMobile ? 'group-hover:text-gray-100' : ''}`}>
                   {service.title}
                 </h3>
                 
@@ -312,27 +277,27 @@ const Services = () => {
                 </p>
                 
                 {/* Features */}
-                <ul className="space-y-3 mb-6">
+        <ul className="space-y-3 mb-6">
                   {service.features.map((feature, featureIndex) => (
                     <motion.li 
                       key={featureIndex} 
                       className="flex items-center gap-3 text-sm text-gray-400 group-hover:text-gray-300 
-                               transition-colors duration-300"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 + featureIndex * 0.1 }}
+                               transition-colors ${isMobile ? 'duration-150' : 'duration-300'}"
+                      initial={isMobile ? {} : { opacity: 0, x: -12 }}
+                      whileInView={isMobile ? {} : { opacity: 1, x: 0 }}
+                      transition={isMobile ? {} : { duration: 0.3, delay: Math.min(index * 0.08 + featureIndex * 0.08, 0.6) }}
                       viewport={{ once: true }}
                     >
                       <motion.div 
                         className={`w-2 h-2 rounded-full bg-gradient-to-r ${service.color}`}
-                        animate={{
+                        animate={isMobile ? {} : {
                           scale: [1, 1.2, 1],
                           opacity: [0.7, 1, 0.7],
                         }}
-                        transition={{
+                        transition={isMobile ? {} : {
                           duration: 2,
                           repeat: Infinity,
-                          delay: featureIndex * 0.3,
+                          delay: featureIndex * 0.25,
                         }}
                       />
                       <span>{feature}</span>
@@ -340,27 +305,21 @@ const Services = () => {
                   ))}
                 </ul>
                 
-                {/* Botón */}
-                <motion.button 
+                {/* Botón simplificado */}
+                <button 
                   className={`w-full py-3 px-6 rounded-xl border ${service.borderColor} 
                              bg-gradient-to-r ${service.color} text-white font-semibold
-                             opacity-80 hover:opacity-100 transition-all duration-300
-                             hover:shadow-lg hover:scale-[1.02]`}
-                  
-                  whileTap={{ scale: 0.95 }}
+                             opacity-80 hover:opacity-100 transition-all duration-200
+                             hover:shadow-md hover:scale-[1.01]`}
                 >
                   Más información
-                </motion.button>
+                </button>
               </div>
 
-              {/* Efectos decorativos */}
-              <div className="absolute top-4 right-4 w-20 h-20 rounded-full 
-                            bg-gradient-to-br from-white/5 to-transparent opacity-0 
-                            group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="absolute bottom-0 left-0 w-full h-1 
-                            bg-gradient-to-r from-transparent via-white/20 to-transparent 
-                            opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Efecto decorativo mínimo */}
+              <div className="absolute bottom-0 left-0 w-full h-0.5 
+                            bg-gradient-to-r from-transparent via-white/30 to-transparent 
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
             </motion.div>
           ))}
         </div>

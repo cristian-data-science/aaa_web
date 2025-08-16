@@ -1,7 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const StatsSection = () => {
+  const isMobile = useIsMobile()
   const stats = [
     {
       number: "200-400%",
@@ -123,8 +125,8 @@ const StatsSection = () => {
               {/* Icono con efecto de gradiente */}
               <motion.div 
                 className="text-5xl mb-4 relative"
-                whileHover={{ scale: 1.2, rotate: 5 }}
-                transition={{ duration: 0.3 }}
+                whileHover={!isMobile ? { scale: 1.1, rotate: 2 } : {}}
+                transition={{ duration: 0.2 }}
               >
                 {stat.icon}
                 <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-20 rounded-full blur-lg`} />
