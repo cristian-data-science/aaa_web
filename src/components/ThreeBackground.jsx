@@ -1,14 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-// Nuevo fondo unificado: integra partículas 3D redondas (Three.js) +
-// overlays inspirados en HeroBackground, QuantumEffects, TechBackground y DynamicBackground.
-// Cambios encapsulados en este archivo.
+// Sistema de partículas neurales avanzado con efectos de alta tecnología
+// Incluye redes neuronales animadas, efectos holográficos y visualizaciones procedurales
 
 const ThreeBackground = () => {
   const containerRef = useRef(null)
   const webglCleanupRef = useRef(() => {})
   const overlayCanvasRef = useRef(null)
+  
+  // Detectar si estamos en producción vs desarrollo
+  const isProduction = useMemo(() => {
+    return process.env.NODE_ENV === 'production'
+  }, [])
 
   // Flags de rendimiento/accesibilidad
   const prefersReduced = useMemo(
@@ -40,7 +44,14 @@ const ThreeBackground = () => {
       camera = new THREE.PerspectiveCamera(60, width / height, 1, 2000)
       camera.position.z = 360
 
-      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: 'high-performance' })
+      // Configuración de renderer más conservadora para producción
+      renderer = new THREE.WebGLRenderer({ 
+        antialias: false, 
+        alpha: true, 
+        powerPreference: 'high-performance',
+        precision: 'highp', // Preservar precisión
+        preserveDrawingBuffer: false
+      })
       renderer.setSize(width, height)
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
       renderer.outputColorSpace = THREE.SRGBColorSpace
@@ -69,40 +80,81 @@ const ThreeBackground = () => {
 
       const circleTex = makeCircleTexture()
 
-      // Partículas 3D (dos nubes en colores del tema)
-      const particleCountBase = isMobile ? 500 : 1000
+      // Sistema neuronal avanzado con múltiples capas
+      const particleCountBase = isMobile ? 800 : 1500
       const particleCount = prefersReduced ? Math.floor(particleCountBase * 0.5) : particleCountBase
       const positions = new Float32Array(particleCount * 3)
+      const colors = new Float32Array(particleCount * 3)
+      const sizes = new Float32Array(particleCount)
+      const phases = new Float32Array(particleCount)
       const speeds = new Float32Array(particleCount)
-      const range = 580
+      const range = 680
+      
+      // Crear estructura de red neuronal
       for (let i = 0; i < particleCount; i++) {
-        positions[i * 3 + 0] = (Math.random() - 0.5) * range
-        positions[i * 3 + 1] = (Math.random() - 0.5) * range
-        positions[i * 3 + 2] = (Math.random() - 0.5) * range
-        speeds[i] = 0.2 + Math.random() * 0.6
+        // Posiciones con distribución neuronal
+        const layer = Math.floor(i / (particleCount / 6)) // 6 capas
+        const nodeInLayer = i % Math.floor(particleCount / 6)
+        const layerSpread = 100 + layer * 80
+        
+        positions[i * 3 + 0] = (Math.random() - 0.5) * layerSpread + (layer - 3) * 120
+        positions[i * 3 + 1] = (Math.random() - 0.5) * layerSpread
+        positions[i * 3 + 2] = (Math.random() - 0.5) * layerSpread
+        
+        // Colores científicos avanzados
+        const colorType = i % 4
+        if (colorType === 0) { // Neón cyan
+          colors[i * 3] = 0.0; colors[i * 3 + 1] = 0.8; colors[i * 3 + 2] = 1.0
+        } else if (colorType === 1) { // Magenta eléctrico
+          colors[i * 3] = 1.0; colors[i * 3 + 1] = 0.0; colors[i * 3 + 2] = 0.8
+        } else if (colorType === 2) { // Verde láser
+          colors[i * 3] = 0.0; colors[i * 3 + 1] = 1.0; colors[i * 3 + 2] = 0.2
+        } else { // Azul quantum
+          colors[i * 3] = 0.2; colors[i * 3 + 1] = 0.4; colors[i * 3 + 2] = 1.0
+        }
+        
+        sizes[i] = isMobile ? 0.8 + Math.random() * 1.2 : 1.0 + Math.random() * 2.0
+        phases[i] = Math.random() * Math.PI * 2
+        speeds[i] = 0.3 + Math.random() * 0.8
       }
 
       const geometry = new THREE.BufferGeometry()
       geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
+      geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1))
 
-      const makeMat = (hex, size) => new THREE.PointsMaterial({
-        size,
+      // Material holográfico avanzado
+      const neuralMaterial = new THREE.PointsMaterial({
+        size: isMobile ? 1.5 : 2.2,
         map: circleTex,
-        color: new THREE.Color(hex),
+        vertexColors: true,
         transparent: true,
-        opacity: 0.55,
+        opacity: 0.75,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
-        alphaTest: 0.05,
+        alphaTest: 0.1,
         sizeAttenuation: true,
       })
 
-      const matA = makeMat(0x22c55e, isMobile ? 1.1 : 1.4)
-      const matB = makeMat(0xa855f7, isMobile ? 0.9 : 1.2)
-
-      pointsA = new THREE.Points(geometry, matA)
-      pointsB = new THREE.Points(geometry.clone(), matB)
-      pointsB.rotation.z = Math.PI / 7
+      pointsA = new THREE.Points(geometry, neuralMaterial)
+      
+      // Segunda capa con efecto de profundidad
+      const geometry2 = geometry.clone()
+      const deepMaterial = new THREE.PointsMaterial({
+        size: isMobile ? 0.8 : 1.2,
+        map: circleTex,
+        color: new THREE.Color(0x00ffff),
+        transparent: true,
+        opacity: 0.35,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+      })
+      
+      pointsB = new THREE.Points(geometry2, deepMaterial)
+      pointsB.rotation.x = Math.PI / 8
+      pointsB.rotation.z = Math.PI / 6
+      pointsB.scale.setScalar(1.2)
+      
       scene.add(pointsA)
       scene.add(pointsB)
 
@@ -116,24 +168,56 @@ const ThreeBackground = () => {
       window.addEventListener('resize', onResize)
 
       let t = 0
+      let lastTime = performance.now()
       const animate = () => {
         if (document.hidden) {
           animationId = requestAnimationFrame(animate)
           return
         }
-        t += prefersReduced ? 0.002 : 0.006
+        
+        // Usar timing más preciso para consistencia entre dev y prod
+        const currentTime = performance.now()
+        const deltaTime = (currentTime - lastTime) * 0.001
+        lastTime = currentTime
+        
+        t += prefersReduced ? deltaTime * 0.3 : deltaTime
 
+        // Animación neuronal avanzada
         const pos = pointsA.geometry.attributes.position
+        const col = pointsA.geometry.attributes.color
+        const siz = pointsA.geometry.attributes.size
+        
         for (let i = 0; i < particleCount; i++) {
           const ix = i * 3
           const speed = speeds[i]
-          pos.array[ix + 1] += Math.sin(t + i * 0.001) * 0.05 * speed
-          pos.array[ix + 0] += Math.cos(t * 0.7 + i * 0.001) * 0.03 * speed
+          const phase = phases[i] + t * speed
+          
+          // Movimiento tipo red neuronal con ajustes para producción
+          const baseSpeed = isProduction ? speed * 1.2 : speed // Compensar por minificación
+          pos.array[ix + 1] += Math.sin(phase + i * 0.002) * 0.08 * baseSpeed
+          pos.array[ix + 0] += Math.cos(phase * 0.8 + i * 0.003) * 0.06 * baseSpeed
+          pos.array[ix + 2] += Math.sin(phase * 0.5 + i * 0.001) * 0.04 * baseSpeed
+          
+          // Pulsación de colores tipo activación neuronal
+          const pulse = (Math.sin(phase * 2) + 1) * 0.5
+          const colorMult = 0.7 + pulse * 0.8
+          col.array[ix] *= colorMult
+          col.array[ix + 1] *= colorMult
+          col.array[ix + 2] *= colorMult
+          
+          // Variación de tamaño sincronizada
+          siz.array[i] = sizes[i] * (0.8 + pulse * 0.4)
         }
+        
         pos.needsUpdate = true
+        col.needsUpdate = true
+        siz.needsUpdate = true
 
-        pointsA.rotation.y += 0.0008
-        pointsB.rotation.y -= 0.0006
+        // Rotación compleja del sistema
+        pointsA.rotation.y += 0.001
+        pointsA.rotation.x += 0.0005
+        pointsB.rotation.y -= 0.0008
+        pointsB.rotation.z += 0.0003
 
         renderer.render(scene, camera)
         animationId = requestAnimationFrame(animate)
@@ -154,6 +238,8 @@ const ThreeBackground = () => {
         matA.dispose()
         matB.dispose()
         circleTex.dispose?.()
+        if (siz) siz.dispose?.()
+        if (col) col.dispose?.()
       }
     }
 
@@ -181,10 +267,10 @@ const ThreeBackground = () => {
     resize()
     window.addEventListener('resize', resize)
 
-    // Partículas
+    // Red de conexiones neurales
     const particles = []
-    const particleCount = prefersReduced ? 24 : (isMobile ? 36 : 48)
-    const connDist = isMobile ? 110 : 150
+    const particleCount = prefersReduced ? 30 : (isMobile ? 45 : 65)
+    const connDist = isMobile ? 130 : 180
 
     class Particle {
       constructor() {
@@ -193,9 +279,12 @@ const ThreeBackground = () => {
         this.vx = (Math.random() - 0.5) * 0.6
         this.vy = (Math.random() - 0.5) * 0.6
         this.r = Math.random() * 1.6 + 1
-        this.hue = 160 + Math.random() * 60
+        // Colores científicos avanzados
+        const colorTypes = [180, 300, 120, 240] // Cyan, Magenta, Verde, Azul
+        this.hue = colorTypes[Math.floor(Math.random() * colorTypes.length)] + (Math.random() - 0.5) * 20
         this.phase = Math.random() * Math.PI * 2
-        this.speed = 0.01 + Math.random() * 0.02
+        this.speed = 0.015 + Math.random() * 0.025
+        this.neuralActivity = Math.random()
       }
       update() {
         this.x += this.vx
@@ -205,47 +294,90 @@ const ThreeBackground = () => {
         this.phase += this.speed
       }
       draw() {
-        const pulse = 0.7 + 0.3 * Math.sin(this.phase)
+        // Efecto de activación neuronal
+        const pulse = 0.6 + 0.4 * Math.sin(this.phase)
+        const neuralPulse = 0.7 + 0.3 * Math.sin(this.phase * 3 + this.neuralActivity * 10)
         const rr = this.r * (prefersReduced ? 0.9 : pulse)
-        const g = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, rr * 3)
-        g.addColorStop(0, `hsla(${this.hue},70%,60%,0.35)`)
-        g.addColorStop(0.5, `hsla(${this.hue},70%,50%,0.18)`)
-        g.addColorStop(1, 'hsla(0,0%,0%,0)')
+        
+        // Halo holográfico externo
+        const outerGrad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, rr * 4)
+        outerGrad.addColorStop(0, `hsla(${this.hue},90%,80%,${0.4 * neuralPulse})`)
+        outerGrad.addColorStop(0.3, `hsla(${this.hue},85%,70%,${0.25 * neuralPulse})`)
+        outerGrad.addColorStop(0.7, `hsla(${this.hue + 30},80%,60%,${0.1 * neuralPulse})`)
+        outerGrad.addColorStop(1, 'hsla(0,0%,0%,0)')
+        
         ctx.beginPath()
-        ctx.arc(this.x, this.y, rr * 3, 0, Math.PI * 2)
-        ctx.fillStyle = g
+        ctx.arc(this.x, this.y, rr * 4, 0, Math.PI * 2)
+        ctx.fillStyle = outerGrad
         ctx.fill()
+        
+        // Core brillante
+        const coreGrad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, rr * 1.5)
+        coreGrad.addColorStop(0, `hsla(${this.hue},100%,90%,${0.8 * neuralPulse})`)
+        coreGrad.addColorStop(0.5, `hsla(${this.hue},95%,75%,${0.5 * neuralPulse})`)
+        coreGrad.addColorStop(1, `hsla(${this.hue},85%,60%,${0.2 * neuralPulse})`)
+        
         ctx.beginPath()
-        ctx.arc(this.x, this.y, rr, 0, Math.PI * 2)
-        ctx.fillStyle = `hsla(${this.hue},80%,70%,0.6)`
+        ctx.arc(this.x, this.y, rr * 1.5, 0, Math.PI * 2)
+        ctx.fillStyle = coreGrad
+        ctx.fill()
+        
+        // Punto central ultra-brillante
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, rr * 0.3, 0, Math.PI * 2)
+        ctx.fillStyle = `hsla(${this.hue},100%,95%,${0.9 * neuralPulse})`
         ctx.fill()
       }
     }
     for (let i = 0; i < particleCount; i++) particles.push(new Particle())
 
-    // Ondas
-    const waves = new Array(prefersReduced ? 1 : 3).fill(0).map(() => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      r: 0,
-      max: Math.random() * 180 + 120,
-      speed: Math.random() * 1.6 + 0.8,
-      hue: 160 + Math.random() * 60,
-      alpha: 0.28,
-    }))
+    // Ondas cuánticas con efectos holográficos
+    const waves = new Array(prefersReduced ? 2 : 4).fill(0).map(() => {
+      const scientificHues = [180, 300, 120, 240, 60] // Cyan, Magenta, Verde, Azul, Amarillo
+      return {
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        r: 0,
+        max: Math.random() * 220 + 150,
+        speed: Math.random() * 2.2 + 1.0,
+        hue: scientificHues[Math.floor(Math.random() * scientificHues.length)],
+        alpha: 0.35,
+        frequency: Math.random() * 0.02 + 0.01,
+        phase: Math.random() * Math.PI * 2
+      }
+    })
 
     const drawWave = (w) => {
       if (w.alpha <= 0) return
-      ctx.beginPath()
-      ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2)
-      ctx.strokeStyle = `hsla(${w.hue},70%,60%,${w.alpha})`
-      ctx.lineWidth = 2
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.arc(w.x, w.y, w.r * 0.7, 0, Math.PI * 2)
-      ctx.strokeStyle = `hsla(${w.hue + 20},70%,70%,${w.alpha * 0.5})`
-      ctx.lineWidth = 1
-      ctx.stroke()
+      
+      const pulseIntensity = Math.sin(Date.now() * w.frequency + w.phase) * 0.3 + 0.7
+      const currentAlpha = w.alpha * pulseIntensity
+      
+      // Ondas concéntricas múltiples para efecto holográfico
+      for (let ring = 0; ring < 4; ring++) {
+        const ringRadius = w.r * (0.3 + ring * 0.25)
+        const ringAlpha = currentAlpha * (1 - ring * 0.2)
+        const ringHue = w.hue + ring * 15
+        
+        if (ringRadius > 0 && ringAlpha > 0.02) {
+          ctx.beginPath()
+          ctx.arc(w.x, w.y, ringRadius, 0, Math.PI * 2)
+          ctx.strokeStyle = `hsla(${ringHue},85%,${70 + ring * 5}%,${ringAlpha})`
+          ctx.lineWidth = 2 - ring * 0.3
+          ctx.stroke()
+          
+          // Efecto de resplandor interno
+          if (ring === 0) {
+            ctx.beginPath()
+            ctx.arc(w.x, w.y, ringRadius * 0.5, 0, Math.PI * 2)
+            const innerGrad = ctx.createRadialGradient(w.x, w.y, 0, w.x, w.y, ringRadius * 0.5)
+            innerGrad.addColorStop(0, `hsla(${w.hue},95%,85%,${ringAlpha * 0.3})`)
+            innerGrad.addColorStop(1, 'hsla(0,0%,0%,0)')
+            ctx.fillStyle = innerGrad
+            ctx.fill()
+          }
+        }
+      }
     }
 
     const step = () => {
@@ -257,36 +389,61 @@ const ThreeBackground = () => {
         w.alpha = Math.max(0, w.alpha - 0.004)
         drawWave(w)
         if (w.r > w.max || w.alpha <= 0) {
+          const scientificHues = [180, 300, 120, 240, 60]
           waves[i] = {
             x: Math.random() * window.innerWidth,
             y: Math.random() * window.innerHeight,
             r: 0,
-            max: Math.random() * 180 + 120,
-            speed: Math.random() * 1.6 + 0.8,
-            hue: 160 + Math.random() * 60,
-            alpha: 0.28,
+            max: Math.random() * 220 + 150,
+            speed: Math.random() * 2.2 + 1.0,
+            hue: scientificHues[Math.floor(Math.random() * scientificHues.length)],
+            alpha: 0.35,
+            frequency: Math.random() * 0.02 + 0.01,
+            phase: Math.random() * Math.PI * 2
           }
         }
       }
       // partículas
       for (const p of particles) { p.update(); p.draw() }
-      // conexiones
+      // Conexiones neuronales avanzadas
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x
           const dy = particles[i].y - particles[j].y
           const d = Math.hypot(dx, dy)
           if (d < connDist) {
-            const a = (1 - d / connDist) * 0.22
+            const strength = 1 - d / connDist
+            const activity = (particles[i].neuralActivity + particles[j].neuralActivity) / 2
+            const pulse = Math.sin(Date.now() * 0.005 + i + j) * 0.5 + 0.5
+            const alpha = strength * 0.4 * (0.6 + activity * 0.4) * (0.7 + pulse * 0.3)
+            
+            // Gradiente neural con efecto de transmisión
             const g = ctx.createLinearGradient(particles[i].x, particles[i].y, particles[j].x, particles[j].y)
-            g.addColorStop(0, `hsla(${particles[i].hue},70%,60%,${a})`)
-            g.addColorStop(1, `hsla(${particles[j].hue},70%,60%,${a})`)
+            g.addColorStop(0, `hsla(${particles[i].hue},85%,75%,${alpha})`)
+            g.addColorStop(0.5, `hsla(${(particles[i].hue + particles[j].hue) / 2},90%,80%,${alpha * 1.2})`)
+            g.addColorStop(1, `hsla(${particles[j].hue},85%,75%,${alpha})`)
+            
+            // Línea principal
             ctx.beginPath()
             ctx.moveTo(particles[i].x, particles[i].y)
             ctx.lineTo(particles[j].x, particles[j].y)
             ctx.strokeStyle = g
-            ctx.lineWidth = 1
+            ctx.lineWidth = 1.5 + strength * 1.5
             ctx.stroke()
+            
+            // Efecto de transmisión de datos
+            if (strength > 0.7 && pulse > 0.8) {
+              const midX = (particles[i].x + particles[j].x) / 2
+              const midY = (particles[i].y + particles[j].y) / 2
+              const glowGrad = ctx.createRadialGradient(midX, midY, 0, midX, midY, 8)
+              glowGrad.addColorStop(0, `hsla(${(particles[i].hue + particles[j].hue) / 2},100%,90%,0.8)`)
+              glowGrad.addColorStop(1, 'hsla(0,0%,0%,0)')
+              
+              ctx.beginPath()
+              ctx.arc(midX, midY, 6, 0, Math.PI * 2)
+              ctx.fillStyle = glowGrad
+              ctx.fill()
+            }
           }
         }
       }
@@ -298,15 +455,18 @@ const ThreeBackground = () => {
     return () => { cancelAnimationFrame(rafId); window.removeEventListener('resize', resize) }
   }, [isMobile, prefersReduced])
 
-  // Puntos/portales para efecto cuántico tipo QuantumEffects
-  const quantumPortals = useMemo(() => (
-    new Array(5).fill(0).map((_, i) => ({
-      left: 10 + i * 20,
-      top: 20 + i * 15,
-      color: i % 3 === 0 ? '#22c55e' : (i % 3 === 1 ? '#f97316' : '#a855f7'),
-      delay: i * 1.2 + (Math.random() * 2),
+  // Portales cuánticos con colores científicos avanzados
+  const quantumPortals = useMemo(() => {
+    const scientificColors = ['#00ffff', '#ff00ff', '#00ff40', '#4080ff', '#ffff00', '#ff4080']
+    return new Array(8).fill(0).map((_, i) => ({
+      left: 8 + i * 12,
+      top: 15 + (i * 11) % 70,
+      color: scientificColors[i % scientificColors.length],
+      delay: i * 0.8 + (Math.random() * 1.5),
+      intensity: 0.7 + Math.random() * 0.3,
+      frequency: 0.5 + i * 0.3
     }))
-  ), [])
+  }, [])
 
   // ---------------------------------------
   // Overlay de relaciones de base de datos
@@ -398,42 +558,77 @@ const ThreeBackground = () => {
         <circle cx="800" cy="450" r="2" fill="#f97316" opacity="0.5" />
       </svg>
 
-      {/* Portales cuánticos sutiles (QuantumEffects) */}
+      {/* Portales cuánticos holográficos avanzados */}
       {quantumPortals.map((p, i) => (
         <motion.div
           key={`portal-${i}`}
           className="absolute"
-          style={{ left: `${p.left}%`, top: `${p.top}%`, width: 10, height: 10 }}
-          animate={{ scale: [0, 2, 0], rotate: [0, 360], opacity: [0, 0.6, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+          style={{ left: `${p.left}%`, top: `${p.top}%`, width: 16, height: 16 }}
+          animate={{ 
+            scale: [0, 2.5 * p.intensity, 0.3, 2.5 * p.intensity, 0], 
+            rotate: [0, 180, 360],
+            opacity: [0, 0.8 * p.intensity, 0.2, 0.8 * p.intensity, 0] 
+          }}
+          transition={{ duration: 4 + p.frequency, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
         >
+          {/* Anillo exterior holográfico */}
           <div
-            className="w-full h-full rounded-full"
+            className="absolute inset-0 rounded-full"
             style={{
               border: `2px solid ${p.color}`,
-              background: `radial-gradient(circle, ${p.color}30 0%, transparent 70%)`,
-              boxShadow: `0 0 16px ${p.color}40`,
+              background: `conic-gradient(from 0deg, ${p.color}40, transparent 50%, ${p.color}60, transparent)`,
+              boxShadow: `0 0 20px ${p.color}60, inset 0 0 20px ${p.color}20`,
+            }}
+          />
+          {/* Core brillante */}
+          <motion.div
+            className="absolute inset-2 rounded-full"
+            style={{
+              background: `radial-gradient(circle, ${p.color}90 0%, ${p.color}40 40%, transparent 80%)`,
+              boxShadow: `0 0 12px ${p.color}80`,
+            }}
+            animate={{ 
+              scale: [0.8, 1.2, 0.8],
+              opacity: [0.6, 1, 0.6]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          {/* Punto central ultra-brillante */}
+          <div
+            className="absolute inset-1/3 rounded-full"
+            style={{
+              background: p.color,
+              boxShadow: `0 0 8px ${p.color}, 0 0 16px ${p.color}`,
+              filter: 'blur(0.5px)'
             }}
           />
         </motion.div>
       ))}
 
-      {/* Ondas cuánticas suaves (QuantumEffects) */}
-      {[0,1,2].map((i) => (
-        <motion.div
-          key={`qwave-${i}`}
-          className="absolute inset-0"
-          animate={{
-            background: [
-              `radial-gradient(circle at ${30 + i * 25}% ${40 + i * 20}%, rgba(34,197,94,0.04) 0%, transparent 45%)`,
-              `radial-gradient(circle at ${30 + i * 25}% ${40 + i * 20}%, rgba(249,115,22,0.05) 0%, transparent 60%)`,
-              `radial-gradient(circle at ${30 + i * 25}% ${40 + i * 20}%, rgba(168,85,247,0.04) 0%, transparent 45%)`,
-            ],
-          }}
-          transition={{ duration: 8 + i * 2, repeat: Infinity, ease: 'easeInOut', delay: i * 3 }}
-          style={{ opacity: 0.5 }}
-        />
-      ))}
+      {/* Ondas cuánticas científicas avanzadas */}
+      {[0,1,2,3].map((i) => {
+        const scientificColors = [
+          'rgba(0,255,255,0.06)', // Cyan
+          'rgba(255,0,255,0.06)', // Magenta
+          'rgba(0,255,64,0.06)',  // Verde láser
+          'rgba(64,128,255,0.06)' // Azul quantum
+        ]
+        return (
+          <motion.div
+            key={`qwave-${i}`}
+            className="absolute inset-0"
+            animate={{
+              background: [
+                `radial-gradient(ellipse at ${25 + i * 20}% ${35 + i * 15}%, ${scientificColors[i]} 0%, transparent 40%)`,
+                `radial-gradient(ellipse at ${25 + i * 20}% ${35 + i * 15}%, ${scientificColors[(i + 1) % 4]} 0%, transparent 60%)`,
+                `radial-gradient(ellipse at ${25 + i * 20}% ${35 + i * 15}%, ${scientificColors[(i + 2) % 4]} 0%, transparent 40%)`,
+              ],
+            }}
+            transition={{ duration: 10 + i * 3, repeat: Infinity, ease: 'easeInOut', delay: i * 2.5 }}
+            style={{ opacity: 0.7 }}
+          />
+        )
+      })}
 
       {/* Interferencias verticales suaves (QuantumEffects) */}
       {[0,1,2,3].map((i) => (
@@ -454,25 +649,101 @@ const ThreeBackground = () => {
         </motion.div>
       ))}
 
-      {/* Campo de fuerza en rotación (QuantumEffects) */}
+      {/* Campo electromagnético holográfico */}
       <motion.div
         className="absolute inset-0"
         style={{
-          opacity: 0.45,
-          background: `conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(34,197,94,0.04) 60deg, transparent 120deg, rgba(249,115,22,0.04) 180deg, transparent 240deg, rgba(168,85,247,0.04) 300deg, transparent 360deg)`,
+          opacity: 0.5,
+          background: `conic-gradient(from 0deg at 50% 50%, 
+            transparent 0deg, 
+            rgba(0,255,255,0.08) 45deg, 
+            transparent 90deg, 
+            rgba(255,0,255,0.08) 135deg, 
+            transparent 180deg, 
+            rgba(0,255,64,0.08) 225deg, 
+            transparent 270deg, 
+            rgba(64,128,255,0.08) 315deg, 
+            transparent 360deg)`,
+          filter: 'blur(1px)'
         }}
         animate={{ rotate: [0, 360] }}
-        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+      />
+      
+      {/* Campo secundario contrarrotante */}
+      <motion.div
+        className="absolute inset-0"
+        style={{
+          opacity: 0.3,
+          background: `conic-gradient(from 0deg at 30% 70%, 
+            transparent 0deg, 
+            rgba(255,255,0,0.06) 60deg, 
+            transparent 120deg, 
+            rgba(255,64,128,0.06) 180deg, 
+            transparent 240deg, 
+            rgba(128,255,64,0.06) 300deg, 
+            transparent 360deg)`,
+        }}
+        animate={{ rotate: [360, 0] }}
+        transition={{ duration: 70, repeat: Infinity, ease: 'linear' }}
       />
 
-      {/* Líneas de escaneo (antes CSS, ahora motion) */}
-      {[0,1,2].map((i) => (
+      {/* Sistema de escaneo holográfico avanzado */}
+      {[0,1,2,3].map((i) => {
+        const scanColors = [
+          'linear-gradient(90deg, transparent 0%, #00ffff 15%, #ffffff 25%, #00ffff 35%, transparent 50%)',
+          'linear-gradient(90deg, transparent 0%, #ff00ff 15%, #ffffff 25%, #ff00ff 35%, transparent 50%)',
+          'linear-gradient(90deg, transparent 0%, #00ff40 15%, #ffffff 25%, #00ff40 35%, transparent 50%)',
+          'linear-gradient(90deg, transparent 0%, #4080ff 15%, #ffffff 25%, #4080ff 35%, transparent 50%)'
+        ]
+        return (
+          <motion.div
+            key={`scan-${i}`}
+            className="absolute top-0 w-full"
+            style={{ 
+              height: 3, 
+              opacity: 0.35, 
+              background: scanColors[i],
+              boxShadow: `0 0 10px ${['#00ffff', '#ff00ff', '#00ff40', '#4080ff'][i]}40`,
+              filter: 'blur(0.3px)'
+            }}
+            animate={{ 
+              top: ['0%', '100%'],
+              opacity: [0, 0.35, 0.7, 0.35, 0]
+            }}
+            transition={{ 
+              duration: 6 + i * 1.5, 
+              repeat: Infinity, 
+              ease: 'easeInOut', 
+              delay: i * 1.2 
+            }}
+          />
+        )
+      })}
+      
+      {/* Líneas de escaneo verticales */}
+      {[0,1].map((i) => (
         <motion.div
-          key={`scan-${i}`}
-          className="absolute top-0 w-full"
-          style={{ height: 2, opacity: 0.22, filter: 'blur(0.5px)', background: 'linear-gradient(90deg, transparent 0%, #22c55e 20%, #f97316 50%, #a855f7 80%, transparent 100%)' }}
-          animate={{ top: ['0%', '100%'] }}
-          transition={{ duration: 8 + i * 2, repeat: Infinity, ease: 'linear', delay: i * 1.5 }}
+          key={`vscan-${i}`}
+          className="absolute left-0 h-full"
+          style={{ 
+            width: 2, 
+            opacity: 0.25, 
+            background: i === 0 ? 
+              'linear-gradient(180deg, transparent 0%, #00ffff 20%, #ffffff 50%, #00ffff 80%, transparent 100%)' :
+              'linear-gradient(180deg, transparent 0%, #ff00ff 20%, #ffffff 50%, #ff00ff 80%, transparent 100%)',
+            boxShadow: `0 0 8px ${i === 0 ? '#00ffff' : '#ff00ff'}40`,
+          }}
+          animate={{ 
+            left: ['0%', '100%'],
+            opacity: [0, 0.25, 0.5, 0.25, 0]
+          }}
+          transition={{ 
+            duration: 12 + i * 3, 
+            repeat: Infinity, 
+            ease: 'easeInOut', 
+            delay: i * 6 
+          }}
         />
       ))}
 
@@ -497,16 +768,29 @@ const ThreeBackground = () => {
               exit={{ scale: 0.96, opacity: 0, x: -10 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
             >
-              <div className="flex items-center justify-between mb-1 pb-1 border-b" style={{ borderColor: relation.table1.color }}>
-                <h3 className="font-mono text-[12px] font-bold" style={{ color: relation.table1.color }}>{relation.table1.name}</h3>
-                <div className="text-[10px] text-gray-400">{relation.table1.records.toLocaleString()} rows</div>
+              <div className="flex items-center justify-between mb-1 pb-1 border-b" style={{ borderColor: relation.table1.color, boxShadow: `0 1px 0 ${relation.table1.color}40` }}>
+                <h3 className="font-mono text-[12px] font-bold" style={{ 
+                  color: relation.table1.color, 
+                  textShadow: `0 0 8px ${relation.table1.color}60`,
+                  filter: 'brightness(1.2)'
+                }}>{relation.table1.name}</h3>
+                <div className="text-[10px] font-mono" style={{
+                  color: relation.table1.color,
+                  opacity: 0.8
+                }}>{relation.table1.records.toLocaleString()} rows</div>
               </div>
               <div className="space-y-0.5">
                 {relation.table1.fields.map((f, idx) => (
                   <motion.div key={f} className="flex items-center justify-between text-[11px]"
                     initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.08 + idx * 0.07 }}>
                     <span className="text-gray-300 font-mono">{f}</span>
-                    <span className="px-1 py-0.5 rounded text-[10px] font-mono" style={{ backgroundColor: `${relation.table1.color}20`, color: relation.table1.color }}>
+                    <span className="px-1 py-0.5 rounded text-[10px] font-mono" style={{ 
+                      backgroundColor: `${relation.table1.color}25`, 
+                      color: relation.table1.color,
+                      border: `1px solid ${relation.table1.color}40`,
+                      boxShadow: `0 0 4px ${relation.table1.color}30`,
+                      textShadow: `0 0 4px ${relation.table1.color}40`
+                    }}>
                       {fieldTypes[idx % fieldTypes.length]}
                     </span>
                   </motion.div>
@@ -523,16 +807,29 @@ const ThreeBackground = () => {
               exit={{ scale: 0.96, opacity: 0, x: 10 }}
               transition={{ duration: 0.4, ease: 'easeOut' }}
             >
-              <div className="flex items-center justify-between mb-1 pb-1 border-b" style={{ borderColor: relation.table2.color }}>
-                <h3 className="font-mono text-[12px] font-bold" style={{ color: relation.table2.color }}>{relation.table2.name}</h3>
-                <div className="text-[10px] text-gray-400">{relation.table2.records.toLocaleString()} rows</div>
+              <div className="flex items-center justify-between mb-1 pb-1 border-b" style={{ borderColor: relation.table2.color, boxShadow: `0 1px 0 ${relation.table2.color}40` }}>
+                <h3 className="font-mono text-[12px] font-bold" style={{ 
+                  color: relation.table2.color, 
+                  textShadow: `0 0 8px ${relation.table2.color}60`,
+                  filter: 'brightness(1.2)'
+                }}>{relation.table2.name}</h3>
+                <div className="text-[10px] font-mono" style={{
+                  color: relation.table2.color,
+                  opacity: 0.8
+                }}>{relation.table2.records.toLocaleString()} rows</div>
               </div>
               <div className="space-y-0.5">
                 {relation.table2.fields.map((f, idx) => (
                   <motion.div key={f} className="flex items-center justify-between text-[11px]"
                     initial={{ opacity: 0, x: 6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.12 + idx * 0.07 }}>
                     <span className="text-gray-300 font-mono">{f}</span>
-                    <span className="px-1 py-0.5 rounded text-[10px] font-mono" style={{ backgroundColor: `${relation.table2.color}20`, color: relation.table2.color }}>
+                    <span className="px-1 py-0.5 rounded text-[10px] font-mono" style={{ 
+                      backgroundColor: `${relation.table2.color}25`, 
+                      color: relation.table2.color,
+                      border: `1px solid ${relation.table2.color}40`,
+                      boxShadow: `0 0 4px ${relation.table2.color}30`,
+                      textShadow: `0 0 4px ${relation.table2.color}40`
+                    }}>
                       {fieldTypes[(idx + 1) % fieldTypes.length]}
                     </span>
                   </motion.div>

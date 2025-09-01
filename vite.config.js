@@ -23,6 +23,13 @@ export default defineConfig({
     cssCodeSplit: true,
     reportCompressedSize: false, // Mejora velocidad de build
     chunkSizeWarningLimit: 1000,
+    // Configuración mejorada para preservar animaciones
+    esbuild: {
+      // Preservar nombres de función para mejor debugging de animaciones
+      keepNames: true,
+      // Ser menos agresivo con Math.* para preservar precisión
+      treeShaking: true
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -87,7 +94,8 @@ export default defineConfig({
       'clsx',
       'tailwind-merge'
     ],
-    exclude: ['three'] // Three.js se carga lazy
+    // Incluir Three.js para mejor optimización de animaciones
+    exclude: []
   },
   // Variables globales y configuración avanzada
   define: {
