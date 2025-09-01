@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import ThemeSelector from './ThemeSelector'
 
-const Header = ({ currentTheme, onThemeChange }) => {
+const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const navItems = [
@@ -90,11 +89,8 @@ const Header = ({ currentTheme, onThemeChange }) => {
             ))}
           </nav>
 
-          {/* Right side - Theme Selector and CTA */}
+          {/* Right side - CTA */}
           <div className="flex items-center gap-4">
-            {/* Theme Selector */}
-            <ThemeSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
-            
             {/* CTA Button */}
             <motion.button
               className="hidden md:block px-6 py-2 rounded-xl font-semibold text-white transition-all duration-300"
@@ -147,11 +143,6 @@ const Header = ({ currentTheme, onThemeChange }) => {
                   {item.name}
                 </motion.a>
               ))}
-              
-              {/* Mobile Theme Selector */}
-              <div className="pt-4 border-t border-white/10">
-                <ThemeSelector currentTheme={currentTheme} onThemeChange={onThemeChange} />
-              </div>
               
               <motion.button
                 className="px-6 py-3 rounded-xl font-semibold text-white mt-4 w-full"

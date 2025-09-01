@@ -39,16 +39,11 @@ const SectionSkeleton = ({ height = 'h-32' }) => {
 }
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState('dark-green-orange')
   const [isLoaded, setIsLoaded] = useState(false)
   const isMobile = useIsMobile()
 
-  // Aplicar tema y optimizar carga inicial
+  // Optimizar carga inicial
   useEffect(() => {
-    const savedTheme = localStorage.getItem('datacef-theme') || 'dark-green-orange'
-    setCurrentTheme(savedTheme)
-    document.documentElement.setAttribute('data-theme', savedTheme)
-    
     // Marcar como cargado para evitar layout shifts
     const timer = setTimeout(() => setIsLoaded(true), 100)
     return () => clearTimeout(timer)
@@ -77,19 +72,13 @@ function App() {
     }
   }, [isLoaded, isMobile])
 
-  const handleThemeChange = (newTheme) => {
-    setCurrentTheme(newTheme)
-    document.documentElement.setAttribute('data-theme', newTheme)
-    localStorage.setItem('datacef-theme', newTheme)
-  }
-
   return (
     <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden">
       {/* Efectos visuales mejorados */}
       <EnhancedVisuals />
       
       {/* Header */}
-      <Header currentTheme={currentTheme} onThemeChange={handleThemeChange} />
+      <Header />
       
       {/* Contenido principal */}
       <main className="relative z-10">
