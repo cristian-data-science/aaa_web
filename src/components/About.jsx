@@ -42,33 +42,6 @@ const About = () => {
     }
   ]
 
-  const team = [
-    {
-      name: 'Ana García',
-      role: 'CEO & Fundadora',
-      expertise: 'Estrategia Digital, IA',
-      color: 'from-green-400 to-emerald-500'
-    },
-    {
-      name: 'Carlos Rodríguez',
-      role: 'CTO',
-      expertise: 'Machine Learning, RPA',
-      color: 'from-blue-400 to-cyan-500'
-    },
-    {
-      name: 'María López',
-      role: 'Head of Data',
-      expertise: 'Data Science, Analytics',
-      color: 'from-purple-400 to-pink-500'
-    },
-    {
-      name: 'Diego Martín',
-      role: 'Lead Developer',
-      expertise: 'Automatización, APIs',
-      color: 'from-orange-400 to-red-500'
-    }
-  ]
-
   return (
     <section id="about" className="relative py-20 overflow-hidden bg-slate-950">
       {/* Background dinámico mejorado */}
@@ -474,60 +447,6 @@ const About = () => {
                       {value.description}
                     </p>
                   </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* Team Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <h3 className="text-4xl font-bold text-white text-center mb-4">
-            Nuestro Equipo
-          </h3>
-          <p className="text-gray-300 text-center mb-12 text-lg">
-            Expertos en automatización e IA comprometidos con tu éxito.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={index}
-                className="group text-center"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                
-              >
-                <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 group-hover:shadow-2xl">
-                  {/* Avatar placeholder */}
-                  <motion.div 
-                    className={`w-24 h-24 rounded-full bg-gradient-to-r ${member.color} mx-auto mb-6 flex items-center justify-center group-hover:shadow-lg transition-all duration-300`}
-                    
-                  >
-                    <Users className="w-12 h-12 text-white" />
-                  </motion.div>
-
-                  {/* Name */}
-                  <h4 className="text-xl font-bold text-white mb-2 group-hover:text-green-300 transition-colors duration-300">
-                    {member.name}
-                  </h4>
-
-                  {/* Role */}
-                  <p className="text-green-400 font-semibold mb-2">
-                    {member.role}
-                  </p>
-
-                  {/* Expertise */}
-                  <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
-                    {member.expertise}
-                  </p>
                 </div>
               </motion.div>
             ))}
