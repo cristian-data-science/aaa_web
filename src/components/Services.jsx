@@ -103,7 +103,7 @@ const Services = () => {
   }, [])
 
   return (
-    <section id="services" data-section="services" className="relative py-20 bg-slate-950 overflow-hidden">
+    <section id="services" data-section="services" className="relative py-20 bg-gradient-to-b from-white via-emerald-50/30 to-white overflow-hidden">
       {/* Background dinámico tecnológico */}
   <div className="absolute inset-0 pointer-events-none">
         {/* Grid tecnológico de fondo */}
@@ -206,11 +206,11 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <span className="text-2xl">⚡</span>
-            <span className="text-lg font-semibold gradient-text">Nuestros Servicios</span>
+            <span className="text-lg font-semibold text-emerald-600">Nuestros Servicios</span>
           </motion.div>
           
           <motion.h2 
-            className="text-4xl md:text-5xl font-black gradient-text mb-6"
+            className="text-4xl md:text-5xl font-black text-emerald-700 mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -220,7 +220,7 @@ const Services = () => {
           </motion.h2>
           
           <motion.p 
-            className="text-xl text-gray-300 max-w-3xl mx-auto"
+            className="text-xl text-gray-900 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -233,27 +233,22 @@ const Services = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div 
-              key={index} 
-              className={`group relative p-6 md:p-8 rounded-2xl backdrop-blur-sm border ${service.borderColor} 
-                         bg-gradient-to-br from-white/[0.02] to-white/[0.08] 
-                         hover:bg-gradient-to-br hover:from-white/[0.05] hover:to-white/[0.12]
-                         transition-all ${isMobile ? 'duration-150' : 'duration-200'} overflow-hidden
-                         ${isMobile ? '' : 'md:hover:scale-[1.005] md:hover:shadow-lg'}`}
-              initial={{ y: 20 }}
-              whileInView={{ y: 0 }}
-              transition={{ 
+            <div key={`border-${index}`} className="gradient-border-wrapper full-width">
+              <div className="gradient-border-inner">
+                <motion.div 
+                  className={`group relative p-6 md:p-8 rounded-2xl backdrop-blur-sm min-h-[480px] flex flex-col justify-between
+                             bg-gradient-to-br from-white/95 via-emerald-50/80 to-white/98
+                             hover:bg-gradient-to-br hover:from-white/98 hover:to-emerald-50/90
+                             transition-all ${isMobile ? 'duration-150' : 'duration-200'} overflow-hidden
+                             ${isMobile ? '' : 'md:hover:scale-[1.005] md:hover:shadow-lg'}`}
+                  initial={{ y: 20 }}
+                  whileInView={{ y: 0 }}
+                  transition={{ 
                 duration: 0.6, 
                 delay: index * 0.08,
                 ease: "easeOut"
               }}
               viewport={{ once: true, margin: '-30px' }}
-              
-              style={{
-                boxShadow: '0 0 0 1px rgba(255,255,255,0.1)',
-                opacity: 1,
-                visibility: 'visible'
-              }}
             >
               {/* Fondo simple sin parpadeos */}
               <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-[0.005] 
@@ -266,13 +261,13 @@ const Services = () => {
                 </div>
                 
                 {/* Título */}
-                <h3 className={`text-xl font-bold text-white mb-4 transition-colors duration-200 
-                              ${!isMobile ? 'group-hover:text-gray-100' : ''}`}>
+                <h3 className={`text-xl font-bold text-gray-900 mb-4 transition-colors duration-200 
+                              ${!isMobile ? 'group-hover:text-gray-800' : ''}`}>
                   {service.title}
                 </h3>
                 
                 {/* Descripción */}
-                <p className="text-gray-300 mb-6 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                <p className="text-gray-700 mb-6 leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
                   {service.description}
                 </p>
                 
@@ -281,8 +276,8 @@ const Services = () => {
                   {service.features.map((feature, featureIndex) => (
                     <motion.li 
                       key={featureIndex} 
-                      className="flex items-center gap-3 text-sm text-gray-400 group-hover:text-gray-300 
-                               transition-colors ${isMobile ? 'duration-150' : 'duration-300'}"
+                      className="flex items-center gap-3 text-sm text-emerald-700 group-hover:text-emerald-600 
+                               transition-colors ${isMobile ? 'duration-150' : 'duration-300'} font-medium"
                       initial={isMobile ? {} : { opacity: 0, x: -12 }}
                       whileInView={isMobile ? {} : { opacity: 1, x: 0 }}
                       transition={isMobile ? {} : { duration: 0.3, delay: Math.min(index * 0.08 + featureIndex * 0.08, 0.6) }}
@@ -321,6 +316,8 @@ const Services = () => {
                             bg-gradient-to-r from-transparent via-white/30 to-transparent 
                             opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
             </motion.div>
+              </div>
+            </div>
           ))}
         </div>
 
@@ -351,10 +348,10 @@ const Services = () => {
               🚀
             </motion.span>
             <div className="text-left">
-              <p className="text-lg font-semibold text-white mb-2">
+              <p className="text-lg font-semibold text-gray-900 mb-2">
                 ¿Listo para transformar tu empresa?
               </p>
-              <p className="text-gray-300">
+              <p className="text-gray-700">
                 Descubre cómo nuestras soluciones pueden generar un ROI del 200-400% en tu primer año.
               </p>
             </div>

@@ -26,7 +26,7 @@ const EnhancedVisuals = () => {
       duration: 10 + (i * 2),
       delay: i * 2,
       opacity: 0.02 + (i * 0.005),
-      color: i % 3 === 0 ? '#22c55e' : i % 3 === 1 ? '#f97316' : '#a855f7'
+      color: i % 3 === 0 ? '#22c55e' : i % 3 === 1 ? '#86efac' : '#0f766e'
     }))
   }, [isMobile])
   
@@ -68,7 +68,7 @@ const EnhancedVisuals = () => {
         />
         {/* Una partícula mínima - sin animación para máximo rendimiento */}
         <div
-          className="absolute w-2 h-2 bg-green-400/10 rounded-full"
+          className="absolute w-2 h-2 bg-emerald-300/20 rounded-full"
           style={{ left: '20%', top: '30%' }}
         />
       </div>
@@ -116,7 +116,7 @@ const EnhancedVisuals = () => {
         <defs>
           <linearGradient id="energyGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#22c55e" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#a855f7" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#0f766e" stopOpacity="0.4" />
           </linearGradient>
         </defs>
         
@@ -146,7 +146,7 @@ const EnhancedVisuals = () => {
       <motion.div
         className="absolute inset-x-0 h-[1px]"
         style={{
-          background: 'linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.2) 50%, transparent 100%)',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(34,197,94,0.25) 50%, transparent 100%)',
           filter: 'blur(0.5px)',
         }}
         animate={{

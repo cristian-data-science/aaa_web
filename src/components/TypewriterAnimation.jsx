@@ -72,10 +72,11 @@ const TypewriterAnimation = () => {
           <span
             className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
             style={{
-              background: 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
+              background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               color: 'transparent',
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.2))'
             }}
           >
             Inteligencia Artificial
@@ -88,15 +89,17 @@ const TypewriterAnimation = () => {
   return (
     <div className="relative flex items-center justify-center">
       {/* Contenedor con altura fija para evitar saltos */}
-      <div className="flex items-center justify-center min-h-[80px] md:min-h-[100px]">
+      <div className="flex items-baseline justify-center min-h-[100px] md:min-h-[140px] py-4">
         <motion.span
-          className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
+          className="inline-block text-4xl md:text-6xl lg:text-7xl font-black leading-relaxed"
           style={{
-            background: 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
+            background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
             backgroundSize: isMobile ? '100% 100%' : '200% 200%',
+            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.2))',
+            lineHeight: '1.3'
           }}
           animate={config.enableAnimation ? {
             backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -114,7 +117,7 @@ const TypewriterAnimation = () => {
         <motion.span
           className="inline-block w-1 h-10 md:h-16 lg:h-20 ml-2"
           style={{
-            background: isMobile ? '#22C55E' : 'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
+            background: isMobile ? '#059669' : 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
           }}
           animate={config.enableAnimation ? {
             opacity: [1, 0.3, 1],

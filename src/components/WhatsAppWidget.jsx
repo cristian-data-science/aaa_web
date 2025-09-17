@@ -159,19 +159,11 @@ const WhatsAppWidget = () => {
 
         {/* Notification dot */}
         {!isOpen && (
-          <motion.div
-            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
-            animate={{
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 1.5,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
+          <div
+            className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center animate-pulse"
           >
             1
-          </motion.div>
+          </div>
         )}
       </motion.button>
     </div>

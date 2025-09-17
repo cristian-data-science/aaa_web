@@ -23,12 +23,18 @@ export default defineConfig({
     cssCodeSplit: true,
     reportCompressedSize: false, // Mejora velocidad de build
     chunkSizeWarningLimit: 1000,
-    // Configuración mejorada para preservar animaciones
+    // Configuración mejorada para preservar animaciones y consistencia
     esbuild: {
       // Preservar nombres de función para mejor debugging de animaciones
       keepNames: true,
-      // Ser menos agresivo con Math.* para preservar precisión
-      treeShaking: true
+      // Mantener precisión en operaciones matemáticas para animaciones
+      mangleProps: false,
+      // Preservar comportamiento de timing
+      treeShaking: true,
+      // Mantener consistencia en performance.now() y requestAnimationFrame
+      minifyWhitespace: true,
+      minifyIdentifiers: false,
+      minifySyntax: true
     },
     rollupOptions: {
       output: {
@@ -100,7 +106,9 @@ export default defineConfig({
   // Variables globales y configuración avanzada
   define: {
     __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-    __DEV__: JSON.stringify(process.env.NODE_ENV === 'development')
+    __DEV__: JSON.stringify(process.env.NODE_ENV === 'development'),
+    // Asegurar timing consistente para animaciones
+    __ANIMATION_TIMING_FACTOR__: '1.0'
   },
   
   // Configuración de CSS

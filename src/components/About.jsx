@@ -1,6 +1,7 @@
+﻿import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
-import aiWork from '../assets/images/ai-work.jpg'
+import datacefCity from '../assets/images/datacef-city.png'
 
 const About = () => {
   const values = [
@@ -8,51 +9,63 @@ const About = () => {
       icon: Lightbulb,
       title: 'Innovación Responsable',
       description: 'Adoptamos tecnologías avanzadas de manera ética y responsable.',
-      color: 'from-yellow-400 to-orange-500'
+      color: 'from-emerald-200 to-emerald-500'
     },
     {
       icon: Award,
       title: 'Excelencia Técnica',
       description: 'Mantenemos los más altos estándares de calidad en cada proyecto.',
-      color: 'from-blue-400 to-purple-500'
+      color: 'from-emerald-100 to-teal-400'
     },
     {
       icon: Heart,
       title: 'Transparencia y Confianza',
       description: 'Construimos relaciones duraderas basadas en la transparencia.',
-      color: 'from-pink-400 to-red-500'
+      color: 'from-lime-200 to-emerald-500'
     },
     {
       icon: Target,
       title: 'Impacto Medible',
       description: 'Cada solución genera un impacto cuantificable y comunicable.',
-      color: 'from-green-400 to-emerald-500'
+      color: 'from-emerald-300 to-emerald-600'
     },
     {
       icon: Users,
       title: 'Colaboración',
       description: 'Trabajamos como socios en el proceso de transformación digital.',
-      color: 'from-cyan-400 to-blue-500'
+      color: 'from-teal-200 to-emerald-500'
     },
     {
       icon: Eye,
       title: 'Adaptabilidad',
       description: 'Mantenemos una mentalidad de aprendizaje continuo.',
-      color: 'from-purple-400 to-indigo-500'
+      color: 'from-emerald-100 to-emerald-400'
     }
   ]
 
+  // Precompute particle positions once to avoid flicker on re-renders
+  const particleConfigs = useMemo(() => {
+    return Array.from({ length: 8 }).map((_, i) => ({
+      left: 10 + i * 12,
+      top: 15 + Math.random() * 70,
+      size: 1.5 + Math.random() * 2,
+      xOffset: Math.random() * 30 - 15,
+      duration: 12 + Math.random() * 8,
+      delay: Math.random() * 6,
+    }))
+  }, [])
+
   return (
-    <section id="about" className="relative py-20 overflow-hidden bg-slate-950">
+    <section id="about" className="relative py-20 overflow-hidden bg-gradient-to-b from-emerald-50/20 via-white/98 to-emerald-50/25">
       {/* Background dinámico mejorado */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Grid de datos en el fondo */}
-        <div 
-          className="absolute inset-0 opacity-[0.015]"
+        <div
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(168, 85, 247, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(168, 85, 247, 0.1) 1px, transparent 1px)
+              linear-gradient(rgba(16, 185, 129, 0.16) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(16, 185, 129, 0.12) 1px, transparent 1px)
             `,
             backgroundSize: '80px 80px',
           }}
@@ -62,12 +75,12 @@ const About = () => {
         <svg className="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 1200 800">
           <defs>
             <linearGradient id="aboutDataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#a855f7" />
-              <stop offset="50%" stopColor="#f97316" />
-              <stop offset="100%" stopColor="#22c55e" />
+              <stop offset="0%" stopColor="#bbf7d0" />
+              <stop offset="50%" stopColor="#34d399" />
+              <stop offset="100%" stopColor="#0f766e" />
             </linearGradient>
           </defs>
-          
+
           {/* Líneas de flujo de datos */}
           <motion.path
             d="M 0 200 Q 300 150 600 200 T 1200 250"
@@ -76,7 +89,7 @@ const About = () => {
             fill="none"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
           />
           <motion.path
             d="M 0 400 Q 200 350 500 400 T 1200 450"
@@ -85,7 +98,7 @@ const About = () => {
             fill="none"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 3 }}
+            transition={{ duration: 12, repeat: Infinity, ease: 'linear', delay: 3 }}
           />
           <motion.path
             d="M 0 600 Q 400 550 700 600 T 1200 650"
@@ -94,19 +107,29 @@ const About = () => {
             fill="none"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 14, repeat: Infinity, ease: "linear", delay: 6 }}
+            transition={{ duration: 14, repeat: Infinity, ease: 'linear', delay: 6 }}
           />
 
           {/* Nodos de datos pulsantes */}
-          <motion.circle cx="300" cy="200" r="4" fill="#a855f7" opacity="0.3"
-            animate={{ 
+          <motion.circle
+            cx="300"
+            cy="200"
+            r="4"
+            fill="#34d399"
+            opacity="0.3"
+            animate={{
               opacity: 0.5,
               scale: [1, 1.5, 1]
             }}
             transition={{ duration: 4, repeat: Infinity, delay: 1 }}
           />
-          <motion.circle cx="700" cy="400" r="4" fill="#f97316" opacity="0.3"
-            animate={{ 
+          <motion.circle
+            cx="700"
+            cy="400"
+            r="4"
+            fill="#0f766e"
+            opacity="0.3"
+            animate={{
               opacity: 0.5,
               scale: [1, 1.5, 1]
             }}
@@ -115,39 +138,39 @@ const About = () => {
         </svg>
 
         {/* Partículas flotantes de información */}
-        {[...Array(8)].map((_, i) => (
+        {particleConfigs.map((particle, i) => (
           <motion.div
             key={`about-particle-${i}`}
             className="absolute"
             style={{
-              left: `${10 + i * 12}%`,
-              top: `${15 + Math.random() * 70}%`,
-              width: `${1.5 + Math.random() * 2}px`,
-              height: `${1.5 + Math.random() * 2}px`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
+              width: `${particle.size}px`,
+              height: `${particle.size}px`,
             }}
             animate={{
               y: [0, -60, 0],
-              x: [0, Math.random() * 30 - 15, 0],
+              x: [0, particle.xOffset, 0],
               opacity: [0, 0.4, 0],
               scale: [0.3, 1, 0.3],
             }}
             transition={{
-              duration: 12 + Math.random() * 8,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 6,
-              ease: "easeInOut",
+              delay: particle.delay,
+              ease: 'easeInOut',
             }}
           >
-            <div 
+            <div
               className="w-full h-full rounded-full"
               style={{
-                background: i % 4 === 0 
-                  ? 'rgba(168, 85, 247, 0.7)' 
-                  : i % 4 === 1 
-                    ? 'rgba(249, 115, 22, 0.7)' 
+                background: i % 4 === 0
+                  ? 'rgba(110, 231, 183, 0.7)'
+                  : i % 4 === 1
+                    ? 'rgba(52, 211, 153, 0.6)'
                     : i % 4 === 2
-                      ? 'rgba(34, 197, 94, 0.7)'
-                      : 'rgba(59, 130, 246, 0.7)',
+                      ? 'rgba(34, 197, 94, 0.6)'
+                      : 'rgba(16, 185, 129, 0.5)',
                 boxShadow: '0 0 8px currentColor',
               }}
             />
@@ -161,7 +184,7 @@ const About = () => {
             className="absolute inset-0"
             style={{
               background: `radial-gradient(circle at ${30 + i * 40}% ${40 + i * 20}%, 
-                rgba(168, 85, 247, 0.008) 0%, 
+                rgba(110, 231, 183, 0.1) 0%, 
                 transparent 70%)`,
             }}
             animate={{
@@ -171,13 +194,13 @@ const About = () => {
             transition={{
               duration: 8 + i * 3,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               delay: i * 4,
             }}
           />
         ))}
 
-        {/* Efectos circulares rotantes mejorados */}
+        {/* Efectos circulares rotantes */}
         {[...Array(3)].map((_, i) => (
           <motion.div
             key={`about-circle-${i}`}
@@ -195,16 +218,16 @@ const About = () => {
             transition={{
               duration: 25 + i * 8,
               repeat: Infinity,
-              ease: "linear",
+              ease: 'linear',
             }}
           >
             <div
               className="w-full h-full opacity-[0.03]"
               style={{
                 background: `conic-gradient(from 0deg, transparent, 
-                  ${i === 0 ? 'rgba(168, 85, 247, 0.4)' : 
-                    i === 1 ? 'rgba(249, 115, 22, 0.4)' : 
-                    'rgba(34, 197, 94, 0.4)'}, transparent)`,
+                  ${i === 0 ? 'rgba(110, 231, 183, 0.35)' :
+                    i === 1 ? 'rgba(52, 211, 153, 0.32)' :
+                    'rgba(34, 197, 94, 0.35)'}, transparent)`,
                 borderRadius: '50%',
                 filter: 'blur(30px)',
               }}
@@ -215,36 +238,21 @@ const About = () => {
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-8"
-            animate={{
-              backgroundImage: [
-                'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
-                'linear-gradient(45deg, #F97316, #A855F7, #22C55E)',
-                'linear-gradient(45deg, #A855F7, #22C55E, #F97316)',
-                'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          <h2
+            className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 text-emerald-950"
             style={{
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
+              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.1))'
             }}
           >
             Quiénes Somos
-          </motion.h2>
+          </h2>
         </motion.div>
 
         {/* Mission, Vision, Values Grid */}
@@ -259,91 +267,56 @@ const About = () => {
           >
             {/* Mission */}
             <div className="relative">
-              <motion.div
-                className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                
-              >
-                <motion.h3 
-                  className="text-3xl font-bold text-white mb-4"
-                  animate={{
-                    textShadow: [
-                      '0 0 10px rgba(34, 197, 94, 0.5)',
-                      '0 0 20px rgba(249, 115, 22, 0.5)',
-                      '0 0 10px rgba(34, 197, 94, 0.5)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
+              <div className="gradient-border-wrapper full-width rounded-3xl">
+                <motion.div
+                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
                 >
-                  Nuestra Misión
-                </motion.h3>
-                <p className="text-gray-200 leading-relaxed text-lg">
-                  Transformamos las operaciones empresariales mediante soluciones de automatización inteligente e inteligencia artificial, liberando el potencial humano para que las organizaciones se enfoquen en la innovación y el crecimiento estratégico.
-                </p>
-              </motion.div>
+                  <h3
+                    className="text-3xl font-bold text-emerald-900 mb-4"
+                  >
+                    Nuestra Misión
+                  </h3>
+                  <p className="text-emerald-700 leading-relaxed text-lg">
+                    Transformamos las operaciones empresariales mediante soluciones de automatización inteligente e inteligencia artificial, liberando el potencial humano para que las organizaciones se enfoquen en la innovación y el crecimiento estratégico.
+                  </p>
+                </motion.div>
+              </div>
             </div>
 
             {/* Vision */}
             <div className="relative">
-              <motion.div
-                className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                
-              >
-                <motion.h3 
-                  className="text-3xl font-bold text-white mb-4"
-                  animate={{
-                    textShadow: [
-                      '0 0 10px rgba(168, 85, 247, 0.5)',
-                      '0 0 20px rgba(34, 197, 94, 0.5)',
-                      '0 0 10px rgba(168, 85, 247, 0.5)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1,
-                  }}
+              <div className="gradient-border-wrapper full-width rounded-3xl">
+                <motion.div
+                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
                 >
-                  Nuestra Visión
-                </motion.h3>
-                <p className="text-gray-200 leading-relaxed text-lg">
-                  Ser la empresa líder en automatización inteligente en América Latina, reconocida por nuestra capacidad de transformar procesos complejos en soluciones elegantes y eficientes.
-                </p>
-              </motion.div>
+                  <h3
+                    className="text-3xl font-bold text-emerald-900 mb-4"
+                  >
+                    Nuestra Visión
+                  </h3>
+                  <p className="text-emerald-700 leading-relaxed text-lg">
+                    Ser la empresa líder en automatización inteligente en América Latina, reconocida por nuestra capacidad de transformar procesos complejos en soluciones elegantes y eficientes.
+                  </p>
+                </motion.div>
+              </div>
             </div>
 
             {/* Commitment */}
             <div className="relative">
-              <motion.div
-                className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500"
-                
-              >
-                <motion.h3 
-                  className="text-3xl font-bold text-white mb-4"
-                  animate={{
-                    textShadow: [
-                      '0 0 10px rgba(249, 115, 22, 0.5)',
-                      '0 0 20px rgba(168, 85, 247, 0.5)',
-                      '0 0 10px rgba(249, 115, 22, 0.5)',
-                    ],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2,
-                  }}
+              <div className="gradient-border-wrapper full-width rounded-3xl">
+                <motion.div
+                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
                 >
-                  Nuestro Compromiso
-                </motion.h3>
-                <p className="text-gray-200 leading-relaxed text-lg">
-                  Democratizar el acceso a tecnologías avanzadas, proporcionando implementaciones eficientes, escalables y con un retorno de inversión medible.
-                </p>
-              </motion.div>
+                  <h3
+                    className="text-3xl font-bold text-emerald-900 mb-4"
+                  >
+                    Nuestro Compromiso
+                  </h3>
+                  <p className="text-emerald-700 leading-relaxed text-lg">
+                    Democratizar el acceso a tecnologías avanzadas, proporcionando implementaciones eficientes, escalables y con un retorno de inversión medible.
+                  </p>
+                </motion.div>
+              </div>
             </div>
           </motion.div>
 
@@ -355,40 +328,18 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="relative rounded-3xl overflow-hidden">
-              <motion.img
-                src={aiWork}
-                alt="Inteligencia Artificial"
-                className="w-full h-full object-cover"
-                
-                transition={{ duration: 0.5 }}
-              />
-              
-              {/* Glassmorphism overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
-              
-              {/* Floating elements */}
-              {[...Array(4)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute w-3 h-3 bg-gradient-to-r from-green-400 to-orange-500 rounded-full"
-                  style={{
-                    left: `${20 + i * 20}%`,
-                    top: `${15 + i * 15}%`,
-                  }}
-                  animate={{
-                    y: [0, -20, 0],
-                    scale: [1, 1.3, 1],
-                    opacity: 0.8,
-                  }}
-                  transition={{
-                    duration: 3 + i,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.5,
-                  }}
+            <div className="gradient-border-wrapper full-width rounded-3xl">
+              <div className="relative rounded-3xl overflow-hidden">
+                <motion.img
+                  src={datacefCity}
+                  alt="DATACEF - Letras Luminosas Ciudad"
+                  className="w-full h-full object-cover"
+                  transition={{ duration: 0.5 }}
                 />
-              ))}
+
+                {/* Glassmorphism overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/20 via-transparent to-transparent" />
+              </div>
             </div>
           </motion.div>
         </div>
@@ -401,10 +352,10 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="text-4xl font-bold text-white text-center mb-4">
+          <h3 className="text-4xl font-bold text-emerald-900 text-center mb-4">
             Nuestros Valores
           </h3>
-          <p className="text-gray-300 text-center mb-12 text-lg">
+          <p className="text-emerald-700 text-center mb-12 text-lg">
             Los principios que guían cada decisión y proyecto que emprendemos.
           </p>
 
@@ -417,35 +368,32 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                
               >
-                <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-500 group-hover:shadow-2xl relative overflow-hidden">
-                  {/* Gradient background on hover */}
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-10 rounded-3xl transition-opacity duration-300`}
-                  />
-                  
-                  <div className="relative z-10">
-                    {/* Icon */}
-                    <motion.div 
-                      className="mb-6"
-                      
-                      transition={{ duration: 0.3 }}
-                    >
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${value.color} p-3 group-hover:shadow-lg transition-all duration-300`}>
-                        <value.icon className="w-full h-full text-white" />
+                <div className="gradient-border-wrapper full-width rounded-3xl">
+                  <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 group-hover:shadow-xl relative overflow-hidden">
+                    {/* Gradient background on hover */}
+                    <div
+                      className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-300`}
+                    />
+
+                    <div className="relative z-10">
+                      {/* Icon */}
+                      <div className="mb-6">
+                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${value.color} p-3 transition-shadow duration-300`}>
+                          <value.icon className="w-full h-full text-emerald-950" />
+                        </div>
                       </div>
-                    </motion.div>
 
-                    {/* Title */}
-                    <h4 className="text-xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300">
-                      {value.title}
-                    </h4>
+                      {/* Title */}
+                      <h4 className="text-xl font-bold text-emerald-900 mb-3 transition-colors duration-300">
+                        {value.title}
+                      </h4>
 
-                    {/* Description */}
-                    <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                      {value.description}
-                    </p>
+                      {/* Description */}
+                      <p className="text-emerald-700 transition-colors duration-300">
+                        {value.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </motion.div>

@@ -96,7 +96,7 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 bg-gradient-to-r from-green-400 via-orange-400 to-purple-400 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 bg-gradient-to-r from-emerald-400 via-orange-500 to-purple-500 bg-clip-text text-transparent drop-shadow-lg">
             Hablemos de tu Negocio
           </h2>
           
@@ -117,7 +117,8 @@ const Contact = () => {
                 key={index}
                 className="group text-center"
               >
-                <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300 group-hover:shadow-lg">
+                <div className="gradient-border-wrapper full-width rounded-3xl">
+                  <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 group-hover:shadow-lg">
                   {/* Icon */}
                   <div className="mb-6 flex justify-center">
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-orange-500 p-4 group-hover:shadow-lg transition-all duration-300">
@@ -134,6 +135,7 @@ const Contact = () => {
                   <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                     {benefit.description}
                   </p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -150,7 +152,8 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500">
+            <div className="gradient-border-wrapper rounded-3xl">
+              <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500">
               <div className="flex items-center mb-8">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-green-500 to-orange-500 p-3 mr-4">
                   <Mail className="w-full h-full text-white" />
@@ -239,6 +242,7 @@ const Contact = () => {
                   )}
                 </motion.button>
               </form>
+              </div>
             </div>
           </motion.div>
 

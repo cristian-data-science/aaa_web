@@ -29,10 +29,10 @@ const WhatsAppWidget = lazy(() =>
 // Componente de loading sin hooks para evitar problemas
 const SectionSkeleton = ({ height = 'h-32' }) => {
   return (
-    <div className={`w-full ${height} bg-slate-900 rounded-lg mx-auto max-w-7xl`}>
+    <div className={`w-full ${height} bg-emerald-50/70 border border-emerald-100 rounded-lg mx-auto max-w-7xl`}>
       <div className="flex items-center justify-center h-full">
-        <div className="w-6 h-6 border-2 border-green-500 border-t-transparent rounded-full animate-spin" />
-        <span className="ml-3 text-gray-400 hidden md:block">Cargando...</span>
+        <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+        <span className="ml-3 text-emerald-700 hidden md:block">Cargando...</span>
       </div>
     </div>
   )
@@ -73,7 +73,7 @@ function App() {
   }, [isLoaded, isMobile])
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-emerald-950 relative overflow-x-hidden">
       {/* Efectos visuales mejorados */}
       <EnhancedVisuals />
       
@@ -87,10 +87,10 @@ function App() {
           <StatsSection />
         </Suspense>
         <Suspense fallback={
-          <div className="w-full h-64 md:h-96 bg-slate-950 flex items-center justify-center">
+          <div className="w-full h-64 md:h-96 bg-emerald-50/80 flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-8 h-8 border-2 border-green-500 border-t-transparent rounded-full animate-spin" />
-              <span className="text-gray-400 text-sm">Cargando servicios...</span>
+              <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+              <span className="text-emerald-700 text-sm">Cargando servicios...</span>
             </div>
           </div>
         }>
@@ -119,4 +119,3 @@ function App() {
 }
 
 export default App
-

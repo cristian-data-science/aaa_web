@@ -33,9 +33,9 @@ const Header = () => {
 
   return (
     <motion.header 
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-white/10"
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b border-emerald-300/70 shadow-lg"
       style={{
-        background: 'rgba(15, 23, 42, 0.8)',
+        background: 'rgba(255, 255, 255, 0.95)',
       }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -52,11 +52,12 @@ const Header = () => {
             <motion.span 
               className="text-3xl font-black"
               style={{
-                background: 'linear-gradient(45deg, #22c55e, #f97316, #a855f7)',
+                background: 'linear-gradient(45deg, #0f766e, #15803d, #059669)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
                 backgroundSize: '200% 200%',
+                filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.1))'
               }}
               animate={{
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -78,7 +79,7 @@ const Header = () => {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm font-medium text-white hover:text-green-400 transition-colors duration-200 cursor-pointer"
+                className="text-sm font-medium text-emerald-900 hover:text-emerald-700 transition-colors duration-200 cursor-pointer relative"
                 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -93,11 +94,14 @@ const Header = () => {
           <div className="flex items-center gap-4">
             {/* CTA Button */}
             <motion.button
-              className="hidden md:block px-6 py-2 rounded-xl font-semibold text-white transition-all duration-300"
+              className="hidden md:block px-6 py-2 rounded-xl font-semibold text-white transition-all duration-300 border border-emerald-700 shadow-lg"
               style={{
-                background: 'linear-gradient(45deg, #22c55e, #f97316)',
+                background: 'linear-gradient(45deg, #0f766e, #15803d)',
               }}
-              
+              whileHover={{
+                scale: 1.05,
+                boxShadow: '0 8px 25px rgba(15, 118, 110, 0.3)'
+              }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -109,7 +113,7 @@ const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-emerald-900"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? (
@@ -129,13 +133,13 @@ const Header = () => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-4 bg-white/95 rounded-2xl p-4 shadow-xl border border-emerald-200">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="text-sm font-medium text-white hover:text-green-400 transition-colors duration-200 py-2 cursor-pointer"
+                  className="text-sm font-medium text-emerald-900 hover:text-emerald-700 transition-colors duration-200 py-2 cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -145,11 +149,13 @@ const Header = () => {
               ))}
               
               <motion.button
-                className="px-6 py-3 rounded-xl font-semibold text-white mt-4 w-full"
+                className="px-6 py-3 rounded-xl font-semibold text-white mt-4 w-full border border-emerald-700 shadow-lg"
                 style={{
-                  background: 'linear-gradient(45deg, #22c55e, #f97316)',
+                  background: 'linear-gradient(45deg, #0f766e, #15803d)',
                 }}
-                
+                whileHover={{
+                  scale: 1.02
+                }}
                 whileTap={{ scale: 0.98 }}
               >
                 Consulta Gratuita
@@ -163,4 +169,3 @@ const Header = () => {
 }
 
 export default Header
-

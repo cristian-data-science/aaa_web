@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { AnimationTimer, getRendererConfig, getDeviceCapabilities } from '@/lib/animation-utils'
 
 // Sistema de partículas neurales avanzado con efectos de alta tecnología
 // Incluye redes neuronales animadas, efectos holográficos y visualizaciones procedurales
@@ -9,20 +10,12 @@ const ThreeBackground = () => {
   const webglCleanupRef = useRef(() => {})
   const overlayCanvasRef = useRef(null)
   
-  // Detectar si estamos en producción vs desarrollo
-  const isProduction = useMemo(() => {
-    return process.env.NODE_ENV === 'production'
-  }, [])
+  // Configuración unificada para desarrollo y producción
+  const renderConfig = useMemo(() => getRendererConfig(), [])
+  const capabilities = useMemo(() => getDeviceCapabilities(), [])
 
-  // Flags de rendimiento/accesibilidad
-  const prefersReduced = useMemo(
-    () => (typeof window !== 'undefined') && window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    []
-  )
-  const isMobile = useMemo(
-    () => (typeof window !== 'undefined') && window.matchMedia('(max-width: 767px)').matches,
-    []
-  )
+  // Flags de rendimiento/accesibilidad usando las utilidades
+  const { isMobile, prefersReduced } = capabilities
 
   // --------------------
   // Núcleo 3D (Three.js)
@@ -30,10 +23,14 @@ const ThreeBackground = () => {
   useEffect(() => {
     let mounted = true
     let scene, camera, renderer, pointsA, pointsB, animationId
+    let animTimer
 
     const init = async () => {
       const THREE = await import('three')
       if (!mounted || !containerRef.current) return
+
+      // Inicializar timer de animación
+      animTimer = new AnimationTimer(60)
 
       const width = containerRef.current.clientWidth || window.innerWidth
       const height = containerRef.current.clientHeight || window.innerHeight
@@ -44,16 +41,16 @@ const ThreeBackground = () => {
       camera = new THREE.PerspectiveCamera(60, width / height, 1, 2000)
       camera.position.z = 360
 
-      // Configuración de renderer más conservadora para producción
+      // Configuración de renderer unificada para consistencia
       renderer = new THREE.WebGLRenderer({ 
-        antialias: false, 
+        antialias: renderConfig.antialias, 
         alpha: true, 
-        powerPreference: 'high-performance',
-        precision: 'highp', // Preservar precisión
+        powerPreference: renderConfig.powerPreference,
+        precision: renderConfig.precision,
         preserveDrawingBuffer: false
       })
       renderer.setSize(width, height)
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
+      renderer.setPixelRatio(renderConfig.pixelRatio)
       renderer.outputColorSpace = THREE.SRGBColorSpace
       renderer.setClearColor(0x0b1220, 0)
       containerRef.current.appendChild(renderer.domElement)
@@ -82,7 +79,7 @@ const ThreeBackground = () => {
 
       // Sistema neuronal avanzado con múltiples capas
       const particleCountBase = isMobile ? 800 : 1500
-      const particleCount = prefersReduced ? Math.floor(particleCountBase * 0.5) : particleCountBase
+      const particleCount = Math.floor(particleCountBase * capabilities.particleCountMultiplier * (prefersReduced ? 0.5 : 1.0))
       const positions = new Float32Array(particleCount * 3)
       const colors = new Float32Array(particleCount * 3)
       const sizes = new Float32Array(particleCount)
@@ -169,20 +166,21 @@ const ThreeBackground = () => {
 
       let t = 0
       let lastTime = performance.now()
+      const targetFPS = 60
+      const frameTime = 1000 / targetFPS
+      let lag = 0
+      
       const animate = () => {
         if (document.hidden) {
           animationId = requestAnimationFrame(animate)
           return
         }
         
-        // Usar timing más preciso para consistencia entre dev y prod
-        const currentTime = performance.now()
-        const deltaTime = (currentTime - lastTime) * 0.001
-        lastTime = currentTime
-        
-        t += prefersReduced ? deltaTime * 0.3 : deltaTime
+        // Usar el timer consistente
+        const { shouldRender, time } = animTimer.update()
+        t = time * (prefersReduced ? 0.3 : 1.0)
 
-        // Animación neuronal avanzada
+        // Animación neuronal con velocidad consistente
         const pos = pointsA.geometry.attributes.position
         const col = pointsA.geometry.attributes.color
         const siz = pointsA.geometry.attributes.size
@@ -192,8 +190,8 @@ const ThreeBackground = () => {
           const speed = speeds[i]
           const phase = phases[i] + t * speed
           
-          // Movimiento tipo red neuronal con ajustes para producción
-          const baseSpeed = isProduction ? speed * 1.2 : speed // Compensar por minificación
+          // Movimiento tipo red neuronal - velocidad unificada
+          const baseSpeed = speed // Eliminar compensación por minificación
           pos.array[ix + 1] += Math.sin(phase + i * 0.002) * 0.08 * baseSpeed
           pos.array[ix + 0] += Math.cos(phase * 0.8 + i * 0.003) * 0.06 * baseSpeed
           pos.array[ix + 2] += Math.sin(phase * 0.5 + i * 0.001) * 0.04 * baseSpeed
@@ -209,17 +207,21 @@ const ThreeBackground = () => {
           siz.array[i] = sizes[i] * (0.8 + pulse * 0.4)
         }
         
-        pos.needsUpdate = true
-        col.needsUpdate = true
-        siz.needsUpdate = true
+        // Renderizar solo cuando hay cambios significativos
+        if (shouldRender) {
+          pos.needsUpdate = true
+          col.needsUpdate = true
+          siz.needsUpdate = true
 
-        // Rotación compleja del sistema
-        pointsA.rotation.y += 0.001
-        pointsA.rotation.x += 0.0005
-        pointsB.rotation.y -= 0.0008
-        pointsB.rotation.z += 0.0003
+          // Rotación compleja del sistema con velocidad fija
+          pointsA.rotation.y += 0.001
+          pointsA.rotation.x += 0.0005
+          pointsB.rotation.y -= 0.0008
+          pointsB.rotation.z += 0.0003
 
-        renderer.render(scene, camera)
+          renderer.render(scene, camera)
+        }
+        
         animationId = requestAnimationFrame(animate)
       }
       animationId = requestAnimationFrame(animate)
@@ -235,17 +237,15 @@ const ThreeBackground = () => {
           console.warn('Error disposing renderer:', error)
         }
         geometry.dispose()
-        matA.dispose()
-        matB.dispose()
+        neuralMaterial.dispose()
+        deepMaterial.dispose()
         circleTex.dispose?.()
-        if (siz) siz.dispose?.()
-        if (col) col.dispose?.()
       }
     }
 
     init()
     return () => { mounted = false; webglCleanupRef.current?.() }
-  }, [isMobile, prefersReduced])
+  }, [isMobile, prefersReduced, capabilities, renderConfig])
 
   // -----------------------------------
   // Overlay 2D: red de partículas + ondas

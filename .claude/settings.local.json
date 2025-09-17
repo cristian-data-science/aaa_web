@@ -1,9 +1,12 @@
 {
   "permissions": {
+    "defaultMode": "acceptEdits",
     "allow": [
-      "Bash(git add:*)"
+      "Bash(npm run dev)",
+      "Bash(npm run test:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)"
     ],
-    "deny": [],
     "ask": []
   }
 }

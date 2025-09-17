@@ -81,7 +81,7 @@ const ROICalculator = () => {
   }
 
   return (
-    <section id="roi-calculator" className="py-20 relative overflow-hidden bg-slate-950">
+    <section id="roi-calculator" className="py-20 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(3)].map((_, i) => (
@@ -105,9 +105,9 @@ const ROICalculator = () => {
             }}
           >
             <div
-              className="w-full h-full opacity-5"
+              className="w-full h-full opacity-10"
               style={{
-                background: `conic-gradient(from 0deg, transparent, rgba(34, 197, 94, 0.4), transparent)`,
+                background: `conic-gradient(from 0deg, transparent, rgba(52, 211, 153, 0.35), transparent)`,
                 borderRadius: '50%',
                 filter: 'blur(30px)',
               }}
@@ -126,39 +126,24 @@ const ROICalculator = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500/20 to-orange-500/20 backdrop-blur-sm rounded-full px-6 py-2 border border-white/20 mb-6"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-emerald-100/80 to-emerald-300/60 backdrop-blur-sm rounded-full px-6 py-2 border border-emerald-200/60 mb-6"
             
             transition={{ duration: 0.2 }}
           >
-            <Calculator className="h-5 w-5 text-green-400" />
-            <span className="text-sm font-medium text-white">Calculadora de ROI</span>
+            <Calculator className="h-5 w-5 text-emerald-500" />
+            <span className="text-sm font-medium text-emerald-900">Calculadora de ROI</span>
           </motion.div>
           
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6"
-            animate={{
-              backgroundImage: [
-                'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
-                'linear-gradient(45deg, #F97316, #A855F7, #22C55E)',
-                'linear-gradient(45deg, #A855F7, #22C55E, #F97316)',
-                'linear-gradient(45deg, #22C55E, #F97316, #A855F7)',
-              ],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+          <h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-emerald-950"
             style={{
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
+              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.1))'
             }}
           >
             Calculadora de ROI
-          </motion.h2>
+          </h2>
           
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+          <p className="text-xl text-emerald-800 max-w-3xl mx-auto font-medium">
             Descubre el potencial de ahorro y retorno de inversión que la automatización inteligente puede generar en tu empresa.
           </p>
         </motion.div>
@@ -173,39 +158,40 @@ const ROICalculator = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500">
+            <div className="gradient-border-wrapper rounded-3xl">
+              <div className="bg-white/98 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500 shadow-lg">
               <div className="flex items-center mb-8">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 p-3 mr-4">
-                  <Users className="w-full h-full text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-200 to-emerald-500 p-3 mr-4">
+                  <Users className="w-full h-full text-emerald-950" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Datos de tu Empresa</h3>
+                <h3 className="text-2xl font-bold text-emerald-950">Datos de tu Empresa</h3>
               </div>
 
               <div className="space-y-6">
                 {/* Employees */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label className="block text-emerald-800 text-sm font-medium mb-2">
                     Número de empleados en procesos manuales
                   </label>
                   <input
                     type="number"
                     value={formData.employees}
                     onChange={(e) => handleInputChange('employees', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className="w-full bg-white border border-emerald-200 rounded-xl px-4 py-3 text-emerald-900 placeholder-emerald-400/70 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 transition-all duration-300"
                     min="1"
                   />
                 </div>
 
                 {/* Hourly Rate */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label className="block text-emerald-700 text-sm font-medium mb-2">
                     Salario promedio por hora (USD)
                   </label>
                   <input
                     type="number"
                     value={formData.hourlyRate}
                     onChange={(e) => handleInputChange('hourlyRate', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className="w-full bg-white border border-emerald-200 rounded-xl px-4 py-3 text-emerald-900 placeholder-emerald-400/70 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 transition-all duration-300"
                     min="1"
                     step="0.5"
                   />
@@ -213,14 +199,14 @@ const ROICalculator = () => {
 
                 {/* Hours per Task */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label className="block text-emerald-700 text-sm font-medium mb-2">
                     Horas por tarea manual
                   </label>
                   <input
                     type="number"
                     value={formData.hoursPerTask}
                     onChange={(e) => handleInputChange('hoursPerTask', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className="w-full bg-white border border-emerald-200 rounded-xl px-4 py-3 text-emerald-900 placeholder-emerald-400/70 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 transition-all duration-300"
                     min="0.1"
                     step="0.1"
                   />
@@ -228,28 +214,28 @@ const ROICalculator = () => {
 
                 {/* Tasks per Week */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label className="block text-emerald-700 text-sm font-medium mb-2">
                     Tareas por semana
                   </label>
                   <input
                     type="number"
                     value={formData.tasksPerWeek}
                     onChange={(e) => handleInputChange('tasksPerWeek', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className="w-full bg-white border border-emerald-200 rounded-xl px-4 py-3 text-emerald-900 placeholder-emerald-400/70 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 transition-all duration-300"
                     min="1"
                   />
                 </div>
 
                 {/* Error Rate */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label className="block text-emerald-700 text-sm font-medium mb-2">
                     Tasa de errores actual (%)
                   </label>
                   <input
                     type="number"
                     value={formData.errorRate}
                     onChange={(e) => handleInputChange('errorRate', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className="w-full bg-white border border-emerald-200 rounded-xl px-4 py-3 text-emerald-900 placeholder-emerald-400/70 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300/40 transition-all duration-300"
                     min="0"
                     max="100"
                     step="0.1"
@@ -265,7 +251,7 @@ const ROICalculator = () => {
                   <Button
                     onClick={calculateROI}
                     disabled={isCalculating}
-                    className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                    className="w-full bg-gradient-to-r from-emerald-100 via-emerald-300 to-emerald-500 hover:from-emerald-200 hover:to-emerald-600 text-emerald-950 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
                   >
                     {isCalculating ? (
                       <motion.div
@@ -285,6 +271,7 @@ const ROICalculator = () => {
                   </Button>
                 </motion.div>
               </div>
+              </div>
             </div>
           </motion.div>
 
@@ -296,20 +283,21 @@ const ROICalculator = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500 h-full">
+            <div className="gradient-border-wrapper rounded-3xl h-full">
+              <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500 h-full">
               <div className="flex items-center mb-8">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-500 p-3 mr-4">
-                  <TrendingUp className="w-full h-full text-white" />
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-emerald-200 to-emerald-500 p-3 mr-4">
+                  <TrendingUp className="w-full h-full text-emerald-950" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Resultados del Análisis</h3>
+                <h3 className="text-2xl font-bold text-emerald-900">Resultados del Análisis</h3>
               </div>
 
               {!results ? (
                 <div className="flex flex-col items-center justify-center h-64 text-center">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-r from-gray-600 to-gray-500 p-5 mb-4">
-                    <Calculator className="w-full h-full text-white" />
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-r from-emerald-100 to-emerald-300 p-5 mb-4">
+                    <Calculator className="w-full h-full text-emerald-900" />
                   </div>
-                  <p className="text-gray-300 text-lg">
+                  <p className="text-emerald-700 text-lg">
                     Completa los datos de tu empresa para ver el análisis de ROI personalizado.
                   </p>
                 </div>
@@ -321,65 +309,66 @@ const ROICalculator = () => {
                   transition={{ duration: 0.5 }}
                 >
                   {/* ROI Percentage */}
-                  <div className="text-center p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl border border-green-400/30">
+                  <div className="text-center p-6 bg-gradient-to-r from-emerald-100/70 via-emerald-200/60 to-emerald-300/60 rounded-2xl border border-emerald-300/50">
                     <motion.div
-                      className="text-4xl font-black text-green-400 mb-2"
+                      className="text-4xl font-black text-emerald-600 mb-2"
                       animate={{ scale: [1, 1.05, 1] }}
                       transition={{ duration: 2, repeat: Infinity }}
                     >
                       {results.roiPercentage > 0 ? '+' : ''}{results.roiPercentage.toFixed(0)}%
                     </motion.div>
-                    <p className="text-gray-200 font-semibold">ROI Anual</p>
+                    <p className="text-emerald-700 font-semibold">ROI Anual</p>
                   </div>
 
                   {/* Key Metrics Grid */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-slate-700/50 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-orange-400 mb-1">
+                    <div className="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                      <div className="text-2xl font-bold text-emerald-600 mb-1">
                         {formatCurrency(results.annualSavings)}
                       </div>
-                      <p className="text-gray-300 text-sm">Ahorro Anual</p>
+                      <p className="text-emerald-700 text-sm">Ahorro Anual</p>
                     </div>
                     
-                    <div className="bg-slate-700/50 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-purple-400 mb-1">
+                    <div className="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                      <div className="text-2xl font-bold text-emerald-600 mb-1">
                         {results.paybackMonths.toFixed(1)} meses
                       </div>
-                      <p className="text-gray-300 text-sm">Recuperación</p>
+                      <p className="text-emerald-700 text-sm">Recuperación</p>
                     </div>
                     
-                    <div className="bg-slate-700/50 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-blue-400 mb-1">
+                    <div className="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                      <div className="text-2xl font-bold text-emerald-600 mb-1">
                         {results.timeReduction.toFixed(0)}%
                       </div>
-                      <p className="text-gray-300 text-sm">Reducción Tiempo</p>
+                      <p className="text-emerald-700 text-sm">Reducción Tiempo</p>
                     </div>
                     
-                    <div className="bg-slate-700/50 rounded-xl p-4 text-center">
-                      <div className="text-2xl font-bold text-pink-400 mb-1">
+                    <div className="bg-emerald-50 rounded-xl p-4 text-center border border-emerald-100">
+                      <div className="text-2xl font-bold text-emerald-600 mb-1">
                         {results.errorReduction.toFixed(0)}%
                       </div>
-                      <p className="text-gray-300 text-sm">Reducción Errores</p>
+                      <p className="text-emerald-700 text-sm">Reducción Errores</p>
                     </div>
                   </div>
 
                   {/* Investment Details */}
-                  <div className="space-y-3 pt-4 border-t border-white/10">
+                  <div className="space-y-3 pt-4 border-t border-emerald-100">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Costo actual anual:</span>
-                      <span className="text-white font-semibold">{formatCurrency(results.currentAnnualCost)}</span>
+                      <span className="text-emerald-700">Costo actual anual:</span>
+                      <span className="text-emerald-900 font-semibold">{formatCurrency(results.currentAnnualCost)}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Inversión estimada:</span>
-                      <span className="text-white font-semibold">{formatCurrency(results.automationInvestment)}</span>
+                      <span className="text-emerald-700">Inversión estimada:</span>
+                      <span className="text-emerald-900 font-semibold">{formatCurrency(results.automationInvestment)}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-300">Beneficio neto anual:</span>
-                      <span className="text-green-400 font-bold">{formatCurrency(results.netBenefit)}</span>
+                      <span className="text-emerald-700">Beneficio neto anual:</span>
+                      <span className="text-emerald-600 font-bold">{formatCurrency(results.netBenefit)}</span>
                     </div>
                   </div>
                 </motion.div>
               )}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -389,4 +378,3 @@ const ROICalculator = () => {
 }
 
 export default ROICalculator
-

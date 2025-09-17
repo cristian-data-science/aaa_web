@@ -64,16 +64,16 @@ const StatsSection = () => {
   };
 
   return (
-    <section className="py-20 bg-slate-950 relative overflow-hidden">
+    <section className="py-20 relative overflow-hidden bg-gradient-to-b from-white/98 via-emerald-50/20 to-white/98">
       {/* Fondo decorativo sutil */}
       <div className="absolute inset-0 opacity-5">
         <div 
           className="absolute inset-0"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.1) 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%)
+              radial-gradient(circle at 20% 50%, rgba(187, 247, 208, 0.45) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(110, 231, 183, 0.35) 0%, transparent 50%),
+              radial-gradient(circle at 40% 80%, rgba(226, 252, 239, 0.6) 0%, transparent 50%)
             `,
           }}
         />
@@ -95,12 +95,12 @@ const StatsSection = () => {
             >
               🎯
             </motion.span>
-            <span className="text-lg font-semibold gradient-text">Resultados Medibles</span>
+            <span className="text-lg font-semibold text-emerald-800">Resultados Medibles</span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black gradient-text mb-6">
+          <h2 className="text-4xl md:text-5xl font-black text-emerald-900 mb-6" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.1)'}}>
             Resultados Medibles
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-emerald-700 max-w-3xl mx-auto">
             Métricas reales que demuestran el impacto de nuestras soluciones en tu empresa.
           </p>
         </motion.div>
@@ -113,20 +113,38 @@ const StatsSection = () => {
           viewport={{ once: true }}
         >
           {stats.map((stat, index) => (
-            <motion.div 
-              key={index} 
-              className="card-stats-datacef group cursor-pointer"
-              variants={cardVariants}
-              whileHover={{ 
-                scale: 1.05,
-                transition: { duration: 0.2 }
-              }}
-            >
+            <div key={`wrapper-${index}`} className="gradient-border-wrapper full-width">
+              <motion.div 
+                key={index} 
+                className="h-56 flex flex-col justify-center items-center text-center bg-gradient-to-br from-emerald-50/90 via-emerald-100/80 to-emerald-200/90 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 relative overflow-hidden group w-full"
+                variants={cardVariants}
+                whileHover={{ 
+                  y: -2,
+                  transition: { 
+                    duration: 0.25, 
+                    ease: [0.4, 0, 0.2, 1] 
+                  }
+                }}
+                transition={{
+                  duration: 0.3,
+                  ease: [0.4, 0, 0.2, 1]
+                }}
+                style={{ cursor: 'default' }}
+              >
               {/* Icono con efecto de gradiente */}
               <motion.div 
-                className="text-5xl mb-4 relative"
-                whileHover={!isMobile ? { scale: 1.1, rotate: 2 } : {}}
-                transition={{ duration: 0.2 }}
+                className="text-5xl mb-4 relative pointer-events-none"
+                whileHover={!isMobile ? { 
+                  scale: 1.03,
+                  transition: { 
+                    duration: 0.25, 
+                    ease: [0.4, 0, 0.2, 1] 
+                  }
+                } : {}}
+                transition={{
+                  duration: 0.3,
+                  ease: [0.4, 0, 0.2, 1]
+                }}
               >
                 {stat.icon}
                 <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-20 rounded-full blur-lg`} />
@@ -151,9 +169,10 @@ const StatsSection = () => {
               <div className="stat-title">{stat.title}</div>
               <div className="stat-description">{stat.description}</div>
 
-              {/* Efecto de brillo en hover */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Efecto de brillo en hover - simplificado */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/2 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none" />
             </motion.div>
+            </div>
           ))}
         </motion.div>
       </div>
@@ -162,4 +181,3 @@ const StatsSection = () => {
 };
 
 export default StatsSection;
-
