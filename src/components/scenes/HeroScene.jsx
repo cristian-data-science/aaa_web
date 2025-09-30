@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
 import { Suspense, lazy } from 'react'
+import TypewriterAnimation from '../TypewriterAnimation'
 
 const DynamicBackground3D = lazy(() => import('../scroll-driven/DynamicBackground3D'))
 
@@ -58,7 +58,7 @@ const HeroScene = () => {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20">
       {/* Fondo 3D dinámico */}
       <Suspense fallback={
         <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-900 to-black" />
@@ -86,34 +86,22 @@ const HeroScene = () => {
           initial="hidden"
           animate="visible"
           className="
-            text-5xl md:text-7xl lg:text-8xl 
+            text-5xl md:text-6xl lg:text-7xl 
             font-bold 
             text-white 
-            mb-6
+            mb-2
             leading-tight
           "
         >
-          Transformación Digital{' '}
-          <span className="text-neon-green text-shadow-green">
-            con IA
-          </span>
+          Transformamos tu negocio
+          <br />
+          <span className="text-5xl md:text-6xl lg:text-7xl">con</span>
         </motion.h1>
 
-        {/* Subtítulo */}
-        <motion.p
-          variants={subtitleVariants}
-          initial="hidden"
-          animate="visible"
-          className="
-            text-lg md:text-2xl lg:text-3xl 
-            text-gray-300 
-            mb-12
-            max-w-4xl mx-auto
-            leading-relaxed
-          "
-        >
-          Automatización Inteligente, Datos y Machine Learning para impulsar tu negocio al futuro
-        </motion.p>
+        {/* Typewriter Animation */}
+        <div className="mb-12">
+          <TypewriterAnimation />
+        </div>
 
         {/* CTAs */}
         <motion.div
@@ -125,97 +113,128 @@ const HeroScene = () => {
           <a
             href="#services"
             className="
-              group
               px-8 py-4
-              bg-neon-green text-black
+              bg-white text-black
               font-bold text-lg
               rounded-lg
-              shadow-neon-green-lg
-              hover:scale-105 hover:shadow-neon-green
+              shadow-[0_0_20px_rgba(255,255,255,0.4)]
+              hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]
+              hover:bg-gray-100
               transition-all duration-300
-              relative overflow-hidden
             "
           >
-            <span className="relative z-10">Descubre nuestros servicios</span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-neon-green via-emerald-400 to-neon-lightGreen opacity-0 group-hover:opacity-30"
-              animate={!prefersReducedMotion ? {
-                x: ['-100%', '100%'],
-              } : {}}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            />
+            <span className="font-extrabold">Descubre nuestros servicios</span>
           </a>
 
           <a
             href="#contact"
             className="
               px-8 py-4
-              border-2 border-neon-green/50
-              text-neon-green
+              bg-white text-black
               font-bold text-lg
               rounded-lg
-              hover:bg-neon-green/10 hover:border-neon-green
+              shadow-[0_0_20px_rgba(255,255,255,0.4)]
+              hover:scale-105 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]
+              hover:bg-gray-100
               transition-all duration-300
-              backdrop-blur-sm
             "
           >
-            Contactar
+            <span className="font-extrabold">Contactar</span>
           </a>
         </motion.div>
 
-        {/* Estadísticas rápidas */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="
-            mt-20 mb-24
-            grid grid-cols-3 gap-8
-            max-w-3xl mx-auto
-          "
-        >
+        {/* Estadísticas rápidas - Tarjetas individuales con estilo futurista */}
+        <div className="mt-20 mb-16 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto relative z-20">
           {[
-            { value: '500+', label: 'Proyectos' },
-            { value: '95%', label: 'ROI Promedio' },
-            { value: '24/7', label: 'Soporte' },
+            { value: '500+', label: 'Proyectos', delay: 1.2, color: 'from-emerald-500/20 to-green-500/20', borderColor: 'border-emerald-400/50', shadowColor: 'rgba(16,185,129,0.4)' },
+            { value: '95%', label: 'ROI Promedio', delay: 1.4, color: 'from-cyan-500/20 to-blue-500/20', borderColor: 'border-cyan-400/50', shadowColor: 'rgba(34,211,238,0.4)' },
+            { value: '24/7', label: 'Soporte', delay: 1.6, color: 'from-purple-500/20 to-pink-500/20', borderColor: 'border-purple-400/50', shadowColor: 'rgba(168,85,247,0.4)' },
           ].map((stat, index) => (
-            <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-neon-green mb-2">
-                {stat.value}
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: stat.delay,
+                ease: [0.25, 0.1, 0.25, 1]
+              }}
+              whileHover={{ 
+                scale: 1.05,
+                y: -5,
+                transition: { duration: 0.2 }
+              }}
+              className={`
+                relative
+                bg-gradient-to-br ${stat.color}
+                backdrop-blur-xl
+                border-2 ${stat.borderColor}
+                rounded-2xl
+                p-6
+                text-center
+                overflow-hidden
+                group
+                cursor-pointer
+              `}
+              style={{
+                boxShadow: `0 0 30px ${stat.shadowColor}, inset 0 0 20px rgba(255,255,255,0.05)`
+              }}
+            >
+              {/* Efecto de brillo animado en hover */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                initial={{ x: '-100%' }}
+                whileHover={{ x: '100%' }}
+                transition={{ duration: 0.6 }}
+              />
+              
+              {/* Partículas decorativas en las esquinas */}
+              <div className="absolute top-2 right-2 w-2 h-2 bg-white/30 rounded-full animate-pulse" />
+              <div className="absolute bottom-2 left-2 w-1.5 h-1.5 bg-white/20 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+              
+              {/* Contenido */}
+              <div className="relative z-10">
+                <motion.div 
+                  className="text-5xl md:text-6xl font-black text-white mb-2"
+                  style={{
+                    textShadow: '0 0 20px rgba(255,255,255,0.5), 0 0 40px currentColor'
+                  }}
+                  animate={{
+                    textShadow: [
+                      '0 0 20px rgba(255,255,255,0.5)',
+                      '0 0 30px rgba(255,255,255,0.8)',
+                      '0 0 20px rgba(255,255,255,0.5)'
+                    ]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  {stat.value}
+                </motion.div>
+                <div className="text-sm md:text-base text-white/90 font-semibold tracking-wide uppercase">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-sm md:text-base text-gray-300">
-                {stat.label}
-              </div>
-            </div>
+              
+              {/* Borde inferior con efecto neón */}
+              <motion.div
+                className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+                animate={{
+                  opacity: [0.3, 0.8, 0.3]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+            </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
-
-      {/* Indicador de scroll */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1.5 }}
-      >
-        <span className="text-gray-300 text-sm font-mono">Scroll para explorar</span>
-        <motion.div
-          animate={!prefersReducedMotion ? {
-            y: [0, 10, 0],
-          } : {}}
-          transition={{
-            duration: 1.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-        >
-          <ChevronDown className="w-6 h-6 text-neon-green" />
-        </motion.div>
-      </motion.div>
     </div>
   )
 }

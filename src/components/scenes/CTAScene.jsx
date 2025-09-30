@@ -33,21 +33,33 @@ const CTAScene = () => {
       icon: Gift,
       title: 'Consulta Gratuita',
       description: 'Análisis inicial sin costo',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
     },
     {
       icon: Shield,
       title: 'ROI Garantizado',
       description: 'Mejoras medibles o reembolso',
+      color: '#10ffcb',
+      bgColor: 'rgba(16, 255, 203, 0.15)',
+      borderColor: 'rgba(16, 255, 203, 0.5)',
     },
     {
       icon: Clock,
       title: 'Soporte 24/7',
       description: 'Monitoreo continuo',
+      color: '#fb923c',
+      bgColor: 'rgba(251, 146, 60, 0.15)',
+      borderColor: 'rgba(251, 146, 60, 0.5)',
     },
     {
       icon: Zap,
       title: 'Respuesta Rápida',
       description: 'Resultados en semanas',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
     },
   ]
 
@@ -73,7 +85,7 @@ const CTAScene = () => {
   ]
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-slate-950 to-black">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-br from-black via-slate-950 to-black">
       {/* Fondo con efectos */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Círculos de energía */}
@@ -161,17 +173,12 @@ const CTAScene = () => {
                     cursor-pointer
                   "
                 >
-                  <div className={`
-                    flex-shrink-0
-                    w-10 h-10
-                    flex items-center justify-center
-                    bg-neon-green/10
-                    border border-neon-green/30
-                    rounded-lg
-                    text-neon-green
-                    group-hover:shadow-neon-green
-                    transition-all duration-300
-                  `}>
+                  <div className="flex-shrink-0 w-10 h-10 flex items-center justify-center rounded-lg group-hover:shadow-neon-green transition-all duration-300"
+                    style={{
+                      backgroundColor: benefit.bgColor,
+                      border: `1px solid ${benefit.borderColor}`,
+                      color: benefit.color
+                    }}>
                     <benefit.icon className="w-5 h-5" />
                   </div>
                   <div>

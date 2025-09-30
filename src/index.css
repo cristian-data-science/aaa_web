@@ -15,6 +15,13 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  background-color: #000000;
+}
+
+/* Root también debe ser negro */
+#root {
+  background-color: #000000;
+  min-height: 100vh;
 }
 
 /* Scroll-snap para escenas */

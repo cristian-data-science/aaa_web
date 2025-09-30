@@ -12,42 +12,54 @@ const AboutScene = () => {
       icon: Lightbulb,
       title: 'Innovación Responsable',
       description: 'Adoptamos tecnologías avanzadas de manera ética y responsable.',
-      color: 'neon-green',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
     },
     {
       icon: Award,
       title: 'Excelencia Técnica',
       description: 'Mantenemos los más altos estándares de calidad en cada proyecto.',
-      color: 'neon-lightGreen',
+      color: '#10ffcb',
+      bgColor: 'rgba(16, 255, 203, 0.15)',
+      borderColor: 'rgba(16, 255, 203, 0.5)',
     },
     {
       icon: Heart,
       title: 'Transparencia y Confianza',
       description: 'Construimos relaciones duraderas basadas en la transparencia.',
-      color: 'emerald-500',
+      color: '#10b981',
+      bgColor: 'rgba(16, 185, 129, 0.15)',
+      borderColor: 'rgba(16, 185, 129, 0.5)',
     },
     {
       icon: Target,
       title: 'Impacto Medible',
       description: 'Cada solución genera un impacto cuantificable y comunicable.',
-      color: 'neon-green',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
     },
     {
       icon: Users,
       title: 'Colaboración',
       description: 'Trabajamos como socios en el proceso de transformación digital.',
-      color: 'neon-lightGreen',
+      color: '#10ffcb',
+      bgColor: 'rgba(16, 255, 203, 0.15)',
+      borderColor: 'rgba(16, 255, 203, 0.5)',
     },
     {
       icon: Eye,
       title: 'Adaptabilidad',
       description: 'Mantenemos una mentalidad de aprendizaje continuo.',
-      color: 'emerald-400',
+      color: '#34d399',
+      bgColor: 'rgba(52, 211, 153, 0.15)',
+      borderColor: 'rgba(52, 211, 153, 0.5)',
     },
   ]
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-slate-950 to-black">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-br from-black via-slate-950 to-black">
       {/* Efecto quantum de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Círculos concéntricos */}
@@ -82,7 +94,7 @@ const AboutScene = () => {
         {/* Partículas quantum */}
         {!prefersReducedMotion && (
           <>
-            {Array.from({ length: 30 }).map((_, i) => (
+            {Array.from({ length: 20 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-neon-green/40 rounded-full blur-sm"
@@ -122,14 +134,14 @@ const AboutScene = () => {
       </div>
 
       {/* Contenido */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 md:py-20">
         {/* Encabezado */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -153,7 +165,7 @@ const AboutScene = () => {
         </motion.div>
 
         {/* Grid de valores */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {values.map((value, index) => (
             <motion.div
               key={value.title}
@@ -179,8 +191,7 @@ const AboutScene = () => {
                 border border-neon-green/20
                 rounded-2xl
                 p-8
-                h-full
-                overflow-hidden
+                min-h-full
                 transition-all duration-300
                 hover:border-neon-green/40
                 hover:shadow-neon-green
@@ -235,16 +246,12 @@ const AboutScene = () => {
                         repeat: Infinity,
                         ease: 'linear',
                       }}
-                      className={`
-                        absolute inset-2
-                        flex items-center justify-center
-                        bg-black/80
-                        border-2 border-${value.color}/40
-                        rounded-full
-                        text-${value.color}
-                        group-hover:shadow-neon-cyan
-                        transition-shadow duration-300
-                      `}
+                      className="absolute inset-2 flex items-center justify-center rounded-full group-hover:shadow-neon-cyan transition-shadow duration-300"
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        border: `2px solid ${value.borderColor}`,
+                        color: value.color
+                      }}
                     >
                       <value.icon className="w-8 h-8" />
                     </motion.div>
@@ -252,11 +259,7 @@ const AboutScene = () => {
                 </div>
 
                 {/* Título */}
-                <h3 className={`
-                  text-2xl font-bold text-white mb-4 text-center
-                  group-hover:text-${value.color}
-                  transition-colors duration-300
-                `}>
+                <h3 className="text-2xl font-bold text-white mb-4 text-center group-hover:text-neon-green transition-colors duration-300">
                   {value.title}
                 </h3>
 
@@ -290,7 +293,7 @@ const AboutScene = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.3 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-20 grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+          className="mt-12 md:mt-20 grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto"
         >
           {[
             {

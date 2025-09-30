@@ -68,9 +68,9 @@ const TypewriterAnimation = () => {
   if (config.showStatic) {
     return (
       <div className="relative flex items-center justify-center">
-        <div className="flex items-center justify-center min-h-[80px] md:min-h-[100px]">
+        <div className="flex items-center justify-center min-h-[70px] md:min-h-[90px]">
           <span
-            className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
+            className="inline-block text-5xl md:text-6xl lg:text-7xl font-black"
             style={{
               background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
               backgroundClip: 'text',
@@ -89,9 +89,9 @@ const TypewriterAnimation = () => {
   return (
     <div className="relative flex items-center justify-center">
       {/* Contenedor con altura fija para evitar saltos */}
-      <div className="flex items-baseline justify-center min-h-[100px] md:min-h-[140px] py-4">
+      <div className="flex items-baseline justify-center min-h-[70px] md:min-h-[90px] py-2">
         <motion.span
-          className="inline-block text-4xl md:text-6xl lg:text-7xl font-black leading-relaxed"
+          className="inline-block text-5xl md:text-6xl lg:text-7xl font-bold leading-tight"
           style={{
             background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
             backgroundClip: 'text',
@@ -99,7 +99,7 @@ const TypewriterAnimation = () => {
             color: 'transparent',
             backgroundSize: isMobile ? '100% 100%' : '200% 200%',
             filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.2))',
-            lineHeight: '1.3'
+            lineHeight: '1.2'
           }}
           animate={config.enableAnimation ? {
             backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
@@ -115,7 +115,7 @@ const TypewriterAnimation = () => {
         
         {/* Cursor optimizado para móviles */}
         <motion.span
-          className="inline-block w-1 h-10 md:h-16 lg:h-20 ml-2"
+          className="inline-block w-1 h-8 md:h-12 lg:h-16 ml-2"
           style={{
             background: isMobile ? '#059669' : 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
           }}

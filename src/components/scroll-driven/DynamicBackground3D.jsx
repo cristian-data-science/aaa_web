@@ -6,7 +6,7 @@ import * as THREE from 'three'
 /**
  * ParticleField - Campo de partículas 3D con movimiento fluido
  */
-function ParticleField({ count = 2000, color = '#00d9ff' }) {
+function ParticleField({ count = 1200, color = '#00d9ff' }) {
   const points = useRef()
   const particlesPosition = useMemo(() => {
     const positions = new Float32Array(count * 3)
@@ -47,7 +47,7 @@ function ParticleField({ count = 2000, color = '#00d9ff' }) {
         size={0.015}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.6}
+        opacity={0.3}
         blending={THREE.AdditiveBlending}
       />
     </Points>
@@ -83,10 +83,10 @@ function MorphingGeometry({ position = [0, 0, 0], color = '#8b5cf6' }) {
       <meshStandardMaterial
         color={color}
         emissive={color}
-        emissiveIntensity={0.5}
+        emissiveIntensity={0.3}
         wireframe
         transparent
-        opacity={0.3}
+        opacity={0.12}
       />
     </mesh>
   )
@@ -121,7 +121,7 @@ function WaveGrid() {
         color="#00ffd9" 
         wireframe 
         transparent 
-        opacity={0.1}
+        opacity={0.08}
       />
     </mesh>
   )
@@ -141,7 +141,7 @@ const DynamicBackground3D = ({
   // No renderizar si el usuario prefiere movimiento reducido
   if (prefersReducedMotion) {
     return (
-      <div className={`absolute inset-0 bg-black ${className}`}>
+      <div className={`absolute inset-0 bg-black pointer-events-none ${className}`}>
         {/* Fondo estático alternativo */}
         <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-900 to-black opacity-80" />
       </div>
@@ -149,7 +149,7 @@ const DynamicBackground3D = ({
   }
 
   return (
-    <div className={`absolute inset-0 ${className}`}>
+    <div className={`absolute inset-0 pointer-events-none ${className}`}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 60 }}
         style={{ background: 'transparent' }}
@@ -187,7 +187,7 @@ const DynamicBackground3D = ({
       </Canvas>
 
       {/* Gradiente overlay para mezclar con el contenido */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/70 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 pointer-events-none" />
     </div>
   )
 }

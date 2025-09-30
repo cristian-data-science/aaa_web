@@ -23,23 +23,22 @@ const SceneContainer = forwardRef(({
       ref={ref}
       id={sceneId}
       className={`
-        relative w-full h-screen min-h-screen
+        relative w-full min-h-screen
         snap-start snap-always
-        overflow-hidden
         ${backgroundColor}
         ${className}
       `}
       data-scene={sceneId}
       style={{
         scrollSnapAlign: 'start',
-        scrollSnapStop: 'always',
+        scrollSnapStop: 'normal',
       }}
       {...props}
     >
       {/* Contenedor con centrado opcional */}
       <div 
         className={`
-          relative w-full h-full
+          relative w-full min-h-screen
           ${centerContent ? 'flex items-center justify-center' : ''}
         `}
       >

@@ -14,7 +14,9 @@ const ServicesScene = () => {
       description: "RPA avanzado con IA que aprende y se adapta a tus procesos",
       features: ["Agentes de IA autónomos", "Procesamiento de documentos", "Automatización de back-office"],
       color: "from-neon-green to-emerald-600",
-      iconColor: "text-neon-green",
+      iconColor: "#00ff88",
+      bgColor: "rgba(0, 255, 136, 0.2)",
+      borderColor: "rgba(0, 255, 136, 0.5)",
     },
     {
       icon: Database,
@@ -22,7 +24,9 @@ const ServicesScene = () => {
       description: "Infraestructuras modernas y modelos de ML que transforman datos en decisiones",
       features: ["RAG & IA Conversacional", "Análisis predictivo", "Data Lakes/Warehouses"],
       color: "from-neon-lightGreen to-green-600",
-      iconColor: "text-neon-lightGreen",
+      iconColor: "#10ffcb",
+      bgColor: "rgba(16, 255, 203, 0.2)",
+      borderColor: "rgba(16, 255, 203, 0.5)",
     },
     {
       icon: TrendingUp,
@@ -30,7 +34,9 @@ const ServicesScene = () => {
       description: "Automatización que acelera el crecimiento y optimiza conversiones",
       features: ["Email marketing automation", "Lead scoring", "Revenue operations"],
       color: "from-neon-green to-emerald-500",
-      iconColor: "text-neon-green",
+      iconColor: "#00ff88",
+      bgColor: "rgba(0, 255, 136, 0.2)",
+      borderColor: "rgba(0, 255, 136, 0.5)",
     },
     {
       icon: Users,
@@ -38,7 +44,9 @@ const ServicesScene = () => {
       description: "Acompañamiento en transformación digital con gestión del cambio",
       features: ["Estrategia digital", "Gestión del cambio", "Capacitación especializada"],
       color: "from-orange-500 to-amber-600",
-      iconColor: "text-orange-400",
+      iconColor: "#fb923c",
+      bgColor: "rgba(251, 146, 60, 0.2)",
+      borderColor: "rgba(251, 146, 60, 0.5)",
     },
     {
       icon: Factory,
@@ -46,7 +54,9 @@ const ServicesScene = () => {
       description: "Soluciones especializadas con expertise profundo en cada sector",
       features: ["Manufactura", "Retail", "Servicios financieros"],
       color: "from-red-500 to-rose-600",
-      iconColor: "text-red-400",
+      iconColor: "#f87171",
+      bgColor: "rgba(248, 113, 113, 0.2)",
+      borderColor: "rgba(248, 113, 113, 0.5)",
     },
     {
       icon: Wrench,
@@ -54,12 +64,14 @@ const ServicesScene = () => {
       description: "Implementación y desarrollo de soluciones open source personalizadas",
       features: ["Herramientas propias", "Integración open source", "Desarrollo personalizado"],
       color: "from-neon-darkGreen to-emerald-900",
-      iconColor: "text-emerald-400",
+      iconColor: "#34d399",
+      bgColor: "rgba(52, 211, 153, 0.2)",
+      borderColor: "rgba(52, 211, 153, 0.5)",
     },
   ]
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-b from-black via-slate-950 to-black">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-b from-black via-slate-950 to-black">
       {/* Grid de fondo */}
       <div 
         className="absolute inset-0 opacity-[0.05]"
@@ -99,14 +111,14 @@ const ServicesScene = () => {
       )}
 
       {/* Contenido */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-20">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 py-12 md:py-20">
         {/* Encabezado */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: 0 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.1, margin: "0px 0px -200px 0px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16 relative z-10"
         >
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
             Nuestros <span className="text-neon-green text-shadow-green">Servicios</span>
@@ -117,7 +129,7 @@ const ServicesScene = () => {
         </motion.div>
 
         {/* Grid de servicios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.title}
@@ -137,13 +149,12 @@ const ServicesScene = () => {
             >
               {/* Card */}
               <div className="
-                relative h-full
+                relative min-h-full
                 bg-gradient-to-br from-slate-900/60 to-black/60
                 backdrop-blur-md
                 border border-neon-green/20
                 rounded-2xl
                 p-6
-                overflow-hidden
                 transition-all duration-300
                 hover:border-neon-green/50
                 hover:shadow-neon-green
@@ -167,16 +178,12 @@ const ServicesScene = () => {
                       repeat: Infinity,
                       ease: 'easeInOut',
                     }}
-                    className={`
-                      w-16 h-16 
-                      flex items-center justify-center
-                      bg-black/50
-                      border border-neon-green/30
-                      rounded-xl
-                      ${service.iconColor}
-                      group-hover:shadow-neon-green
-                      transition-shadow duration-300
-                    `}
+                    className="w-16 h-16 flex items-center justify-center rounded-xl group-hover:shadow-neon-green transition-shadow duration-300"
+                    style={{
+                      backgroundColor: service.bgColor,
+                      border: `1px solid ${service.borderColor}`,
+                      color: service.iconColor
+                    }}
                   >
                     <service.icon className="w-8 h-8" />
                   </motion.div>

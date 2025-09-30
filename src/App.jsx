@@ -2,6 +2,8 @@ import { useState, useRef, lazy, Suspense } from 'react'
 import './App.css'
 import SceneContainer from './components/scroll-driven/SceneContainer'
 import ProgressIndicator from './components/scroll-driven/ProgressIndicator'
+import Logo from './components/Logo'
+import LogoIntro from './components/LogoIntro'
 
 // Lazy-load de escenas para optimizar carga inicial
 const HeroScene = lazy(() => import('./components/scenes/HeroScene'))
@@ -23,6 +25,7 @@ const SceneLoader = () => (
 
 function App() {
   const [activeScene, setActiveScene] = useState(0)
+  const [showIntro, setShowIntro] = useState(true)
   
   // Referencias a cada escena
   const heroRef = useRef(null)
@@ -56,16 +59,41 @@ function App() {
   }
 
   return (
-    <div 
-      className="relative w-full h-screen overflow-y-scroll bg-black snap-y snap-mandatory scroll-smooth"
-      style={{
-        scrollBehavior: 'smooth',
-      }}
-    >
+    <>
+      {/* Intro animado del logo */}
+      {showIntro && (
+        <LogoIntro onComplete={() => setShowIntro(false)} />
+      )}
+
+      <div 
+        className="relative w-full h-screen overflow-y-scroll bg-black snap-y snap-proximity scroll-smooth"
+        style={{
+          scrollBehavior: 'smooth',
+          opacity: showIntro ? 0 : 1,
+          transition: 'opacity 0.8s ease-in-out',
+          backgroundColor: '#000000', // Forzar fondo negro para evitar flash
+          WebkitOverflowScrolling: 'touch', // Mejor scroll en iOS
+        }}
+      >
       {/* Link de accesibilidad */}
       <a href="#hero" className="skip-to-content">
         Saltar al contenido principal
       </a>
+
+      {/* Logo DataCEF - Posición fija arriba a la izquierda */}
+      <div className="fixed top-6 left-6 z-50">
+        <a 
+          href="#hero" 
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToScene(0)
+          }}
+          className="block hover:scale-105 transition-transform duration-300"
+          aria-label="DataCEF - Volver al inicio"
+        >
+          <Logo size="default" />
+        </a>
+      </div>
 
       {/* Indicador de progreso lateral */}
       <ProgressIndicator
@@ -142,6 +170,7 @@ function App() {
         <WhatsAppWidget />
       </Suspense>
     </div>
+    </>
   )
 }
 

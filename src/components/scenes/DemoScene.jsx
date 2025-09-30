@@ -21,34 +21,42 @@ const DemoScene = () => {
       icon: TrendingUp,
       value: '95%',
       label: 'ROI Promedio',
-      color: 'neon-green',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
       delay: 0,
     },
     {
       icon: Clock,
       value: '70%',
       label: 'Ahorro de Tiempo',
-      color: 'neon-lightGreen',
+      color: '#10ffcb',
+      bgColor: 'rgba(16, 255, 203, 0.15)',
+      borderColor: 'rgba(16, 255, 203, 0.5)',
       delay: 0.1,
     },
     {
       icon: DollarSign,
       value: '$500K+',
       label: 'Ahorros Generados',
-      color: 'neon-green',
+      color: '#00ff88',
+      bgColor: 'rgba(0, 255, 136, 0.15)',
+      borderColor: 'rgba(0, 255, 136, 0.5)',
       delay: 0.2,
     },
     {
       icon: Zap,
       value: '3x',
       label: 'Velocidad de Procesos',
-      color: 'orange-400',
+      color: '#fb923c',
+      bgColor: 'rgba(251, 146, 60, 0.15)',
+      borderColor: 'rgba(251, 146, 60, 0.5)',
       delay: 0.3,
     },
   ]
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-black to-slate-950">
+    <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-br from-slate-950 via-black to-slate-950">
       {/* Fondo con grid animado */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Grid de datos */}
@@ -110,15 +118,15 @@ const DemoScene = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Calcula tu <span className="text-neon-green text-shadow-cyan">ROI</span>
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl mb-8" style={{color: '#ffffff'}}>
               Descubre cuánto puedes ahorrar automatizando tus procesos
             </p>
 
             {/* Calculadora */}
-            <div className="glass-dark rounded-2xl p-8 space-y-6">
+            <div className="rounded-2xl p-8 space-y-6" style={{backgroundColor: 'rgba(0, 0, 0, 0.95)', backdropFilter: 'blur(20px)', border: '2px solid rgba(255, 255, 255, 0.3)'}}>
               {/* Input 1: Horas semanales */}
               <div>
-                <label className="block text-neon-green mb-2 font-medium">
+                <label className="block mb-2 font-medium" style={{color: '#ffffff'}}>
                   Horas manuales por semana
                 </label>
                 <input
@@ -129,16 +137,16 @@ const DemoScene = () => {
                   onChange={(e) => setHours(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-green"
                 />
-                <div className="flex justify-between text-sm text-gray-300 mt-2">
-                  <span>10h</span>
-                  <span className="text-white font-bold">{hours}h</span>
-                  <span>80h</span>
+                <div className="flex justify-between text-sm mt-2">
+                  <span style={{color: '#ffffff'}}>10h</span>
+                  <span className="font-bold" style={{color: '#ffffff'}}>{hours}h</span>
+                  <span style={{color: '#ffffff'}}>80h</span>
                 </div>
               </div>
 
               {/* Input 2: Costo por hora */}
               <div>
-                <label className="block text-neon-green mb-2 font-medium">
+                <label className="block mb-2 font-medium" style={{color: '#ffffff'}}>
                   Costo por hora (USD)
                 </label>
                 <input
@@ -149,30 +157,30 @@ const DemoScene = () => {
                   onChange={(e) => setHourlyRate(Number(e.target.value))}
                   className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-green"
                 />
-                <div className="flex justify-between text-sm text-gray-300 mt-2">
-                  <span>$10</span>
-                  <span className="text-white font-bold">${hourlyRate}</span>
-                  <span>$100</span>
+                <div className="flex justify-between text-sm mt-2">
+                  <span style={{color: '#ffffff'}}>$10</span>
+                  <span className="font-bold" style={{color: '#ffffff'}}>${hourlyRate}</span>
+                  <span style={{color: '#ffffff'}}>$100</span>
                 </div>
               </div>
 
               {/* Resultados */}
-              <div className="border-t border-neon-green/20 pt-6 space-y-4">
+              <div className="border-t pt-6 space-y-4" style={{borderColor: 'rgba(0, 255, 136, 0.2)'}}>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-300">Ahorro mensual:</span>
-                  <span className="text-2xl font-bold text-neon-green">
+                  <span style={{color: '#ffffff'}}>Ahorro mensual:</span>
+                  <span className="text-2xl font-bold" style={{color: '#ffffff'}}>
                     ${monthlyCost.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-300">Ahorro anual:</span>
-                  <span className="text-3xl font-bold text-neon-green">
+                  <span style={{color: '#ffffff'}}>Ahorro anual:</span>
+                  <span className="text-3xl font-bold" style={{color: '#ffffff'}}>
                     ${yearlySavings.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-300">ROI estimado:</span>
-                  <span className="text-3xl font-bold text-neon-lightGreen">
+                  <span style={{color: '#ffffff'}}>ROI estimado:</span>
+                  <span className="text-3xl font-bold" style={{color: '#ffffff'}}>
                     {Math.round(roi)}%
                   </span>
                 </div>
@@ -186,13 +194,16 @@ const DemoScene = () => {
                 className="
                   block w-full
                   px-8 py-4
-                  bg-neon-green text-black
                   font-bold text-center
                   rounded-lg
-                  shadow-neon-green
-                  hover:shadow-neon-green-lg
                   transition-all duration-300
                 "
+                style={{
+                  backgroundColor: '#ffffff',
+                  color: '#000000',
+                  border: '2px solid #ffffff',
+                  boxShadow: '0 0 20px rgba(0, 255, 136, 0.5)'
+                }}
               >
                 Solicitar Análisis Detallado
               </motion.a>
@@ -252,25 +263,18 @@ const DemoScene = () => {
                   )}
 
                   {/* Icono */}
-                  <div className={`
-                    relative
-                    w-12 h-12 mx-auto mb-4
-                    flex items-center justify-center
-                    bg-black/50
-                    border border-${stat.color}/30
-                    rounded-lg
-                    text-${stat.color}
-                  `}>
+                  <div className="relative w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-lg"
+                    style={{
+                      backgroundColor: stat.bgColor,
+                      border: `1px solid ${stat.borderColor}`,
+                      color: stat.color
+                    }}>
                     <stat.icon className="w-6 h-6" />
                   </div>
 
                   {/* Valor */}
-                  <div className={`
-                    relative
-                    text-3xl font-bold 
-                    text-${stat.color}
-                    mb-2
-                  `}>
+                  <div className="relative text-3xl font-bold mb-2"
+                    style={{ color: stat.color }}>
                     {stat.value}
                   </div>
 
