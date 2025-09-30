@@ -21,14 +21,14 @@ const DemoScene = () => {
       icon: TrendingUp,
       value: '95%',
       label: 'ROI Promedio',
-      color: 'neon-cyan',
+      color: 'neon-green',
       delay: 0,
     },
     {
       icon: Clock,
       value: '70%',
       label: 'Ahorro de Tiempo',
-      color: 'neon-purple',
+      color: 'neon-lightGreen',
       delay: 0.1,
     },
     {
@@ -68,9 +68,9 @@ const DemoScene = () => {
           <svg className="absolute inset-0 w-full h-full">
             <defs>
               <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#00d9ff" stopOpacity="0" />
-                <stop offset="50%" stopColor="#00d9ff" stopOpacity="0.6" />
-                <stop offset="100%" stopColor="#00d9ff" stopOpacity="0" />
+                <stop offset="0%" stopColor="#00ff88" stopOpacity="0" />
+                <stop offset="50%" stopColor="#00ff88" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#00ff88" stopOpacity="0" />
               </linearGradient>
             </defs>
             {Array.from({ length: 5 }).map((_, i) => (
@@ -108,9 +108,9 @@ const DemoScene = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Calcula tu <span className="text-neon-cyan text-shadow-cyan">ROI</span>
+              Calcula tu <span className="text-neon-green text-shadow-cyan">ROI</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-8">
+            <p className="text-xl text-gray-300 mb-8">
               Descubre cuánto puedes ahorrar automatizando tus procesos
             </p>
 
@@ -118,7 +118,7 @@ const DemoScene = () => {
             <div className="glass-dark rounded-2xl p-8 space-y-6">
               {/* Input 1: Horas semanales */}
               <div>
-                <label className="block text-neon-cyan mb-2 font-medium">
+                <label className="block text-neon-green mb-2 font-medium">
                   Horas manuales por semana
                 </label>
                 <input
@@ -127,9 +127,9 @@ const DemoScene = () => {
                   max="80"
                   value={hours}
                   onChange={(e) => setHours(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-cyan"
+                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-green"
                 />
-                <div className="flex justify-between text-sm text-gray-400 mt-2">
+                <div className="flex justify-between text-sm text-gray-300 mt-2">
                   <span>10h</span>
                   <span className="text-white font-bold">{hours}h</span>
                   <span>80h</span>
@@ -138,7 +138,7 @@ const DemoScene = () => {
 
               {/* Input 2: Costo por hora */}
               <div>
-                <label className="block text-neon-cyan mb-2 font-medium">
+                <label className="block text-neon-green mb-2 font-medium">
                   Costo por hora (USD)
                 </label>
                 <input
@@ -147,9 +147,9 @@ const DemoScene = () => {
                   max="100"
                   value={hourlyRate}
                   onChange={(e) => setHourlyRate(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-cyan"
+                  className="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-green"
                 />
-                <div className="flex justify-between text-sm text-gray-400 mt-2">
+                <div className="flex justify-between text-sm text-gray-300 mt-2">
                   <span>$10</span>
                   <span className="text-white font-bold">${hourlyRate}</span>
                   <span>$100</span>
@@ -157,22 +157,22 @@ const DemoScene = () => {
               </div>
 
               {/* Resultados */}
-              <div className="border-t border-neon-cyan/20 pt-6 space-y-4">
+              <div className="border-t border-neon-green/20 pt-6 space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Ahorro mensual:</span>
+                  <span className="text-gray-300">Ahorro mensual:</span>
                   <span className="text-2xl font-bold text-neon-green">
                     ${monthlyCost.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">Ahorro anual:</span>
-                  <span className="text-3xl font-bold text-neon-cyan">
+                  <span className="text-gray-300">Ahorro anual:</span>
+                  <span className="text-3xl font-bold text-neon-green">
                     ${yearlySavings.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">ROI estimado:</span>
-                  <span className="text-3xl font-bold text-neon-purple">
+                  <span className="text-gray-300">ROI estimado:</span>
+                  <span className="text-3xl font-bold text-neon-lightGreen">
                     {Math.round(roi)}%
                   </span>
                 </div>
@@ -186,11 +186,11 @@ const DemoScene = () => {
                 className="
                   block w-full
                   px-8 py-4
-                  bg-neon-cyan text-black
+                  bg-neon-green text-black
                   font-bold text-center
                   rounded-lg
-                  shadow-neon-cyan
-                  hover:shadow-neon-cyan-lg
+                  shadow-neon-green
+                  hover:shadow-neon-green-lg
                   transition-all duration-300
                 "
               >
@@ -275,7 +275,7 @@ const DemoScene = () => {
                   </div>
 
                   {/* Label */}
-                  <div className="relative text-sm text-gray-400">
+                  <div className="relative text-sm text-gray-300">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -294,10 +294,10 @@ const DemoScene = () => {
                 💡 Caso de Éxito
               </h4>
               <p className="text-gray-300 mb-4">
-                Empresa manufacturera redujo <span className="text-neon-cyan font-bold">80% del tiempo</span> en procesamiento de órdenes,
+                Empresa manufacturera redujo <span className="text-neon-green font-bold">80% del tiempo</span> en procesamiento de órdenes,
                 generando ahorros de <span className="text-neon-green font-bold">$450K anuales</span>.
               </p>
-              <div className="flex items-center gap-2 text-sm text-neon-cyan">
+              <div className="flex items-center gap-2 text-sm text-neon-green">
                 <Zap className="w-4 h-4" />
                 <span>Implementación en 6 semanas</span>
               </div>
@@ -310,3 +310,4 @@ const DemoScene = () => {
 }
 
 export default DemoScene
+

@@ -75,7 +75,7 @@ const HeroScene = () => {
           transition={{ duration: 0.5 }}
           className="mb-8"
         >
-          <span className="text-neon-cyan text-sm font-mono tracking-wider">
+          <span className="text-neon-green text-sm font-mono tracking-wider">
             DATACEF
           </span>
         </motion.div>
@@ -94,7 +94,7 @@ const HeroScene = () => {
           "
         >
           Transformación Digital{' '}
-          <span className="text-neon-cyan text-shadow-cyan">
+          <span className="text-neon-green text-shadow-green">
             con IA
           </span>
         </motion.h1>
@@ -127,18 +127,18 @@ const HeroScene = () => {
             className="
               group
               px-8 py-4
-              bg-neon-cyan text-black
+              bg-neon-green text-black
               font-bold text-lg
               rounded-lg
-              shadow-neon-cyan-lg
-              hover:scale-105 hover:shadow-neon-cyan
+              shadow-neon-green-lg
+              hover:scale-105 hover:shadow-neon-green
               transition-all duration-300
               relative overflow-hidden
             "
           >
             <span className="relative z-10">Descubre nuestros servicios</span>
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-neon-cyan via-neon-purple to-neon-green opacity-0 group-hover:opacity-30"
+              className="absolute inset-0 bg-gradient-to-r from-neon-green via-emerald-400 to-neon-lightGreen opacity-0 group-hover:opacity-30"
               animate={!prefersReducedMotion ? {
                 x: ['-100%', '100%'],
               } : {}}
@@ -154,11 +154,11 @@ const HeroScene = () => {
             href="#contact"
             className="
               px-8 py-4
-              border-2 border-neon-cyan/50
-              text-neon-cyan
+              border-2 border-neon-green/50
+              text-neon-green
               font-bold text-lg
               rounded-lg
-              hover:bg-neon-cyan/10 hover:border-neon-cyan
+              hover:bg-neon-green/10 hover:border-neon-green
               transition-all duration-300
               backdrop-blur-sm
             "
@@ -173,7 +173,7 @@ const HeroScene = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
           className="
-            mt-16 
+            mt-20 mb-24
             grid grid-cols-3 gap-8
             max-w-3xl mx-auto
           "
@@ -184,10 +184,10 @@ const HeroScene = () => {
             { value: '24/7', label: 'Soporte' },
           ].map((stat, index) => (
             <div key={index} className="text-center">
-              <div className="text-3xl md:text-4xl font-bold text-neon-cyan mb-2">
+              <div className="text-3xl md:text-4xl font-bold text-neon-green mb-2">
                 {stat.value}
               </div>
-              <div className="text-sm md:text-base text-gray-400">
+              <div className="text-sm md:text-base text-gray-300">
                 {stat.label}
               </div>
             </div>
@@ -197,12 +197,12 @@ const HeroScene = () => {
 
       {/* Indicador de scroll */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 1.5 }}
       >
-        <span className="text-gray-400 text-sm font-mono">Scroll para explorar</span>
+        <span className="text-gray-300 text-sm font-mono">Scroll para explorar</span>
         <motion.div
           animate={!prefersReducedMotion ? {
             y: [0, 10, 0],
@@ -213,7 +213,7 @@ const HeroScene = () => {
             ease: 'easeInOut',
           }}
         >
-          <ChevronDown className="w-6 h-6 text-neon-cyan" />
+          <ChevronDown className="w-6 h-6 text-neon-green" />
         </motion.div>
       </motion.div>
     </div>

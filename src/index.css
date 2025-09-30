@@ -56,56 +56,56 @@ img, video {
 }
 
 /* ============================================
-   TEMA MORNINGSIDE.AI - DARK MODE
+   TEMA DATACEF - DARK MODE CON VERDE NEÓN
    ============================================ */
 
 @layer base {
   :root {
     /* Colores oscuros base */
     --background: 0 0% 0%; /* Negro puro */
-    --foreground: 0 0% 98%; /* Blanco casi puro */
+    --foreground: 0 0% 100%; /* Blanco puro para mejor contraste */
     
     /* Cards y contenedores */
-    --card: 222 47% 5%; /* Slate-950 */
-    --card-foreground: 0 0% 98%;
+    --card: 120 100% 2%; /* Verde muy oscuro */
+    --card-foreground: 0 0% 100%;
     
     /* Popovers */
-    --popover: 222 47% 5%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 120 100% 2%;
+    --popover-foreground: 0 0% 100%;
     
-    /* Colores primarios - Cyan neón */
-    --primary: 189 100% 50%; /* #00d9ff */
+    /* Colores primarios - Verde neón */
+    --primary: 150 100% 50%; /* #00ff88 */
     --primary-foreground: 0 0% 0%;
     
     /* Secundarios */
-    --secondary: 222 47% 11%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 120 50% 10%;
+    --secondary-foreground: 0 0% 100%;
     
     /* Muted */
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 120 20% 15%;
+    --muted-foreground: 120 10% 70%;
     
-    /* Accent - Purple neón */
-    --accent: 258 90% 66%; /* #8b5cf6 */
+    /* Accent - Verde esmeralda */
+    --accent: 160 84% 39%; /* #10b981 */
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 0 0% 100%;
     
     /* Bordes e inputs */
-    --border: 189 100% 50% / 0.2;
-    --input: 189 100% 50% / 0.1;
-    --ring: 189 100% 50%;
+    --border: 150 100% 50% / 0.2;
+    --input: 150 100% 50% / 0.15;
+    --ring: 150 100% 50%;
     
     --radius: 0.75rem;
     
     /* Charts */
-    --chart-1: 189 100% 50%;
-    --chart-2: 258 90% 66%;
-    --chart-3: 166 100% 50%;
-    --chart-4: 33 100% 50%;
-    --chart-5: 339 100% 50%;
+    --chart-1: 150 100% 50%;
+    --chart-2: 160 84% 39%;
+    --chart-3: 142 76% 36%;
+    --chart-4: 84 81% 44%;
+    --chart-5: 33 100% 50%;
   }
 
   * {
@@ -127,12 +127,12 @@ img, video {
 }
 
 /* ============================================
-   UTILIDADES CUSTOM - EFECTOS MORNINGSIDE
+   UTILIDADES CUSTOM - EFECTOS DATACEF VERDE
    ============================================ */
 
-/* Texto con gradiente holográfico */
-.gradient-text-morningside {
-  background: linear-gradient(135deg, #00d9ff 0%, #8b5cf6 50%, #00ffd9 100%);
+/* Texto con gradiente holográfico verde */
+.gradient-text-datacef {
+  background: linear-gradient(135deg, #00ff88 0%, #10b981 50%, #00ffaa 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -145,22 +145,22 @@ img, video {
   50% { background-position: 100% 50%; }
 }
 
-/* Efectos glass oscuros */
+/* Efectos glass oscuros con mejor contraste */
 .glass-dark {
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(5, 15, 5, 0.80);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.2);
 }
 
 .glass-darker {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 10, 0, 0.92);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(0, 217, 255, 0.15);
+  border: 1px solid rgba(0, 255, 136, 0.25);
 }
 
-/* Bordes holográficos animados */
+/* Bordes holográficos animados verdes */
 .holographic-border-animated {
   position: relative;
   overflow: hidden;
@@ -173,13 +173,13 @@ img, video {
   background: linear-gradient(
     90deg,
     transparent,
-    #00d9ff,
-    #8b5cf6,
-    #00ffd9,
+    #00ff88,
+    #10b981,
+    #00ffaa,
     transparent
   );
   animation: border-flow 3s linear infinite;
-  opacity: 0.5;
+  opacity: 0.6;
   z-index: -1;
   border-radius: inherit;
 }

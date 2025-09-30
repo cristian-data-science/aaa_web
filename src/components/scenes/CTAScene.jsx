@@ -100,7 +100,7 @@ const CTAScene = () => {
               >
                 <div className={`
                   w-64 h-64
-                  bg-gradient-to-br ${i % 2 === 0 ? 'from-neon-cyan/20' : 'from-neon-purple/20'} to-transparent
+                  bg-gradient-to-br ${i % 2 === 0 ? 'from-neon-green/20' : 'from-neon-lightGreen/20'} to-transparent
                   rounded-full
                   blur-3xl
                 `} />
@@ -135,7 +135,7 @@ const CTAScene = () => {
           >
             {/* Título principal */}
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Comienza tu <span className="text-neon-cyan text-shadow-cyan">Transformación</span>
+              Comienza tu <span className="text-neon-green text-shadow-cyan">Transformación</span>
             </h2>
             
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
@@ -165,11 +165,11 @@ const CTAScene = () => {
                     flex-shrink-0
                     w-10 h-10
                     flex items-center justify-center
-                    bg-neon-cyan/10
-                    border border-neon-cyan/30
+                    bg-neon-green/10
+                    border border-neon-green/30
                     rounded-lg
-                    text-neon-cyan
-                    group-hover:shadow-neon-cyan
+                    text-neon-green
+                    group-hover:shadow-neon-green
                     transition-all duration-300
                   `}>
                     <benefit.icon className="w-5 h-5" />
@@ -178,7 +178,7 @@ const CTAScene = () => {
                     <h4 className="font-bold text-white text-sm mb-1">
                       {benefit.title}
                     </h4>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-gray-300">
                       {benefit.description}
                     </p>
                   </div>
@@ -197,13 +197,13 @@ const CTAScene = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="flex items-center gap-3 text-gray-300"
                 >
-                  <div className="w-10 h-10 flex items-center justify-center bg-neon-cyan/10 border border-neon-cyan/30 rounded-lg text-neon-cyan">
+                  <div className="w-10 h-10 flex items-center justify-center bg-neon-green/10 border border-neon-green/30 rounded-lg text-neon-green">
                     <contact.icon className="w-5 h-5" />
                   </div>
                   {contact.link ? (
                     <a 
                       href={contact.link}
-                      className="hover:text-neon-cyan transition-colors"
+                      className="hover:text-neon-green transition-colors"
                     >
                       <span className="text-sm text-gray-500 block">{contact.label}</span>
                       <span className="font-medium">{contact.value}</span>
@@ -226,7 +226,7 @@ const CTAScene = () => {
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="glass-darker rounded-2xl p-8 border border-neon-cyan/20">
+            <div className="glass-darker rounded-2xl p-8 border border-neon-green/20">
               <h3 className="text-2xl font-bold text-white mb-6">
                 Agenda tu Consulta Gratuita
               </h3>
@@ -246,14 +246,14 @@ const CTAScene = () => {
                       className="
                         w-full px-4 py-3
                         bg-black/50
-                        border border-neon-cyan/20
+                        border border-neon-green/20
                         rounded-lg
                         text-white
                         placeholder-gray-500
                         focus:outline-none
-                        focus:border-neon-cyan
+                        focus:border-neon-green
                         focus:ring-1
-                        focus:ring-neon-cyan
+                        focus:ring-neon-green
                         transition-all
                       "
                       placeholder="Juan Pérez"
@@ -273,14 +273,14 @@ const CTAScene = () => {
                       className="
                         w-full px-4 py-3
                         bg-black/50
-                        border border-neon-cyan/20
+                        border border-neon-green/20
                         rounded-lg
                         text-white
                         placeholder-gray-500
                         focus:outline-none
-                        focus:border-neon-cyan
+                        focus:border-neon-green
                         focus:ring-1
-                        focus:ring-neon-cyan
+                        focus:ring-neon-green
                         transition-all
                       "
                       placeholder="juan@empresa.com"
@@ -299,14 +299,14 @@ const CTAScene = () => {
                       className="
                         w-full px-4 py-3
                         bg-black/50
-                        border border-neon-cyan/20
+                        border border-neon-green/20
                         rounded-lg
                         text-white
                         placeholder-gray-500
                         focus:outline-none
-                        focus:border-neon-cyan
+                        focus:border-neon-green
                         focus:ring-1
-                        focus:ring-neon-cyan
+                        focus:ring-neon-green
                         transition-all
                       "
                       placeholder="Mi Empresa S.A."
@@ -326,14 +326,14 @@ const CTAScene = () => {
                       className="
                         w-full px-4 py-3
                         bg-black/50
-                        border border-neon-cyan/20
+                        border border-neon-green/20
                         rounded-lg
                         text-white
                         placeholder-gray-500
                         focus:outline-none
-                        focus:border-neon-cyan
+                        focus:border-neon-green
                         focus:ring-1
-                        focus:ring-neon-cyan
+                        focus:ring-neon-green
                         transition-all
                         resize-none
                       "
@@ -349,11 +349,11 @@ const CTAScene = () => {
                     className="
                       w-full
                       px-8 py-4
-                      bg-neon-cyan text-black
+                      bg-neon-green text-black
                       font-bold text-lg
                       rounded-lg
-                      shadow-neon-cyan
-                      hover:shadow-neon-cyan-lg
+                      shadow-neon-green
+                      hover:shadow-neon-green-lg
                       transition-all duration-300
                       flex items-center justify-center gap-2
                       group
@@ -393,3 +393,4 @@ const CTAScene = () => {
 }
 
 export default CTAScene
+

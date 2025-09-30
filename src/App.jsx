@@ -11,13 +11,14 @@ const AboutScene = lazy(() => import('./components/scenes/AboutScene'))
 const DemoScene = lazy(() => import('./components/scenes/DemoScene'))
 const CTAScene = lazy(() => import('./components/scenes/CTAScene'))
 const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
+const TechCarousel = lazy(() => import('./components/TechCarousel'))
 
 // Componente de loading para Suspense
 const SceneLoader = () => (
   <div className="w-full h-screen bg-black flex items-center justify-center">
     <div className="flex flex-col items-center gap-4">
-      <div className="w-16 h-16 border-4 border-neon-cyan/30 border-t-neon-cyan rounded-full animate-spin" />
-      <span className="text-neon-cyan text-lg font-mono">Cargando...</span>
+      <div className="w-16 h-16 border-4 border-neon-green/30 border-t-neon-green rounded-full animate-spin" />
+      <span className="text-neon-green text-lg font-mono">Cargando...</span>
     </div>
   </div>
 )
@@ -72,6 +73,11 @@ function App() {
             <HeroScene />
           </Suspense>
         </SceneContainer>
+
+        {/* Tech Carousel - Marcas tecnológicas */}
+        <Suspense fallback={null}>
+          <TechCarousel />
+        </Suspense>
 
         {/* Escena 2: Servicios */}
         <SceneContainer

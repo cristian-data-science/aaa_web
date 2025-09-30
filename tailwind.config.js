@@ -158,32 +158,31 @@ export default {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
-        // Paleta principal Morningside.ai - Oscuro con acentos neón
+        // Paleta principal DataCEF - Negro con acentos verde neón
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          50: '#e6ffff',
-          100: '#ccffff',
-          200: '#99ffff',
-          300: '#66ffff',
-          400: '#33ffff',
-          500: '#00d9ff', // Cyan principal Morningside
-          600: '#00b8d9',
-          700: '#0097b3',
-          800: '#00768c',
-          900: '#005566',
+          50: '#e6fff2',
+          100: '#ccffe6',
+          200: '#99ffcc',
+          300: '#66ffb3',
+          400: '#33ff99',
+          500: '#00ff88', // Verde neón principal
+          600: '#00e67a',
+          700: '#00cc6b',
+          800: '#00b35d',
+          900: '#00994f',
         },
-        // Colores neón ultra-vibrantes estilo Morningside.ai
+        // Colores verdes neón para DataCEF
         neon: {
-          cyan: '#00d9ff', // Cyan principal
-          magenta: '#ff00ff',
-          green: '#00ffd9', // Verde-cyan
-          blue: '#4080ff',
+          green: '#00ff88', // Verde neón principal
+          lightGreen: '#00ffaa', // Verde claro
+          darkGreen: '#00cc6b', // Verde oscuro
+          emerald: '#10b981', // Esmeralda
+          lime: '#84cc16', // Lima
+          // Mantener algunos para variedad
           yellow: '#ffff00',
-          pink: '#ff4080',
           orange: '#ff8000',
-          purple: '#8b5cf6',
-          violet: '#a855f7',
         },
         quantum: {
           50: '#f0f9ff',
@@ -293,15 +292,14 @@ export default {
         'neon-sm': '0 0 10px currentColor',
         'neon': '0 0 20px currentColor, 0 0 40px currentColor',
         'neon-lg': '0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor',
-        'neon-cyan': '0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3)',
-        'neon-cyan-lg': '0 0 30px rgba(0, 217, 255, 0.6), 0 0 60px rgba(0, 217, 255, 0.4), 0 0 90px rgba(0, 217, 255, 0.2)',
-        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
-        'neon-green': '0 0 20px rgba(0, 255, 217, 0.5), 0 0 40px rgba(0, 255, 217, 0.3)',
-        'holographic': '0 0 20px rgba(0, 217, 255, 0.25), inset 0 0 18px rgba(0, 255, 217, 0.4)',
-        'neural': '0 0 25px rgba(0, 217, 255, 0.4), 0 0 50px rgba(0, 255, 217, 0.2)',
-        'quantum': '0 0 30px rgba(0, 217, 255, 0.45), 0 0 60px rgba(139, 92, 246, 0.25)',
-        'electromagnetic': '0 0 25px rgba(0, 255, 217, 0.35), 0 0 50px rgba(0, 217, 255, 0.22)',
-        'glow-dark': '0 0 40px rgba(0, 217, 255, 0.3), 0 0 80px rgba(0, 217, 255, 0.15)',
+        'neon-green': '0 0 20px rgba(0, 255, 136, 0.6), 0 0 40px rgba(0, 255, 136, 0.3)',
+        'neon-green-lg': '0 0 30px rgba(0, 255, 136, 0.7), 0 0 60px rgba(0, 255, 136, 0.4), 0 0 90px rgba(0, 255, 136, 0.2)',
+        'neon-emerald': '0 0 20px rgba(16, 185, 129, 0.6), 0 0 40px rgba(16, 185, 129, 0.3)',
+        'holographic': '0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 18px rgba(0, 255, 170, 0.4)',
+        'neural': '0 0 25px rgba(0, 255, 136, 0.5), 0 0 50px rgba(0, 204, 107, 0.3)',
+        'quantum': '0 0 30px rgba(0, 255, 136, 0.5), 0 0 60px rgba(16, 185, 129, 0.3)',
+        'electromagnetic': '0 0 25px rgba(0, 255, 170, 0.4), 0 0 50px rgba(0, 255, 136, 0.25)',
+        'glow-dark': '0 0 40px rgba(0, 255, 136, 0.4), 0 0 80px rgba(0, 255, 136, 0.2)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -309,12 +307,12 @@ export default {
         tech: ['Orbitron', 'Share Tech Mono', 'monospace'],
       },
       backgroundImage: {
-        'holographic-gradient': 'linear-gradient(45deg, #00d9ff, #8b5cf6, #00ffd9)',
-        'neural-network': 'radial-gradient(circle, rgba(0,217,255,0.12) 0%, transparent 70%)',
-        'quantum-field': 'conic-gradient(from 0deg, transparent, rgba(0,217,255,0.2), transparent)',
-        'electromagnetic-wave': 'linear-gradient(90deg, transparent, rgba(0,255,217,0.35), transparent)',
-        'morningside-dark': 'linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
-        'morningside-glow': 'radial-gradient(circle at 50% 50%, rgba(0,217,255,0.1) 0%, transparent 50%)',
+        'holographic-gradient': 'linear-gradient(45deg, #00ff88, #10b981, #00ffaa)',
+        'neural-network': 'radial-gradient(circle, rgba(0,255,136,0.12) 0%, transparent 70%)',
+        'quantum-field': 'conic-gradient(from 0deg, transparent, rgba(0,255,136,0.2), transparent)',
+        'electromagnetic-wave': 'linear-gradient(90deg, transparent, rgba(0,255,170,0.35), transparent)',
+        'datacef-dark': 'linear-gradient(135deg, #000000 0%, #001a00 50%, #000000 100%)',
+        'datacef-glow': 'radial-gradient(circle at 50% 50%, rgba(0,255,136,0.15) 0%, transparent 50%)',
       },
     },
   },
@@ -327,38 +325,38 @@ export default {
         '.text-shadow-neon-strong': {
           textShadow: '0 0 10px currentColor, 0 0 20px currentColor',
         },
-        '.text-shadow-cyan': {
-          textShadow: '0 0 20px rgba(0, 217, 255, 0.8), 0 0 40px rgba(0, 217, 255, 0.5)',
-        },
-        '.text-shadow-purple': {
-          textShadow: '0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5)',
-        },
         '.text-shadow-green': {
-          textShadow: '0 0 20px rgba(0, 255, 217, 0.8), 0 0 40px rgba(0, 255, 217, 0.5)',
+          textShadow: '0 0 20px rgba(0, 255, 136, 0.9), 0 0 40px rgba(0, 255, 136, 0.6)',
+        },
+        '.text-shadow-emerald': {
+          textShadow: '0 0 20px rgba(16, 185, 129, 0.9), 0 0 40px rgba(16, 185, 129, 0.6)',
+        },
+        '.text-shadow-lime': {
+          textShadow: '0 0 20px rgba(132, 204, 22, 0.8), 0 0 40px rgba(132, 204, 22, 0.5)',
         },
         '.text-shadow-holographic': {
-          textShadow: '0 0 10px rgba(0, 217, 255, 0.8)',
+          textShadow: '0 0 10px rgba(0, 255, 136, 0.9)',
         },
         '.border-holographic': {
           border: '1px solid transparent',
           backgroundClip: 'padding-box',
-          borderImage: 'linear-gradient(45deg, #00d9ff, #8b5cf6, #00ffd9) 1',
+          borderImage: 'linear-gradient(45deg, #00ff88, #10b981, #00ffaa) 1',
         },
         '.bg-holographic': {
-          background: 'linear-gradient(45deg, rgba(0,217,255,0.1), rgba(139,92,246,0.1), rgba(0,255,217,0.1))',
+          background: 'linear-gradient(45deg, rgba(0,255,136,0.1), rgba(16,185,129,0.1), rgba(0,255,170,0.1))',
         },
         '.filter-holographic': {
-          filter: 'hue-rotate(180deg) saturate(1.4) brightness(1.2)',
+          filter: 'saturate(1.3) brightness(1.1)',
         },
         '.glass-dark': {
-          background: 'rgba(10, 10, 10, 0.7)',
+          background: 'rgba(5, 15, 5, 0.75)',
           backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(0, 217, 255, 0.1)',
+          border: '1px solid rgba(0, 255, 136, 0.15)',
         },
         '.glass-darker': {
-          background: 'rgba(0, 0, 0, 0.85)',
+          background: 'rgba(0, 10, 0, 0.9)',
           backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(0, 217, 255, 0.15)',
+          border: '1px solid rgba(0, 255, 136, 0.2)',
         },
       }
       addUtilities(newUtilities)

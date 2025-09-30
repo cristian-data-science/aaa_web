@@ -30,23 +30,28 @@ export const useScrollController = (sceneRefs = []) => {
     // Inicializar Lenis solo si no se prefiere movimiento reducido
     if (!prefersReducedMotion.current) {
       lenisRef.current = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
+        duration: 1,
+        easing: (t) => 1 - Math.pow(1 - t, 3), // easeOutCubic - más natural
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2,
+        wheelMultiplier: 0.8, // Reducir multiplicador para scroll más responsivo
+        touchMultiplier: 1.5,
         infinite: false,
+        autoResize: true,
+        syncTouch: true, // Sincronizar touch events
+        syncTouchLerp: 0.1,
       })
 
       // Conectar Lenis con GSAP
       lenisRef.current.on('scroll', ScrollTrigger.update)
 
-      gsap.ticker.add((time) => {
-        lenisRef.current?.raf(time * 1000)
-      })
+      // Función de animación
+      function raf(time) {
+        lenisRef.current?.raf(time)
+      }
 
+      gsap.ticker.add(raf)
       gsap.ticker.lagSmoothing(0)
     }
 
@@ -70,11 +75,10 @@ export const useScrollController = (sceneRefs = []) => {
 
     // Cleanup
     return () => {
-      lenisRef.current?.destroy()
+      if (lenisRef.current) {
+        lenisRef.current.destroy()
+      }
       ScrollTrigger.getAll().forEach(trigger => trigger.kill())
-      gsap.ticker.remove((time) => {
-        lenisRef.current?.raf(time * 1000)
-      })
     }
   }, [sceneRefs])
 

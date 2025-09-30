@@ -12,37 +12,37 @@ const AboutScene = () => {
       icon: Lightbulb,
       title: 'Innovación Responsable',
       description: 'Adoptamos tecnologías avanzadas de manera ética y responsable.',
-      color: 'neon-cyan',
+      color: 'neon-green',
     },
     {
       icon: Award,
       title: 'Excelencia Técnica',
       description: 'Mantenemos los más altos estándares de calidad en cada proyecto.',
-      color: 'neon-purple',
+      color: 'neon-lightGreen',
     },
     {
       icon: Heart,
       title: 'Transparencia y Confianza',
       description: 'Construimos relaciones duraderas basadas en la transparencia.',
-      color: 'neon-green',
+      color: 'emerald-500',
     },
     {
       icon: Target,
       title: 'Impacto Medible',
       description: 'Cada solución genera un impacto cuantificable y comunicable.',
-      color: 'neon-cyan',
+      color: 'neon-green',
     },
     {
       icon: Users,
       title: 'Colaboración',
       description: 'Trabajamos como socios en el proceso de transformación digital.',
-      color: 'neon-purple',
+      color: 'neon-lightGreen',
     },
     {
       icon: Eye,
       title: 'Adaptabilidad',
       description: 'Mantenemos una mentalidad de aprendizaje continuo.',
-      color: 'neon-green',
+      color: 'emerald-400',
     },
   ]
 
@@ -71,7 +71,7 @@ const AboutScene = () => {
               >
                 <div className={`
                   w-[800px] h-[800px]
-                  border-2 border-neon-cyan/20
+                  border-2 border-neon-green/20
                   rounded-full
                 `} />
               </motion.div>
@@ -85,14 +85,14 @@ const AboutScene = () => {
             {Array.from({ length: 30 }).map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 bg-neon-cyan/30 rounded-full blur-sm"
+                className="absolute w-2 h-2 bg-neon-green/40 rounded-full blur-sm"
                 style={{
                   left: `${20 + Math.random() * 60}%`,
                   top: `${20 + Math.random() * 60}%`,
                 }}
                 animate={{
                   scale: [0.5, 1.5, 0.5],
-                  opacity: [0.2, 0.8, 0.2],
+                  opacity: [0.3, 0.8, 0.3],
                   x: [0, Math.random() * 100 - 50, 0],
                   y: [0, Math.random() * 100 - 50, 0],
                 }}
@@ -108,12 +108,12 @@ const AboutScene = () => {
         )}
 
         {/* Grid hexagonal de fondo */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 100 100">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 100 100">
           <defs>
             <pattern id="hexagons" x="0" y="0" width="10" height="17.32" patternUnits="userSpaceOnUse">
               <path d="M5,0 L10,2.89 L10,8.66 L5,11.55 L0,8.66 L0,2.89 Z" 
                 fill="none" 
-                stroke="#00d9ff" 
+                stroke="#00ff88" 
                 strokeWidth="0.1" />
             </pattern>
           </defs>
@@ -139,14 +139,14 @@ const AboutScene = () => {
             className="inline-block mb-6"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-neon-cyan/20 blur-2xl rounded-full" />
+              <div className="absolute inset-0 bg-neon-green/20 blur-2xl rounded-full" />
               <h2 className="relative text-5xl md:text-7xl font-bold text-white">
-                Nuestros <span className="text-neon-cyan text-shadow-cyan">Valores</span>
+                Nuestros <span className="text-neon-green text-shadow-green">Valores</span>
               </h2>
             </div>
           </motion.div>
           
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Somos un equipo de expertos en IA y automatización, 
             comprometidos con impulsar la transformación digital responsable
           </p>
@@ -174,16 +174,16 @@ const AboutScene = () => {
             >
               <div className="
                 relative
-                bg-gradient-to-br from-slate-900/40 to-black/60
+                bg-gradient-to-br from-slate-900/50 to-black/70
                 backdrop-blur-lg
-                border border-neon-cyan/10
+                border border-neon-green/20
                 rounded-2xl
                 p-8
                 h-full
                 overflow-hidden
                 transition-all duration-300
-                hover:border-neon-cyan/30
-                hover:shadow-neon-cyan
+                hover:border-neon-green/40
+                hover:shadow-neon-green
               ">
                 {/* Líneas de conexión animadas */}
                 {!prefersReducedMotion && (
@@ -194,9 +194,9 @@ const AboutScene = () => {
                     <svg className="absolute inset-0 w-full h-full">
                       <motion.line
                         x1="0" y1="0" x2="100%" y2="100%"
-                        stroke="#00d9ff"
+                        stroke="#00ff88"
                         strokeWidth="1"
-                        opacity="0.2"
+                        opacity="0.3"
                         initial={{ pathLength: 0 }}
                         whileInView={{ pathLength: 1 }}
                         transition={{ duration: 1, ease: 'easeInOut' }}
@@ -261,7 +261,7 @@ const AboutScene = () => {
                 </h3>
 
                 {/* Descripción */}
-                <p className="text-gray-400 text-center leading-relaxed">
+                <p className="text-gray-300 text-center leading-relaxed">
                   {value.description}
                 </p>
 
@@ -311,10 +311,10 @@ const AboutScene = () => {
                 text-center
               "
             >
-              <h4 className="text-2xl font-bold text-neon-cyan mb-4">
+              <h4 className="text-2xl font-bold text-neon-green mb-4">
                 {item.title}
               </h4>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-gray-200 leading-relaxed">
                 {item.text}
               </p>
             </div>

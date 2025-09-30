@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { forwardRef } from 'react'
 
 /**
@@ -40,19 +39,7 @@ const SceneContainer = forwardRef(({
           ${centerContent ? 'flex items-center justify-center' : ''}
         `}
       >
-        {/* Contenido animado con Framer Motion */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: false, amount: 0.3 }}
-          transition={{
-            duration: 0.6,
-            ease: [0.25, 0.1, 0.25, 1], // Cubic bezier suave
-          }}
-          className="w-full h-full"
-        >
-          {children}
-        </motion.div>
+        {children}
       </div>
     </section>
   )
