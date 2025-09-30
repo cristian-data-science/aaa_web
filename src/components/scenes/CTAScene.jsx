@@ -79,7 +79,7 @@ const CTAScene = () => {
     {
       icon: MapPin,
       label: 'Ubicación',
-      value: 'Santiago de Chile, Chile',
+      value: 'Santiago de Chile',
       link: null,
     },
   ]
