@@ -1,8 +1,34 @@
 @import "tailwindcss";
 
-/* Scroll suave global y optimizaciones de rendimiento */
+/* ============================================
+   SCROLL-DRIVEN ANIMATIONS & OPTIMIZATIONS
+   ============================================ */
+
+/* Configuración global de scroll */
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Scroll-snap para escenas */
+.snap-container {
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: 0;
+  overflow-y: scroll;
+  height: 100vh;
+  overscroll-behavior-y: contain;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 /* Optimizaciones de rendimiento globales */
@@ -25,10 +51,364 @@ img, video {
   will-change: opacity;
 }
 
-/* Prevenir parpadeo en animaciones */
 .will-change-auto {
   will-change: auto;
 }
+
+/* ============================================
+   TEMA MORNINGSIDE.AI - DARK MODE
+   ============================================ */
+
+@layer base {
+  :root {
+    /* Colores oscuros base */
+    --background: 0 0% 0%; /* Negro puro */
+    --foreground: 0 0% 98%; /* Blanco casi puro */
+    
+    /* Cards y contenedores */
+    --card: 222 47% 5%; /* Slate-950 */
+    --card-foreground: 0 0% 98%;
+    
+    /* Popovers */
+    --popover: 222 47% 5%;
+    --popover-foreground: 0 0% 98%;
+    
+    /* Colores primarios - Cyan neón */
+    --primary: 189 100% 50%; /* #00d9ff */
+    --primary-foreground: 0 0% 0%;
+    
+    /* Secundarios */
+    --secondary: 222 47% 11%;
+    --secondary-foreground: 0 0% 98%;
+    
+    /* Muted */
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    
+    /* Accent - Purple neón */
+    --accent: 258 90% 66%; /* #8b5cf6 */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    
+    /* Bordes e inputs */
+    --border: 189 100% 50% / 0.2;
+    --input: 189 100% 50% / 0.1;
+    --ring: 189 100% 50%;
+    
+    --radius: 0.75rem;
+    
+    /* Charts */
+    --chart-1: 189 100% 50%;
+    --chart-2: 258 90% 66%;
+    --chart-3: 166 100% 50%;
+    --chart-4: 33 100% 50%;
+    --chart-5: 339 100% 50%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background: #000000;
+    color: hsl(var(--foreground));
+    font-family: 'Inter', system-ui, sans-serif;
+    /* Optimizaciones de renderizado */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Mejor scroll en móviles */
+    -webkit-overflow-scrolling: touch;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* ============================================
+   UTILIDADES CUSTOM - EFECTOS MORNINGSIDE
+   ============================================ */
+
+/* Texto con gradiente holográfico */
+.gradient-text-morningside {
+  background: linear-gradient(135deg, #00d9ff 0%, #8b5cf6 50%, #00ffd9 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Efectos glass oscuros */
+.glass-dark {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+.glass-darker {
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(0, 217, 255, 0.15);
+}
+
+/* Bordes holográficos animados */
+.holographic-border-animated {
+  position: relative;
+  overflow: hidden;
+}
+
+.holographic-border-animated::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00d9ff,
+    #8b5cf6,
+    #00ffd9,
+    transparent
+  );
+  animation: border-flow 3s linear infinite;
+  opacity: 0.5;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+@keyframes border-flow {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ============================================
+   ANIMACIONES AVANZADAS
+   ============================================ */
+
+/* Float suave */
+@keyframes float-smooth {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-20px) scale(1.02); }
+}
+
+.animate-float-smooth {
+  animation: float-smooth 6s ease-in-out infinite;
+}
+
+/* Pulse con glow neón */
+@keyframes pulse-neon {
+  0%, 100% { 
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3),
+                0 0 40px rgba(0, 217, 255, 0.1);
+    transform: scale(1);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.6),
+                0 0 80px rgba(0, 217, 255, 0.3);
+    transform: scale(1.02);
+  }
+}
+
+.animate-pulse-neon {
+  animation: pulse-neon 3s ease-in-out infinite;
+}
+
+/* Rotate 3D */
+@keyframes rotate-3d {
+  0% { transform: rotateY(0deg) rotateX(0deg); }
+  50% { transform: rotateY(180deg) rotateX(10deg); }
+  100% { transform: rotateY(360deg) rotateX(0deg); }
+}
+
+.animate-rotate-3d {
+  animation: rotate-3d 20s linear infinite;
+  transform-style: preserve-3d;
+}
+
+/* Partículas quantum */
+@keyframes quantum-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -20px) scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-15px, -40px) scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translate(-30px, -20px) scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+.animate-quantum-float {
+  animation: quantum-float 8s ease-in-out infinite;
+}
+
+/* Scan line effect */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); opacity: 0; }
+  10% { opacity: 0.3; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+.animate-scan-line {
+  animation: scan-line 4s linear infinite;
+}
+
+/* ============================================
+   OPTIMIZACIONES MÓVILES
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Reducir efectos pesados en móvil */
+  .glass-dark,
+  .glass-darker {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  /* Simplificar animaciones */
+  .animate-pulse-neon,
+  .animate-rotate-3d,
+  .animate-quantum-float {
+    animation: none;
+  }
+  
+  /* Optimizar compositing */
+  * {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+  
+  /* Deshabilitar scroll-snap en móvil si causa problemas */
+  .snap-container {
+    scroll-snap-type: none;
+  }
+}
+
+/* ============================================
+   PREFERS REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .snap-container {
+    scroll-snap-type: none;
+  }
+  
+  .gradient-text-morningside {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
+
+/* ============================================
+   UTILIDADES DE SCROLL
+   ============================================ */
+
+/* Ocultar scrollbar pero mantener funcionalidad */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scrollbar personalizado (opcional) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 217, 255, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 217, 255, 0.7);
+}
+
+/* ============================================
+   PERFORMANCE HINTS
+   ============================================ */
+
+/* Contenedores de escenas optimizados */
+[data-scene] {
+  contain: layout style paint;
+  content-visibility: auto;
+}
+
+/* Canvas y WebGL containers */
+canvas {
+  display: block;
+  touch-action: none;
+}
+
+/* Optimizar transforms para GPU */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* ============================================
+   ACCESIBILIDAD
+   ============================================ */
+
+/* Focus visible para navegación por teclado */
+:focus-visible {
+  outline: 2px solid #00d9ff;
+  outline-offset: 2px;
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  z-index: 9999;
+}
+
+.skip-to-content:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  background: #00d9ff;
+  color: #000;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 
 /* Optimizaciones anti-parpadeo */
 [data-section="services"] .group {

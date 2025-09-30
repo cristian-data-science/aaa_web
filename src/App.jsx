@@ -1,116 +1,128 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useRef, lazy, Suspense } from 'react'
 import './App.css'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Footer from './components/Footer'
-import EnhancedVisuals from './components/EnhancedVisuals'
-import { useIsMobile } from './hooks/use-mobile'
+import SceneContainer from './components/scroll-driven/SceneContainer'
+import { useScrollController } from './components/scroll-driven/ScrollController'
+import ProgressIndicator from './components/scroll-driven/ProgressIndicator'
 
-// Lazy-load optimizado con preload condicional
-const StatsSection = lazy(() => 
-  import('./components/StatsSection').then(module => ({ default: module.default }))
-)
-const Services = lazy(() => 
-  import('./components/Services').then(module => ({ default: module.default }))
-)
-const About = lazy(() => 
-  import('./components/About').then(module => ({ default: module.default }))
-)
-const ROICalculator = lazy(() => 
-  import('./components/ROICalculator').then(module => ({ default: module.default }))
-)
-const Contact = lazy(() => 
-  import('./components/Contact').then(module => ({ default: module.default }))
-)
-const WhatsAppWidget = lazy(() => 
-  import('./components/WhatsAppWidget').then(module => ({ default: module.default }))
-)
+// Lazy-load de escenas para optimizar carga inicial
+const HeroScene = lazy(() => import('./components/scenes/HeroScene'))
+const ServicesScene = lazy(() => import('./components/scenes/ServicesScene'))
+const AboutScene = lazy(() => import('./components/scenes/AboutScene'))
+const DemoScene = lazy(() => import('./components/scenes/DemoScene'))
+const CTAScene = lazy(() => import('./components/scenes/CTAScene'))
+const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
 
-// Componente de loading sin hooks para evitar problemas
-const SectionSkeleton = ({ height = 'h-32' }) => {
-  return (
-    <div className={`w-full ${height} bg-emerald-50/70 border border-emerald-100 rounded-lg mx-auto max-w-7xl`}>
-      <div className="flex items-center justify-center h-full">
-        <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-        <span className="ml-3 text-emerald-700 hidden md:block">Cargando...</span>
-      </div>
+// Componente de loading para Suspense
+const SceneLoader = () => (
+  <div className="w-full h-screen bg-black flex items-center justify-center">
+    <div className="flex flex-col items-center gap-4">
+      <div className="w-16 h-16 border-4 border-neon-cyan/30 border-t-neon-cyan rounded-full animate-spin" />
+      <span className="text-neon-cyan text-lg font-mono">Cargando...</span>
     </div>
-  )
-}
+  </div>
+)
 
 function App() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const isMobile = useIsMobile()
+  // Referencias a cada escena
+  const heroRef = useRef(null)
+  const servicesRef = useRef(null)
+  const aboutRef = useRef(null)
+  const demoRef = useRef(null)
+  const ctaRef = useRef(null)
 
-  // Optimizar carga inicial
-  useEffect(() => {
-    // Marcar como cargado para evitar layout shifts
-    const timer = setTimeout(() => setIsLoaded(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
+  // Array de referencias para el ScrollController
+  const sceneRefs = [heroRef, servicesRef, aboutRef, demoRef, ctaRef]
 
-  // Preload optimizado para móviles
-  useEffect(() => {
-    if (isLoaded) {
-      if (isMobile) {
-        // En móviles, preload más conservador
-        const timer = setTimeout(() => {
-          import('./components/StatsSection')
-        }, 1500)
-        return () => clearTimeout(timer)
-      } else if ('requestIdleCallback' in window) {
-        // En desktop, preload agresivo
-        const preloadComponents = () => {
-          import('./components/StatsSection')
-          import('./components/Services')
-          import('./components/About')
-        }
-        
-        const idleCallback = window.requestIdleCallback(preloadComponents, { timeout: 1000 })
-        return () => window.cancelIdleCallback(idleCallback)
-      }
-    }
-  }, [isLoaded, isMobile])
+  // Configuración del scroll controller
+  const { activeScene, scrollToScene } = useScrollController(sceneRefs)
+
+  // Configuración de escenas para el indicador de progreso
+  const scenes = [
+    { id: 'hero', label: 'Inicio' },
+    { id: 'services', label: 'Servicios' },
+    { id: 'about', label: 'Nosotros' },
+    { id: 'demo', label: 'ROI' },
+    { id: 'contact', label: 'Contacto' },
+  ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-emerald-950 relative overflow-x-hidden">
-      {/* Efectos visuales mejorados */}
-      <EnhancedVisuals />
-      
-      {/* Header */}
-      <Header />
-      
-      {/* Contenido principal */}
-      <main className="relative z-10">
-        <Hero />
-        <Suspense fallback={<SectionSkeleton height="h-32 md:h-40" />}>
-          <StatsSection />
-        </Suspense>
-        <Suspense fallback={
-          <div className="w-full h-64 md:h-96 bg-emerald-50/80 flex items-center justify-center">
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-              <span className="text-emerald-700 text-sm">Cargando servicios...</span>
-            </div>
-          </div>
-        }>
-          <Services />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton height="h-32 md:h-64" />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton height="h-48 md:h-80" />}>
-          <ROICalculator />
-        </Suspense>
-        <Suspense fallback={<SectionSkeleton height="h-40 md:h-72" />}>
-          <Contact />
-        </Suspense>
-      </main>
-      
-      {/* Footer */}
-      <Footer />
-      
-      {/* Widget de WhatsApp */}
+    <div className="relative w-full h-screen overflow-y-scroll bg-black">
+      {/* Link de accesibilidad */}
+      <a href="#hero" className="skip-to-content">
+        Saltar al contenido principal
+      </a>
+
+      {/* Indicador de progreso lateral */}
+      <ProgressIndicator
+        activeScene={activeScene}
+        scenes={scenes}
+        onSceneClick={scrollToScene}
+      />
+
+      {/* Escenas con scroll-driven */}
+      <div className="w-full">
+        {/* Escena 1: Hero */}
+        <SceneContainer
+          ref={heroRef}
+          sceneId="hero"
+          backgroundColor="bg-black"
+          centerContent={true}
+        >
+          <Suspense fallback={<SceneLoader />}>
+            <HeroScene />
+          </Suspense>
+        </SceneContainer>
+
+        {/* Escena 2: Servicios */}
+        <SceneContainer
+          ref={servicesRef}
+          sceneId="services"
+          backgroundColor="bg-gradient-to-b from-black via-slate-950 to-black"
+          centerContent={true}
+        >
+          <Suspense fallback={<SceneLoader />}>
+            <ServicesScene />
+          </Suspense>
+        </SceneContainer>
+
+        {/* Escena 3: About */}
+        <SceneContainer
+          ref={aboutRef}
+          sceneId="about"
+          backgroundColor="bg-gradient-to-br from-black via-slate-950 to-black"
+          centerContent={true}
+        >
+          <Suspense fallback={<SceneLoader />}>
+            <AboutScene />
+          </Suspense>
+        </SceneContainer>
+
+        {/* Escena 4: Demo/ROI */}
+        <SceneContainer
+          ref={demoRef}
+          sceneId="demo"
+          backgroundColor="bg-gradient-to-br from-slate-950 via-black to-slate-950"
+          centerContent={true}
+        >
+          <Suspense fallback={<SceneLoader />}>
+            <DemoScene />
+          </Suspense>
+        </SceneContainer>
+
+        {/* Escena 5: CTA/Contact */}
+        <SceneContainer
+          ref={ctaRef}
+          sceneId="contact"
+          backgroundColor="bg-gradient-to-br from-black via-slate-950 to-black"
+          centerContent={true}
+        >
+          <Suspense fallback={<SceneLoader />}>
+            <CTAScene />
+          </Suspense>
+        </SceneContainer>
+      </div>
+
+      {/* WhatsApp Widget flotante */}
       <Suspense fallback={null}>
         <WhatsAppWidget />
       </Suspense>
@@ -119,3 +131,4 @@ function App() {
 }
 
 export default App
+

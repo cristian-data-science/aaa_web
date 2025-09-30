@@ -158,30 +158,32 @@ export default {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
+        // Paleta principal Morningside.ai - Oscuro con acentos neón
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          300: '#86efac',
-          400: '#4ade80',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
-          800: '#166534',
-          900: '#14532d',
+          50: '#e6ffff',
+          100: '#ccffff',
+          200: '#99ffff',
+          300: '#66ffff',
+          400: '#33ffff',
+          500: '#00d9ff', // Cyan principal Morningside
+          600: '#00b8d9',
+          700: '#0097b3',
+          800: '#00768c',
+          900: '#005566',
         },
-        // Colores científicos y tecnológicos
+        // Colores neón ultra-vibrantes estilo Morningside.ai
         neon: {
-          cyan: '#00ffff',
+          cyan: '#00d9ff', // Cyan principal
           magenta: '#ff00ff',
-          green: '#00ff40',
+          green: '#00ffd9', // Verde-cyan
           blue: '#4080ff',
           yellow: '#ffff00',
           pink: '#ff4080',
           orange: '#ff8000',
-          purple: '#8040ff',
+          purple: '#8b5cf6',
+          violet: '#a855f7',
         },
         quantum: {
           50: '#f0f9ff',
@@ -287,14 +289,19 @@ export default {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
-      boxShadow: {
+        boxShadow: {
         'neon-sm': '0 0 10px currentColor',
         'neon': '0 0 20px currentColor, 0 0 40px currentColor',
         'neon-lg': '0 0 30px currentColor, 0 0 60px currentColor, 0 0 90px currentColor',
-        'holographic': '0 0 20px rgba(110, 231, 183, 0.25), inset 0 0 18px rgba(236, 253, 245, 0.4)',
-        'neural': '0 0 25px rgba(52, 211, 153, 0.4), 0 0 50px rgba(110, 231, 183, 0.2)',
-        'quantum': '0 0 30px rgba(134, 239, 172, 0.45), 0 0 60px rgba(74, 222, 128, 0.25)',
-        'electromagnetic': '0 0 25px rgba(79, 209, 169, 0.35), 0 0 50px rgba(59, 199, 146, 0.22)',
+        'neon-cyan': '0 0 20px rgba(0, 217, 255, 0.5), 0 0 40px rgba(0, 217, 255, 0.3)',
+        'neon-cyan-lg': '0 0 30px rgba(0, 217, 255, 0.6), 0 0 60px rgba(0, 217, 255, 0.4), 0 0 90px rgba(0, 217, 255, 0.2)',
+        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
+        'neon-green': '0 0 20px rgba(0, 255, 217, 0.5), 0 0 40px rgba(0, 255, 217, 0.3)',
+        'holographic': '0 0 20px rgba(0, 217, 255, 0.25), inset 0 0 18px rgba(0, 255, 217, 0.4)',
+        'neural': '0 0 25px rgba(0, 217, 255, 0.4), 0 0 50px rgba(0, 255, 217, 0.2)',
+        'quantum': '0 0 30px rgba(0, 217, 255, 0.45), 0 0 60px rgba(139, 92, 246, 0.25)',
+        'electromagnetic': '0 0 25px rgba(0, 255, 217, 0.35), 0 0 50px rgba(0, 217, 255, 0.22)',
+        'glow-dark': '0 0 40px rgba(0, 217, 255, 0.3), 0 0 80px rgba(0, 217, 255, 0.15)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
@@ -302,10 +309,12 @@ export default {
         tech: ['Orbitron', 'Share Tech Mono', 'monospace'],
       },
       backgroundImage: {
-        'holographic-gradient': 'linear-gradient(45deg, #ffffff, #bbf7d0, #34d399)',
-        'neural-network': 'radial-gradient(circle, rgba(110,231,183,0.12) 0%, transparent 70%)',
-        'quantum-field': 'conic-gradient(from 0deg, transparent, rgba(52,211,153,0.2), transparent)',
-        'electromagnetic-wave': 'linear-gradient(90deg, transparent, rgba(74,222,128,0.35), transparent)',
+        'holographic-gradient': 'linear-gradient(45deg, #00d9ff, #8b5cf6, #00ffd9)',
+        'neural-network': 'radial-gradient(circle, rgba(0,217,255,0.12) 0%, transparent 70%)',
+        'quantum-field': 'conic-gradient(from 0deg, transparent, rgba(0,217,255,0.2), transparent)',
+        'electromagnetic-wave': 'linear-gradient(90deg, transparent, rgba(0,255,217,0.35), transparent)',
+        'morningside-dark': 'linear-gradient(135deg, #000000 0%, #0a0a0a 50%, #000000 100%)',
+        'morningside-glow': 'radial-gradient(circle at 50% 50%, rgba(0,217,255,0.1) 0%, transparent 50%)',
       },
     },
   },
@@ -318,19 +327,38 @@ export default {
         '.text-shadow-neon-strong': {
           textShadow: '0 0 10px currentColor, 0 0 20px currentColor',
         },
+        '.text-shadow-cyan': {
+          textShadow: '0 0 20px rgba(0, 217, 255, 0.8), 0 0 40px rgba(0, 217, 255, 0.5)',
+        },
+        '.text-shadow-purple': {
+          textShadow: '0 0 20px rgba(139, 92, 246, 0.8), 0 0 40px rgba(139, 92, 246, 0.5)',
+        },
+        '.text-shadow-green': {
+          textShadow: '0 0 20px rgba(0, 255, 217, 0.8), 0 0 40px rgba(0, 255, 217, 0.5)',
+        },
         '.text-shadow-holographic': {
-          textShadow: '0 0 10px rgba(110, 231, 183, 0.8)',
+          textShadow: '0 0 10px rgba(0, 217, 255, 0.8)',
         },
         '.border-holographic': {
           border: '1px solid transparent',
           backgroundClip: 'padding-box',
-          borderImage: 'linear-gradient(45deg, #ffffff, #bbf7d0, #34d399) 1',
+          borderImage: 'linear-gradient(45deg, #00d9ff, #8b5cf6, #00ffd9) 1',
         },
         '.bg-holographic': {
-          background: 'linear-gradient(45deg, rgba(236,253,245,0.6), rgba(187,247,208,0.4), rgba(52,211,153,0.3))',
+          background: 'linear-gradient(45deg, rgba(0,217,255,0.1), rgba(139,92,246,0.1), rgba(0,255,217,0.1))',
         },
         '.filter-holographic': {
-          filter: 'hue-rotate(75deg) saturate(1.2) brightness(1.1)',
+          filter: 'hue-rotate(180deg) saturate(1.4) brightness(1.2)',
+        },
+        '.glass-dark': {
+          background: 'rgba(10, 10, 10, 0.7)',
+          backdropFilter: 'blur(12px)',
+          border: '1px solid rgba(0, 217, 255, 0.1)',
+        },
+        '.glass-darker': {
+          background: 'rgba(0, 0, 0, 0.85)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(0, 217, 255, 0.15)',
         },
       }
       addUtilities(newUtilities)
