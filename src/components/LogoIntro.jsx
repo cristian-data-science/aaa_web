@@ -64,19 +64,20 @@ const LogoIntro = ({ onComplete }) => {
         variants={containerVariants}
         initial="building"
         animate={sequence}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center px-4"
       >
         <svg
           width="320"
           height="58"
           viewBox="0 0 385.6 70"
-          preserveAspectRatio="xMidYMid meet"
+          preserveAspectRatio="xMinYMid meet"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)] w-[280px] sm:w-[320px]"
+          className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)]"
           style={{
-            maxWidth: '90vw', // No exceder el 90% del viewport en móvil
-            height: 'auto'
+            width: isMobile ? 'min(280px, 85vw)' : '320px',
+            height: 'auto',
+            minWidth: isMobile ? '240px' : '320px'
           }}
         >
           <defs>
