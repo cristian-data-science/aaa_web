@@ -23,13 +23,17 @@ const SceneContainer = forwardRef(({
       ref={ref}
       id={sceneId}
       className={`
-        relative w-full h-screen
-        scroll-snap-align-start
+        relative w-full h-screen min-h-screen
+        snap-start snap-always
         overflow-hidden
         ${backgroundColor}
         ${className}
       `}
       data-scene={sceneId}
+      style={{
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
+      }}
       {...props}
     >
       {/* Contenedor con centrado opcional */}

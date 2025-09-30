@@ -1,7 +1,6 @@
-import { useRef, lazy, Suspense } from 'react'
+import { useState, useRef, lazy, Suspense } from 'react'
 import './App.css'
 import SceneContainer from './components/scroll-driven/SceneContainer'
-import { useScrollController } from './components/scroll-driven/ScrollController'
 import ProgressIndicator from './components/scroll-driven/ProgressIndicator'
 
 // Lazy-load de escenas para optimizar carga inicial
@@ -11,7 +10,6 @@ const AboutScene = lazy(() => import('./components/scenes/AboutScene'))
 const DemoScene = lazy(() => import('./components/scenes/DemoScene'))
 const CTAScene = lazy(() => import('./components/scenes/CTAScene'))
 const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
-const TechCarousel = lazy(() => import('./components/TechCarousel'))
 
 // Componente de loading para Suspense
 const SceneLoader = () => (
@@ -24,6 +22,8 @@ const SceneLoader = () => (
 )
 
 function App() {
+  const [activeScene, setActiveScene] = useState(0)
+  
   // Referencias a cada escena
   const heroRef = useRef(null)
   const servicesRef = useRef(null)
@@ -31,11 +31,8 @@ function App() {
   const demoRef = useRef(null)
   const ctaRef = useRef(null)
 
-  // Array de referencias para el ScrollController
+  // Array de referencias
   const sceneRefs = [heroRef, servicesRef, aboutRef, demoRef, ctaRef]
-
-  // Configuración del scroll controller
-  const { activeScene, scrollToScene } = useScrollController(sceneRefs)
 
   // Configuración de escenas para el indicador de progreso
   const scenes = [
@@ -46,8 +43,25 @@ function App() {
     { id: 'contact', label: 'Contacto' },
   ]
 
+  // Función para navegar a una escena
+  const scrollToScene = (sceneIndex) => {
+    const targetRef = sceneRefs[sceneIndex]
+    if (targetRef?.current) {
+      targetRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+      setActiveScene(sceneIndex)
+    }
+  }
+
   return (
-    <div className="relative w-full h-screen overflow-y-scroll bg-black">
+    <div 
+      className="relative w-full h-screen overflow-y-scroll bg-black snap-y snap-mandatory scroll-smooth"
+      style={{
+        scrollBehavior: 'smooth',
+      }}
+    >
       {/* Link de accesibilidad */}
       <a href="#hero" className="skip-to-content">
         Saltar al contenido principal
@@ -60,7 +74,7 @@ function App() {
         onSceneClick={scrollToScene}
       />
 
-      {/* Escenas con scroll-driven */}
+      {/* Escenas con scroll-snap */}
       <div className="w-full">
         {/* Escena 1: Hero */}
         <SceneContainer
@@ -73,11 +87,6 @@ function App() {
             <HeroScene />
           </Suspense>
         </SceneContainer>
-
-        {/* Tech Carousel - Marcas tecnológicas */}
-        <Suspense fallback={null}>
-          <TechCarousel />
-        </Suspense>
 
         {/* Escena 2: Servicios */}
         <SceneContainer
