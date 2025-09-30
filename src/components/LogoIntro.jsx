@@ -5,9 +5,11 @@ import { useState, useEffect } from 'react'
  * LogoIntro - Animación de construcción del logo DataCEF
  * Secuencia: Cuadrado → Trapecio Izq → Trapecio Der → Texto "DataCEF"
  * Luego se mueve hacia arriba-izquierda a su posición final
+ * Layout: SIEMPRE horizontal (desktop y móvil)
  */
 const LogoIntro = ({ onComplete }) => {
   const [sequence, setSequence] = useState('building') // 'building' → 'moving' → 'complete'
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   useEffect(() => {
     // Después de que termine la construcción (1.6s), iniciar movimiento
@@ -32,21 +34,21 @@ const LogoIntro = ({ onComplete }) => {
     building: {
       x: 0,
       y: 0,
-      scale: 1,
+      scale: isMobile ? 0.7 : 1, // Más pequeño en móvil durante construcción
       transition: { duration: 0 }
     },
     moving: {
-      x: 'calc(-50vw + 124px)', // Posición exacta: 24px (left-6) + 100px (mitad del logo)
-      y: 'calc(-50vh + 44px)',   // Posición exacta: 24px (top-6) + 20px (mitad del logo)
-      scale: 0.62, // Escala para que coincida con el logo permanente (200/320 = 0.625)
+      x: isMobile ? 'calc(-50vw + 80px)' : 'calc(-50vw + 124px)', // Ajustado para móvil
+      y: isMobile ? 'calc(-50vh + 35px)' : 'calc(-50vh + 44px)',   // Ajustado para móvil
+      scale: isMobile ? 0.45 : 0.62, // Escala menor en móvil
       transition: {
-        duration: 0.7,
+        duration: isMobile ? 0.5 : 0.7, // Más rápido en móvil
         ease: [0.43, 0.13, 0.23, 0.96]
       }
     },
     complete: {
       opacity: 0,
-      transition: { duration: 0.8, ease: "easeInOut" } // Más largo y suave para evitar flasheo
+      transition: { duration: 0.8, ease: "easeInOut" }
     }
   }
 
@@ -71,7 +73,11 @@ const LogoIntro = ({ onComplete }) => {
           preserveAspectRatio="xMidYMid meet"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)]"
+          className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)] w-[280px] sm:w-[320px]"
+          style={{
+            maxWidth: '90vw', // No exceder el 90% del viewport en móvil
+            height: 'auto'
+          }}
         >
           <defs>
             <style>{`

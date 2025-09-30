@@ -15,6 +15,14 @@ const DynamicBackground3D = lazy(() => import('../scroll-driven/DynamicBackgroun
  */
 const HeroScene = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+  
+  // Reducir cantidad de partículas en móvil
+  const particleCount = {
+    green: isMobile ? 8 : 15,
+    cyan: isMobile ? 5 : 10,
+    energy: isMobile ? 2 : 3
+  }
 
   // Variantes de animación para texto
   const titleVariants = {
@@ -70,7 +78,7 @@ const HeroScene = () => {
       {!prefersReducedMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Partículas verdes pequeñas */}
-          {Array.from({ length: 15 }).map((_, i) => (
+          {Array.from({ length: particleCount.green }).map((_, i) => (
             <motion.div
               key={`particle-green-${i}`}
               className="absolute w-1 h-1 bg-neon-green rounded-full"
@@ -96,7 +104,7 @@ const HeroScene = () => {
           ))}
 
           {/* Partículas cyan más sutiles */}
-          {Array.from({ length: 10 }).map((_, i) => (
+          {Array.from({ length: particleCount.cyan }).map((_, i) => (
             <motion.div
               key={`particle-cyan-${i}`}
               className="absolute w-0.5 h-0.5 bg-cyan-400 rounded-full"
@@ -121,7 +129,7 @@ const HeroScene = () => {
           ))}
 
           {/* Círculos de energía sutiles */}
-          {Array.from({ length: 3 }).map((_, i) => (
+          {Array.from({ length: particleCount.energy }).map((_, i) => (
             <motion.div
               key={`energy-${i}`}
               className="absolute rounded-full border border-neon-green/20"

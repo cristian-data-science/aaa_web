@@ -6,6 +6,7 @@ import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
  */
 const AboutScene = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   const values = [
     {
@@ -65,7 +66,7 @@ const AboutScene = () => {
         {/* Círculos concéntricos */}
         {!prefersReducedMotion && (
           <>
-            {[1, 2, 3].map((i) => (
+            {[1, 2, ...(isMobile ? [] : [3])].map((i) => (
               <motion.div
                 key={i}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -94,7 +95,7 @@ const AboutScene = () => {
         {/* Partículas quantum */}
         {!prefersReducedMotion && (
           <>
-            {Array.from({ length: 20 }).map((_, i) => (
+            {Array.from({ length: isMobile ? 12 : 20 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-neon-green/40 rounded-full blur-sm"
@@ -177,7 +178,7 @@ const AboutScene = () => {
                 delay: index * 0.1,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              whileHover={!prefersReducedMotion ? {
+              whileHover={!prefersReducedMotion && !isMobile ? {
                 scale: 1.05,
                 rotateY: 5,
               } : {}}

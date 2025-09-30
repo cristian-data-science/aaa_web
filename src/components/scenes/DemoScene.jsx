@@ -7,6 +7,7 @@ import { TrendingUp, Clock, DollarSign, Zap } from 'lucide-react'
  */
 const DemoScene = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
   const [hours, setHours] = useState(40)
   const [hourlyRate, setHourlyRate] = useState(25)
   
@@ -81,7 +82,7 @@ const DemoScene = () => {
                 <stop offset="100%" stopColor="#00ff88" stopOpacity="0" />
               </linearGradient>
             </defs>
-            {Array.from({ length: 5 }).map((_, i) => (
+            {Array.from({ length: isMobile ? 3 : 5 }).map((_, i) => (
               <motion.path
                 key={i}
                 d={`M 0 ${20 + i * 20} Q ${50} ${10 + i * 20} ${100} ${20 + i * 20}`}

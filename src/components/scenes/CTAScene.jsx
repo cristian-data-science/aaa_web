@@ -7,6 +7,7 @@ import { Mail, Phone, MapPin, Send, CheckCircle, Gift, Clock, Shield, Zap, Arrow
  */
 const CTAScene = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -91,7 +92,7 @@ const CTAScene = () => {
         {/* Círculos de energía */}
         {!prefersReducedMotion && (
           <>
-            {Array.from({ length: 3 }).map((_, i) => (
+            {Array.from({ length: isMobile ? 2 : 3 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute"
@@ -163,7 +164,7 @@ const CTAScene = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: false, amount: 0.3 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={!prefersReducedMotion ? { scale: 1.05, x: 5 } : {}}
+                  whileHover={!prefersReducedMotion && !isMobile ? { scale: 1.05, x: 5 } : {}}
                   className="
                     glass-dark
                     rounded-xl

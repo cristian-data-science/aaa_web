@@ -6,6 +6,7 @@ import { Bot, Database, TrendingUp, Users, Factory, Wrench } from 'lucide-react'
  */
 const ServicesScene = () => {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
 
   const services = [
     {
@@ -141,7 +142,7 @@ const ServicesScene = () => {
                 delay: index * 0.1,
                 ease: [0.25, 0.1, 0.25, 1],
               }}
-              whileHover={!prefersReducedMotion ? { 
+              whileHover={!prefersReducedMotion && !isMobile ? { 
                 scale: 1.05,
                 y: -10,
               } : {}}
