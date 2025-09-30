@@ -67,17 +67,15 @@ const LogoIntro = ({ onComplete }) => {
         className="flex items-center justify-center px-4"
       >
         <svg
-          width="320"
-          height="58"
           viewBox="0 0 385.6 70"
-          preserveAspectRatio="xMinYMid meet"
+          preserveAspectRatio="none"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)]"
           style={{
-            width: isMobile ? 'min(280px, 85vw)' : '320px',
-            height: 'auto',
-            minWidth: isMobile ? '240px' : '320px'
+            width: isMobile ? '280px' : '320px',
+            height: isMobile ? '50.8px' : '58px',
+            maxWidth: '90vw'
           }}
         >
           <defs>
