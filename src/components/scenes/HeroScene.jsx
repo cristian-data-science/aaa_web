@@ -66,6 +66,87 @@ const HeroScene = () => {
         <DynamicBackground3D />
       </Suspense>
 
+      {/* Partículas sutiles flotantes - Solo si no hay reduced motion */}
+      {!prefersReducedMotion && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Partículas verdes pequeñas */}
+          {Array.from({ length: 15 }).map((_, i) => (
+            <motion.div
+              key={`particle-green-${i}`}
+              className="absolute w-1 h-1 bg-neon-green rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                filter: 'blur(1px)',
+                opacity: 0.4,
+              }}
+              animate={{
+                y: [0, -30, 0],
+                x: [0, Math.random() * 20 - 10, 0],
+                opacity: [0.2, 0.6, 0.2],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 3,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+
+          {/* Partículas cyan más sutiles */}
+          {Array.from({ length: 10 }).map((_, i) => (
+            <motion.div
+              key={`particle-cyan-${i}`}
+              className="absolute w-0.5 h-0.5 bg-cyan-400 rounded-full"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                filter: 'blur(0.5px)',
+                opacity: 0.3,
+              }}
+              animate={{
+                y: [0, -40, 0],
+                x: [0, Math.random() * 15 - 7.5, 0],
+                opacity: [0.1, 0.4, 0.1],
+              }}
+              transition={{
+                duration: 5 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 3,
+                ease: 'linear',
+              }}
+            />
+          ))}
+
+          {/* Círculos de energía sutiles */}
+          {Array.from({ length: 3 }).map((_, i) => (
+            <motion.div
+              key={`energy-${i}`}
+              className="absolute rounded-full border border-neon-green/20"
+              style={{
+                left: `${20 + i * 30}%`,
+                top: `${30 + i * 20}%`,
+                width: `${80 + i * 40}px`,
+                height: `${80 + i * 40}px`,
+              }}
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0, 0.15, 0],
+                rotate: [0, 180, 360],
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                repeat: Infinity,
+                delay: i * 1.5,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Contenido principal */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
         {/* Logo o marca (opcional) */}

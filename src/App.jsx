@@ -1,4 +1,4 @@
-import { useState, useRef, lazy, Suspense } from 'react'
+import { useState, useRef, lazy, Suspense, useEffect } from 'react'
 import './App.css'
 import SceneContainer from './components/scroll-driven/SceneContainer'
 import ProgressIndicator from './components/scroll-driven/ProgressIndicator'
@@ -26,6 +26,10 @@ const SceneLoader = () => (
 function App() {
   const [activeScene, setActiveScene] = useState(0)
   const [showIntro, setShowIntro] = useState(true)
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false)
+  
+  // Referencia al contenedor de scroll
+  const scrollContainerRef = useRef(null)
   
   // Referencias a cada escena
   const heroRef = useRef(null)
@@ -50,13 +54,105 @@ function App() {
   const scrollToScene = (sceneIndex) => {
     const targetRef = sceneRefs[sceneIndex]
     if (targetRef?.current) {
+      setIsAutoScrolling(true)
       targetRef.current.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       })
       setActiveScene(sceneIndex)
+      // Resetear flag después de que termine la animación
+      setTimeout(() => setIsAutoScrolling(false), 1000)
     }
   }
+
+  // Auto-alineación cuando el usuario termina de scrollear
+  useEffect(() => {
+    if (!scrollContainerRef.current || showIntro) return
+
+    let scrollTimeout
+
+    const handleScroll = () => {
+      // Si estamos en medio de un auto-scroll, no hacer nada
+      if (isAutoScrolling) return
+
+      // Limpiar timeout anterior
+      clearTimeout(scrollTimeout)
+
+      // Esperar 200ms después de que el usuario deje de scrollear
+      scrollTimeout = setTimeout(() => {
+        const scenes = scrollContainerRef.current?.querySelectorAll('[data-scene]')
+        if (!scenes) return
+
+        let targetScene = null
+        let targetIndex = 0
+
+        // Encontrar la escena actual basado en el scroll
+        scenes.forEach((scene, index) => {
+          const rect = scene.getBoundingClientRect()
+          const sceneHeight = rect.height
+          const viewportHeight = window.innerHeight
+          
+          // Calcular qué porcentaje de la escena ha sido scrolleada
+          // Si rect.top es negativo, significa que ya pasamos parte de la escena
+          const scrolledAmount = Math.abs(Math.min(rect.top, 0))
+          const scrolledPercentage = (scrolledAmount / sceneHeight) * 100
+
+          // Si el top de la escena está visible o parcialmente visible
+          if (rect.top < viewportHeight && rect.bottom > 0) {
+            // Si hemos scrolleado más del 75% de esta escena hacia abajo
+            if (scrolledPercentage > 75 && rect.top < 0) {
+              // Auto-alinear a la SIGUIENTE escena (si existe)
+              if (index < scenes.length - 1) {
+                targetScene = scenes[index + 1]
+                targetIndex = index + 1
+              }
+            }
+            // Si hemos scrolleado menos del 25% (estamos volviendo hacia arriba)
+            else if (scrolledPercentage < 25 && rect.top < 0 && rect.top > -sceneHeight * 0.25) {
+              // Auto-alinear a esta escena (la actual)
+              targetScene = scene
+              targetIndex = index
+            }
+            // Si estamos entre 25% y 75%, NO hacer auto-scroll (dejar al usuario scrollear libremente)
+            else if (rect.top >= 0 && rect.top < viewportHeight * 0.5) {
+              // Si la escena está en la parte superior del viewport, actualizar índice activo
+              if (!targetScene) {
+                targetScene = scene
+                targetIndex = index
+              }
+            }
+          }
+        })
+
+        // Aplicar auto-alineación si se encontró una escena target
+        if (targetScene) {
+          const rect = targetScene.getBoundingClientRect()
+          
+          // Solo hacer scroll si la escena NO está ya alineada (threshold de 50px)
+          if (Math.abs(rect.top) > 50) {
+            setIsAutoScrolling(true)
+            targetScene.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'start'
+            })
+            setActiveScene(targetIndex)
+            setTimeout(() => setIsAutoScrolling(false), 800)
+          } else {
+            // Ya está alineada, solo actualizar índice
+            setActiveScene(targetIndex)
+          }
+        }
+      }, 200)
+    }
+
+    const container = scrollContainerRef.current
+    container?.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      container?.removeEventListener('scroll', handleScroll)
+      clearTimeout(scrollTimeout)
+    }
+  }, [isAutoScrolling, showIntro])
 
   return (
     <>
@@ -65,14 +161,15 @@ function App() {
         <LogoIntro onComplete={() => setShowIntro(false)} />
       )}
 
-      <div 
-        className="relative w-full h-screen overflow-y-scroll bg-black snap-y snap-proximity scroll-smooth"
+      <div
+        ref={scrollContainerRef}
+        className="relative w-full h-screen overflow-y-scroll bg-black scroll-smooth"
         style={{
           scrollBehavior: 'smooth',
           opacity: showIntro ? 0 : 1,
           transition: 'opacity 0.8s ease-in-out',
-          backgroundColor: '#000000', // Forzar fondo negro para evitar flash
-          WebkitOverflowScrolling: 'touch', // Mejor scroll en iOS
+          backgroundColor: '#000000',
+          WebkitOverflowScrolling: 'touch',
         }}
       >
       {/* Link de accesibilidad */}
