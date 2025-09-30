@@ -4,6 +4,8 @@ import SceneContainer from './components/scroll-driven/SceneContainer'
 import ProgressIndicator from './components/scroll-driven/ProgressIndicator'
 import Logo from './components/Logo'
 import LogoIntro from './components/LogoIntro'
+import ThemeToggle from './components/ThemeToggle'
+import { useTheme } from './hooks/use-theme'
 
 // Lazy-load de escenas para optimizar carga inicial
 const HeroScene = lazy(() => import('./components/scenes/HeroScene'))
@@ -14,14 +16,18 @@ const CTAScene = lazy(() => import('./components/scenes/CTAScene'))
 const WhatsAppWidget = lazy(() => import('./components/WhatsAppWidget'))
 
 // Componente de loading para Suspense
-const SceneLoader = () => (
-  <div className="w-full h-screen bg-black flex items-center justify-center">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-16 h-16 border-4 border-neon-green/30 border-t-neon-green rounded-full animate-spin" />
-      <span className="text-neon-green text-lg font-mono">Cargando...</span>
+const SceneLoader = () => {
+  const { isDark } = useTheme()
+  
+  return (
+    <div className={`w-full h-screen flex items-center justify-center ${isDark ? 'bg-black' : 'bg-white'}`}>
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-16 h-16 border-4 border-neon-green/30 border-t-neon-green rounded-full animate-spin" />
+        <span className="text-neon-green text-lg font-mono">Cargando...</span>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 function App() {
   const [activeScene, setActiveScene] = useState(0)
@@ -266,6 +272,9 @@ function App() {
       <Suspense fallback={null}>
         <WhatsAppWidget />
       </Suspense>
+
+      {/* Theme Toggle - Botón para cambiar entre modo claro y oscuro */}
+      <ThemeToggle />
     </div>
     </>
   )
