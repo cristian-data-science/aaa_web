@@ -64,20 +64,84 @@ const LogoIntro = ({ onComplete }) => {
         variants={containerVariants}
         initial="building"
         animate={sequence}
-        className="flex items-center justify-center px-4"
+        className="flex items-center justify-center"
       >
-        <svg
-          viewBox="0 0 385.6 70"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)]"
-          style={{
-            width: isMobile ? '280px' : '320px',
-            height: isMobile ? '50.8px' : '58px',
-            maxWidth: '90vw'
-          }}
-        >
+        {isMobile ? (
+          /* MOBILE: Layout horizontal forzado con flexbox */
+          <div className="flex items-center gap-2" style={{ height: '70px' }}>
+            {/* SVG SOLO formas */}
+            <svg
+              width="130"
+              height="70"
+              viewBox="0 0 126.3 70"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)] flex-shrink-0"
+            >
+              <defs>
+                <style>{`
+                  .logo-shape {
+                    fill: #00ff88;
+                  }
+                `}</style>
+              </defs>
+
+              <g>
+                <motion.path
+                  className="logo-shape"
+                  d="M 94.7 63.1 h 31.6 v -31.6 h -31.6 v 31.6 Z"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
+                />
+                
+                <motion.path
+                  className="logo-shape"
+                  d="M 47.3 31.6 v 31.6 l 47.3 -31.6 V 0 l -47.3 31.6 Z"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.4, ease: "easeOut" }}
+                />
+
+                <motion.path
+                  className="logo-shape"
+                  d="M 0 31.6 v 31.6 l 47.3 -31.6 V 0 L 0 31.6 Z"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.7, ease: "easeOut" }}
+                />
+              </g>
+            </svg>
+
+            {/* Texto HTML separado */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 1.0, ease: "easeOut" }}
+              className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)] flex-shrink-0"
+              style={{
+                fontSize: '46px',
+                fontWeight: '500',
+                color: '#ffffff',
+                fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                letterSpacing: '0.5px',
+                lineHeight: '70px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              DataCEF
+            </motion.div>
+          </div>
+        ) : (
+          /* DESKTOP: SVG completo con dimensiones 320×58 (con scale:0.62 = ~200×36 ≈ Logo default) */
+          <svg
+            width={320}
+            height={58}
+            viewBox="0 0 385.6 70"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="drop-shadow-[0_0_30px_rgba(0,255,136,0.7)]"
+          >
           <defs>
             <style>{`
               .logo-shape {
@@ -157,6 +221,7 @@ const LogoIntro = ({ onComplete }) => {
             <tspan x="0" y="0">DataCEF</tspan>
           </motion.text>
         </svg>
+        )}
       </motion.div>
     </motion.div>
   )

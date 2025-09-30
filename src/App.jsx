@@ -65,9 +65,13 @@ function App() {
     }
   }
 
-  // Auto-alineación cuando el usuario termina de scrollear
+  // Auto-alineación cuando el usuario termina de scrollear - SOLO DESKTOP
   useEffect(() => {
-    if (!scrollContainerRef.current || showIntro) return
+    // Detectar si es mobile
+    const isMobile = window.innerWidth < 768
+    
+    // Si es mobile, desactivar auto-scroll y salir
+    if (isMobile || !scrollContainerRef.current || showIntro) return
 
     let scrollTimeout
 
