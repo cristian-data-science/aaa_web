@@ -79,7 +79,7 @@ const CTAScene = () => {
     {
       icon: MapPin,
       label: 'Ubicación',
-      value: 'Viedma, Río Negro, Argentina',
+      value: 'Santiago de Chile, Chile',
       link: null,
     },
   ]
