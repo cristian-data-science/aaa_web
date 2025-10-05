@@ -72,8 +72,8 @@ const DemoScene = () => {
           }}
         />
 
-        {/* Líneas de datos fluyendo */}
-        {!prefersReducedMotion && (
+        {/* Líneas de datos fluyendo - solo en desktop */}
+        {!isMobile && !prefersReducedMotion && (
           <svg className="absolute inset-0 w-full h-full">
             <defs>
               <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">

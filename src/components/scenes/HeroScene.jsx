@@ -67,15 +67,19 @@ const HeroScene = () => {
 
   return (
     <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20">
-      {/* Fondo 3D dinámico */}
-      <Suspense fallback={
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-900 to-black" />
-      }>
-        <DynamicBackground3D />
-      </Suspense>
+      {/* Fondo dinámico para desktop, estático para mobile */}
+      {isMobile ? (
+        <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-950 to-black pointer-events-none" />
+      ) : (
+        <Suspense fallback={
+          <div className="absolute inset-0 bg-gradient-to-br from-black via-slate-900 to-black" />
+        }>
+          <DynamicBackground3D />
+        </Suspense>
+      )}
 
-      {/* Partículas sutiles flotantes - Solo si no hay reduced motion */}
-      {!prefersReducedMotion && (
+      {/* Partículas sutiles flotantes - Solo en desktop y si no hay reduced motion */}
+      {!isMobile && !prefersReducedMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {/* Partículas verdes pequeñas */}
           {Array.from({ length: particleCount.green }).map((_, i) => (

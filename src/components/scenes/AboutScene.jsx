@@ -63,10 +63,10 @@ const AboutScene = () => {
     <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-br from-black via-slate-950 to-black">
       {/* Efecto quantum de fondo */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Círculos concéntricos */}
-        {!prefersReducedMotion && (
+        {/* Círculos concéntricos - solo en desktop */}
+        {!isMobile && !prefersReducedMotion && (
           <>
-            {[1, 2, ...(isMobile ? [] : [3])].map((i) => (
+            {[1, 2, 3].map((i) => (
               <motion.div
                 key={i}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -92,10 +92,10 @@ const AboutScene = () => {
           </>
         )}
 
-        {/* Partículas quantum */}
-        {!prefersReducedMotion && (
+        {/* Partículas quantum - solo en desktop */}
+        {!isMobile && !prefersReducedMotion && (
           <>
-            {Array.from({ length: isMobile ? 12 : 20 }).map((_, i) => (
+            {Array.from({ length: 20 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-neon-green/40 rounded-full blur-sm"

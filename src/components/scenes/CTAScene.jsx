@@ -89,10 +89,10 @@ const CTAScene = () => {
     <div className="relative w-full min-h-screen flex items-center justify-center py-12 md:py-20 bg-gradient-to-br from-black via-slate-950 to-black">
       {/* Fondo con efectos */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Círculos de energía */}
-        {!prefersReducedMotion && (
+        {/* Círculos de energía - solo en desktop */}
+        {!isMobile && !prefersReducedMotion && (
           <>
-            {Array.from({ length: isMobile ? 2 : 3 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute"

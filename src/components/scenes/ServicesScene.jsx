@@ -85,8 +85,8 @@ const ServicesScene = () => {
         }}
       />
 
-      {/* Partículas flotantes */}
-      {!prefersReducedMotion && (
+      {/* Partículas flotantes - solo en desktop */}
+      {!isMobile && !prefersReducedMotion && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {Array.from({ length: 20 }).map((_, i) => (
             <motion.div
