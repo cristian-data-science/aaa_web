@@ -199,7 +199,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            Liberamos el potencial humano con soluciones que aprenden, se adaptan y generan resultados medibles.
+            Somos una empresa AI-first que combina ingeniería de software con lo último en inteligencia artificial para resolver problemas reales de negocio.
           </motion.p>
 
           {/* CTA Buttons - Centered */}
@@ -220,7 +220,7 @@ const Hero = () => {
                 onClick={() => handleScrollTo('contact')}
               >
               <span className="relative z-10 flex items-center justify-center">
-                Comenzar Ahora
+                Conversemos
                 <motion.span
                   className="ml-2"
                   animate={!isMobile ? { x: [0, 3, 0] } : {}}
@@ -248,10 +248,10 @@ const Hero = () => {
                   boxShadow: '0 10px 30px rgba(15,118,110,0.2)'
                 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => handleScrollTo('roi-calculator')}
+                onClick={() => handleScrollTo('services')}
               >
               <span className="flex items-center justify-center">
-                Ver Demo
+                Nuestros Servicios
                 <motion.span
                   className="ml-2 text-2xl"
                   animate={!isMobile ? { rotate: [0, 360] } : {}}

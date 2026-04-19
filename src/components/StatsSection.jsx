@@ -6,31 +6,31 @@ const StatsSection = () => {
   const isMobile = useIsMobile()
   const stats = [
     {
-      number: "200-400%",
-      title: "ROI Primer Año",
-      description: "Retorno garantizado",
-      icon: "📈",
+      number: "+10.000",
+      title: "Horas Manuales Ahorradas",
+      description: "Automatizando procesos en múltiples industrias",
+      icon: "⏱️",
       color: "from-green-500 to-emerald-400"
     },
     {
-      number: "40-80%",
-      title: "Reducción Tiempo",
-      description: "Optimización procesos",
-      icon: "⏱️",
+      number: "+20",
+      title: "Proyectos Completados",
+      description: "Automatización, software e IA",
+      icon: "🚀",
       color: "from-orange-500 to-amber-400"
     },
     {
-      number: "95%",
-      title: "Eliminación Errores",
-      description: "Precisión automatizada",
-      icon: "🎯",
+      number: "9",
+      title: "Industrias Atendidas",
+      description: "Retail, transporte, RRHH, logística y más",
+      icon: "🏭",
       color: "from-purple-500 to-violet-400"
     },
     {
-      number: "99.9%",
-      title: "Uptime Garantizado",
-      description: "Disponibilidad continua",
-      icon: "⚡",
+      number: "100%",
+      title: "AI-First",
+      description: "Tecnología de punta en cada proyecto",
+      icon: "🧠",
       color: "from-blue-500 to-cyan-400"
     }
   ];
@@ -95,13 +95,13 @@ const StatsSection = () => {
             >
               🎯
             </motion.span>
-            <span className="text-lg font-semibold text-emerald-800">Resultados Medibles</span>
+            <span className="text-lg font-semibold text-emerald-800">Nuestro Impacto</span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-emerald-900 mb-6" style={{textShadow: '2px 2px 4px rgba(0,0,0,0.1)'}}>
-            Resultados Medibles
+            Lo que hemos logrado
           </h2>
           <p className="text-xl text-emerald-700 max-w-3xl mx-auto">
-            Métricas reales que demuestran el impacto de nuestras soluciones en tu empresa.
+            Números reales de proyectos reales. Así medimos nuestro trabajo.
           </p>
         </motion.div>
 

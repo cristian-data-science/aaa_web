@@ -16,8 +16,8 @@ const Services = lazy(() =>
 const About = lazy(() => 
   import('./components/About').then(module => ({ default: module.default }))
 )
-const ROICalculator = lazy(() => 
-  import('./components/ROICalculator').then(module => ({ default: module.default }))
+const CaseStudies = lazy(() => 
+  import('./components/CaseStudies').then(module => ({ default: module.default }))
 )
 const Contact = lazy(() => 
   import('./components/Contact').then(module => ({ default: module.default }))
@@ -99,8 +99,8 @@ function App() {
         <Suspense fallback={<SectionSkeleton height="h-32 md:h-64" />}>
           <About />
         </Suspense>
-        <Suspense fallback={<SectionSkeleton height="h-48 md:h-80" />}>
-          <ROICalculator />
+        <Suspense fallback={<SectionSkeleton height="h-32 md:h-64" />}>
+          <CaseStudies />
         </Suspense>
         <Suspense fallback={<SectionSkeleton height="h-40 md:h-72" />}>
           <Contact />

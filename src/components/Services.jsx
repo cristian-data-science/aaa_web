@@ -6,13 +6,26 @@ const Services = () => {
   const isMobile = useIsMobile()
   const services = [
     {
+      icon: "💻",
+      title: "Desarrollo de Software a Medida",
+      description: "Entendemos tus procesos de negocio, identificamos los dolores reales y construimos software que automatiza lo repetitivo y abre la puerta a innovar con IA. Cada línea de código tiene un propósito.",
+      features: [
+        "Aplicaciones web y móvil",
+        "APIs e integraciones",
+        "Arquitectura diseñada para tu negocio"
+      ],
+      color: "from-emerald-500 to-green-600",
+      borderColor: "border-emerald-500/30",
+      glowColor: "shadow-emerald-500/20"
+    },
+    {
       icon: "🤖",
       title: "Automatización Inteligente",
-      description: "RPA avanzado con IA que aprende y se adapta. Robots que no solo ejecutan tareas, sino que toman decisiones inteligentes.",
+      description: "Eliminamos el trabajo manual repetitivo con herramientas como N8N y Make, conectadas con IA. Tu equipo deja de copiar y pegar para enfocarse en lo que importa.",
       features: [
-        "Agentes de IA autónomos",
+        "Automatización de facturación",
         "Procesamiento de documentos",
-        "Automatización de back-office"
+        "Flujos de trabajo inteligentes"
       ],
       color: "from-green-500 to-emerald-600",
       borderColor: "border-green-500/30",
@@ -21,59 +34,33 @@ const Services = () => {
     {
       icon: "📊",
       title: "Datos & Inteligencia Artificial",
-      description: "Transformamos datos en insights accionables con infraestructuras modernas y modelos de ML avanzados.",
+      description: "Convertimos datos en decisiones concretas. Construimos agentes de IA, modelos de análisis y sistemas conversacionales que entienden tu negocio.",
       features: [
-        "RAG & IA Conversacional",
-        "Análisis predictivo",
-        "Data Lakes/Warehouses"
+        "Agentes de IA personalizados",
+        "Análisis de datos avanzado",
+        "IA Conversacional (RAG)"
       ],
       color: "from-blue-500 to-cyan-600",
       borderColor: "border-blue-500/30",
       glowColor: "shadow-blue-500/20"
     },
     {
-      icon: "📈",
-      title: "Marketing & Ventas",
-      description: "Automatización inteligente de procesos comerciales que acelera el crecimiento y optimiza conversiones.",
-      features: [
-        "Email marketing automation",
-        "Lead scoring",
-        "Revenue operations"
-      ],
-      color: "from-purple-500 to-violet-600",
-      borderColor: "border-purple-500/30",
-      glowColor: "shadow-purple-500/20"
-    },
-    {
       icon: "👥",
-      title: "Consultoría & Adopción",
-      description: "Te acompañamos en la transformación digital con estrategias personalizadas y gestión del cambio.",
+      title: "Consultoría & Adopción Tecnológica",
+      description: "Te acompañamos desde el diagnóstico hasta la implementación. No solo entregamos tecnología — nos aseguramos de que tu equipo la adopte y le saque provecho.",
       features: [
-        "Estrategia digital",
-        "Gestión del cambio",
-        "Capacitación especializada"
+        "Diagnóstico de procesos",
+        "Estrategia de automatización",
+        "Capacitación de equipos"
       ],
       color: "from-orange-500 to-amber-600",
       borderColor: "border-orange-500/30",
       glowColor: "shadow-orange-500/20"
     },
     {
-      icon: "🏭",
-      title: "Soluciones Verticales",
-      description: "Soluciones especializadas para industrias específicas con expertise profundo en cada sector.",
-      features: [
-        "Manufactura",
-        "Retail",
-        "Servicios financieros"
-      ],
-      color: "from-red-500 to-rose-600",
-      borderColor: "border-red-500/30",
-      glowColor: "shadow-red-500/20"
-    },
-    {
       icon: "🔧",
-      title: "Open Source Enablement",
-      description: "Implementación y desarrollo de soluciones open source adaptadas a tus necesidades específicas.",
+      title: "Soluciones Open Source",
+      description: "Implementamos y adaptamos herramientas open source para que tengas soluciones potentes sin depender de licencias costosas. Libertad tecnológica real.",
       features: [
         "Herramientas propias",
         "Integración open source",
@@ -206,7 +193,7 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <span className="text-2xl">⚡</span>
-            <span className="text-lg font-semibold text-emerald-600">Nuestros Servicios</span>
+            <span className="text-lg font-semibold text-emerald-600">Lo que hacemos</span>
           </motion.div>
           
           <motion.h2 
@@ -216,7 +203,7 @@ const Services = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Soluciones Integrales
+            Nuestros Servicios
           </motion.h2>
           
           <motion.p 
@@ -226,8 +213,7 @@ const Services = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
           >
-            Soluciones integrales de automatización e IA que transforman tu empresa y 
-            generan resultados medibles desde el primer día.
+            Cada empresa es distinta. Por eso combinamos desarrollo de software, automatización e IA para armar la solución que tu negocio realmente necesita.
           </motion.p>
         </div>
 
@@ -349,10 +335,10 @@ const Services = () => {
             </motion.span>
             <div className="text-left">
               <p className="text-lg font-semibold text-gray-900 mb-2">
-                ¿Listo para transformar tu empresa?
+                ¿Tienes un proceso que te quita tiempo?
               </p>
               <p className="text-gray-700">
-                Descubre cómo nuestras soluciones pueden generar un ROI del 200-400% en tu primer año.
+                Contáctanos y te mostramos cómo podemos automatizarlo o mejorarlo con tecnología.
               </p>
             </div>
             <motion.button 
@@ -360,7 +346,7 @@ const Services = () => {
               
               whileTap={{ scale: 0.95 }}
             >
-              Comenzar Ahora
+              Conversemos
             </motion.button>
           </div>
         </motion.div>
