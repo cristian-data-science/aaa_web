@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle, Gift, Clock, Shield, Zap } from 'lucide-react'
+import { Mail, MapPin, Send, CheckCircle, Gift, Clock, Zap, Code } from 'lucide-react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,9 +9,7 @@ const Contact = () => {
     company: '',
     message: ''
   })
-  const [newsletterEmail, setNewsletterEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isNewsletterSubmitted, setIsNewsletterSubmitted] = useState(false)
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -22,43 +20,32 @@ const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Simulate form submission
     setTimeout(() => {
       setIsSubmitted(true)
       setTimeout(() => setIsSubmitted(false), 3000)
     }, 1000)
   }
 
-  const handleNewsletterSubmit = (e) => {
-    e.preventDefault()
-    // Simulate newsletter subscription
-    setTimeout(() => {
-      setIsNewsletterSubmitted(true)
-      setNewsletterEmail('')
-      setTimeout(() => setIsNewsletterSubmitted(false), 3000)
-    }, 1000)
-  }
-
   const benefits = [
     {
       icon: Gift,
-      title: 'Consulta Gratuita',
-      description: 'Análisis inicial sin costo para identificar oportunidades de automatización.'
+      title: 'Consulta Sin Costo',
+      description: 'Conversemos sobre tu caso. Analizamos tus procesos y te decimos honestamente cómo podemos ayudarte.'
     },
     {
-      icon: Shield,
-      title: 'ROI Garantizado',
-      description: 'Comprometemos mejoras medibles o reembolso de la inversión.'
+      icon: Code,
+      title: 'Equipo Técnico Real',
+      description: 'Data scientists, ingenieros de software y expertos en IA trabajando en tu proyecto.'
     },
     {
       icon: Clock,
-      title: 'Soporte 24/7',
-      description: 'Monitoreo continuo y soporte técnico para sistemas críticos.'
+      title: 'Resultados Rápidos',
+      description: 'Implementación ágil con resultados visibles en semanas, no en meses.'
     },
     {
       icon: Zap,
-      title: 'Respuesta Rápida',
-      description: 'Implementación ágil con resultados visibles en semanas.'
+      title: 'Tecnología de Punta',
+      description: 'Python, JavaScript, modelos de IA de última generación, N8N y las mejores herramientas del mercado.'
     }
   ]
 
@@ -97,18 +84,18 @@ const Contact = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 bg-gradient-to-r from-emerald-400 via-orange-500 to-purple-500 bg-clip-text text-transparent drop-shadow-lg">
-            Hablemos de tu Negocio
+            Hablemos de tu Proyecto
           </h2>
           
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            Estamos listos para ayudarte a automatizar tus procesos y acelerar tu crecimiento. Contáctanos para una consulta gratuita.
+            ¿Tienes un proceso manual que te quita horas? ¿Una idea que quieres llevar a la realidad con tecnología? Escríbenos — la primera conversación es sin costo.
           </p>
         </motion.div>
 
         {/* Benefits Grid */}
         <div className="mb-16">
           <h3 className="text-3xl font-bold text-white text-center mb-12">
-            ¿Por qué elegir DataCEF?
+            ¿Por qué trabajar con DataCEF?
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -271,60 +258,27 @@ const Contact = () => {
 
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-orange-500 p-2 mr-4">
-                    <Phone className="w-full h-full text-white" />
-                  </div>
-                  <div>
-                    <p className="text-gray-300 text-sm">Teléfono</p>
-                    <p className="text-white font-semibold">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-orange-500 p-2 mr-4">
                     <MapPin className="w-full h-full text-white" />
                   </div>
                   <div>
                     <p className="text-gray-300 text-sm">Ubicación</p>
-                    <p className="text-white font-semibold">América Latina</p>
+                    <p className="text-white font-semibold">Santiago, Chile · Remoto en toda Latinoamérica</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Newsletter */}
+            {/* Industries */}
             <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500">
-              <h3 className="text-2xl font-bold text-white mb-4">Newsletter</h3>
-              <p className="text-gray-300 mb-6">
-                Recibe las últimas tendencias en automatización e IA directamente en tu inbox.
-              </p>
-
-              <form onSubmit={handleNewsletterSubmit} className="space-y-4">
-                <input
-                  type="email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
-                  placeholder="tu@email.com"
-                  required
-                />
-
-                <motion.button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-3 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                  
-                  whileTap={{ scale: 0.98 }}
-                  disabled={isNewsletterSubmitted}
-                >
-                  {isNewsletterSubmitted ? (
-                    <span className="flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 mr-2" />
-                      ¡Suscrito!
-                    </span>
-                  ) : (
-                    'Suscribirse'
-                  )}
-                </motion.button>
-              </form>
+              <h3 className="text-2xl font-bold text-white mb-4">Industrias que Atendemos</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {['Retail', 'Transporte', 'Recursos Humanos', 'Operaciones y Logística'].map((industry, i) => (
+                  <div key={i} className="flex items-center gap-2 text-gray-300">
+                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-400" />
+                    <span>{industry}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* CTA Button */}
@@ -335,7 +289,7 @@ const Contact = () => {
             >
               <button className="bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
                 <span className="relative z-10 flex items-center justify-center">
-                  ¿Listo para transformar tu empresa?
+                  ¿Tienes un proyecto en mente?
                   <motion.span
                     className="ml-2"
                     animate={{ x: [0, 5, 0] }}

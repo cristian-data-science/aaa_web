@@ -7,38 +7,38 @@ const About = () => {
   const values = [
     {
       icon: Lightbulb,
-      title: 'Innovación Responsable',
-      description: 'Adoptamos tecnologías avanzadas de manera ética y responsable.',
+      title: 'AI-First',
+      description: 'No le tenemos miedo a lo nuevo. Adoptamos las últimas tecnologías apenas demuestran valor real.',
       color: 'from-emerald-200 to-emerald-500'
     },
     {
       icon: Award,
       title: 'Excelencia Técnica',
-      description: 'Mantenemos los más altos estándares de calidad en cada proyecto.',
+      description: 'Background sólido de ingeniería con estándares altos en cada línea de código y cada entrega.',
       color: 'from-emerald-100 to-teal-400'
     },
     {
       icon: Heart,
-      title: 'Transparencia y Confianza',
-      description: 'Construimos relaciones duraderas basadas en la transparencia.',
+      title: 'Transparencia',
+      description: 'Te decimos las cosas como son. Si algo no se puede, lo decimos. Si hay una forma mejor, la proponemos.',
       color: 'from-lime-200 to-emerald-500'
     },
     {
       icon: Target,
-      title: 'Impacto Medible',
-      description: 'Cada solución genera un impacto cuantificable y comunicable.',
+      title: 'Resultados Concretos',
+      description: 'Cada proyecto tiene métricas claras. Horas ahorradas, procesos automatizados, problemas resueltos.',
       color: 'from-emerald-300 to-emerald-600'
     },
     {
       icon: Users,
-      title: 'Colaboración',
-      description: 'Trabajamos como socios en el proceso de transformación digital.',
+      title: 'Partners, No Proveedores',
+      description: 'Trabajamos codo a codo contigo. Entendemos tu negocio antes de escribir la primera línea de código.',
       color: 'from-teal-200 to-emerald-500'
     },
     {
       icon: Eye,
       title: 'Adaptabilidad',
-      description: 'Mantenemos una mentalidad de aprendizaje continuo.',
+      description: 'La tecnología cambia rápido. Nosotros también. Nos desacoplamos de lo rígido para innovar ágilmente.',
       color: 'from-emerald-100 to-emerald-400'
     }
   ]
@@ -277,7 +277,7 @@ const About = () => {
                     Nuestra Misión
                   </h3>
                   <p className="text-emerald-700 leading-relaxed text-lg">
-                    Transformamos las operaciones empresariales mediante soluciones de automatización inteligente e inteligencia artificial, liberando el potencial humano para que las organizaciones se enfoquen en la innovación y el crecimiento estratégico.
+                    Habilitamos la transformación tecnológica de empresas en Chile y Latinoamérica. Combinamos ingeniería de software sólida con lo último en inteligencia artificial para resolver problemas reales de negocio — no para vender humo.
                   </p>
                 </motion.div>
               </div>
@@ -295,7 +295,7 @@ const About = () => {
                     Nuestra Visión
                   </h3>
                   <p className="text-emerald-700 leading-relaxed text-lg">
-                    Ser la empresa líder en automatización inteligente en América Latina, reconocida por nuestra capacidad de transformar procesos complejos en soluciones elegantes y eficientes.
+                    Ser el partner tecnológico de referencia para empresas que quieren innovar de verdad — sin burocracia, con resultados concretos y tecnología de punta. Desde Santiago para todo Chile y Latinoamérica.
                   </p>
                 </motion.div>
               </div>
@@ -313,7 +313,7 @@ const About = () => {
                     Nuestro Compromiso
                   </h3>
                   <p className="text-emerald-700 leading-relaxed text-lg">
-                    Democratizar el acceso a tecnologías avanzadas, proporcionando implementaciones eficientes, escalables y con un retorno de inversión medible.
+                    Nos comprometemos con cada proyecto como si fuera nuestro. Entendemos tu negocio primero, proponemos después, y entregamos soluciones que funcionan. Así de simple.
                   </p>
                 </motion.div>
               </div>
@@ -356,7 +356,7 @@ const About = () => {
             Nuestros Valores
           </h3>
           <p className="text-emerald-700 text-center mb-12 text-lg">
-            Los principios que guían cada decisión y proyecto que emprendemos.
+            Cómo trabajamos y qué nos mueve como equipo.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

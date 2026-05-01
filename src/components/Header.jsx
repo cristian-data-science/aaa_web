@@ -9,7 +9,6 @@ const Header = () => {
     { name: 'Inicio', href: '#hero' },
     { name: 'Servicios', href: '#services' },
     { name: 'Nosotros', href: '#about' },
-    { name: 'Calculadora ROI', href: '#roi-calculator' },
     { name: 'Contacto', href: '#contact' }
   ]
 
