@@ -1,51 +1,143 @@
 @import "tailwindcss";
 
-/* Scroll suave global y optimizaciones de rendimiento */
-html {
-  scroll-behavior: smooth;
+/* ============================================================
+   Design system DataCEF — tokens Tailwind v4
+   Marca: verde esmeralda (brand) + teal (accent)
+   ============================================================ */
+@theme {
+  /* Escala de marca (alias de emerald) */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #022c22;
+
+  /* Acento secundario para gradientes (teal) */
+  --color-accent-300: #5eead4;
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  --color-accent-700: #0f766e;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Sombras de tarjeta con tinte esmeralda */
+  --shadow-card: 0 4px 24px -6px rgb(5 150 105 / 0.12);
+  --shadow-card-hover: 0 12px 32px -8px rgb(5 150 105 / 0.22);
 }
 
-/* Optimizaciones de rendimiento globales */
-* {
-  box-sizing: border-box;
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-slate-200);
+  }
+
+  body {
+    background: linear-gradient(180deg, #ffffff 0%, #f3fff8 100%);
+    color: var(--color-brand-950);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
 }
 
-/* Evitar layout shifts */
-img, video {
-  max-width: 100%;
-  height: auto;
+/* ============================================================
+   Componentes de marca
+   ============================================================ */
+
+/* Texto con gradiente de marca (única definición) */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-accent-600) 60%, var(--color-brand-700) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-/* Optimizar animaciones */
-.will-change-transform {
-  will-change: transform;
+/* Sistema único de botones */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  min-height: 48px;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-brand-600) 0%, var(--color-accent-600) 100%);
+  box-shadow: 0 4px 14px rgb(5 150 105 / 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
 }
 
-.will-change-opacity {
-  will-change: opacity;
+.btn-primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgb(5 150 105 / 0.38);
 }
 
-/* Prevenir parpadeo en animaciones */
-.will-change-auto {
-  will-change: auto;
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  min-height: 48px;
+  border: 2px solid var(--color-brand-600);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--color-brand-700);
+  background: rgb(255 255 255 / 0.8);
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Optimizaciones anti-parpadeo */
+.btn-secondary:hover {
+  background: var(--color-brand-50);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgb(5 150 105 / 0.16);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--color-brand-600);
+}
+
+/* ============================================================
+   Anti-parpadeo en la grilla de servicios
+   ============================================================ */
 [data-section="services"] .group {
   transform: translateZ(0);
   backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  opacity: 1 !important;
-  visibility: visible !important;
   contain: layout style paint;
 }
 
-[data-section="services"] .group:hover {
-  transform: translateZ(0) scale(1.005);
-}
-
-/* Prevenir cualquier parpadeo durante la carga */
 [data-section="services"] {
   contain: layout;
 }
@@ -54,202 +146,61 @@ img, video {
   min-height: 400px;
 }
 
-/* Optimizaciones específicas para móvil */
 @media (max-width: 768px) {
-  /* Reducir efectos pesados en móvil */
-  * {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-  }
-  
-  /* Deshabilitar animaciones complejas en móvil */
-  .gradient-text {
-    animation: none;
-    background: linear-gradient(135deg, #0f766e 0%, #059669 50%, #047857 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
-  }
-  
-  /* Simplificar efectos glass en móvil */
-  .glass-effect {
-    background: rgba(236, 253, 245, 0.82);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(22, 163, 74, 0.12);
-  }
-  
-  /* Eliminar hover effects complejos en móvil */
   [data-section="services"] .group:hover {
     transform: none;
   }
 }
 
-/* Clases de utilidad para efectos mejorados */
-.gradient-text {
-  background: linear-gradient(135deg, #0f766e 0%, #059669 50%, #047857 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
-  filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.1));
+/* ============================================================
+   Fondo de marca (BrandBackground)
+   ============================================================ */
+.brand-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-brand-600) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-brand-600) 6%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 35%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 35%, black 40%, transparent 100%);
 }
 
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+@media (prefers-reduced-motion: no-preference) {
+  .brand-orb-a {
+    animation: brand-float-a 22s ease-in-out infinite alternate;
+  }
+
+  .brand-orb-b {
+    animation: brand-float-b 26s ease-in-out infinite alternate;
+  }
+
+  .brand-orb-c {
+    animation: brand-float-a 18s ease-in-out infinite alternate-reverse;
+  }
 }
 
-.glass-effect {
-  background: rgba(236, 253, 245, 0.90);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 118, 110, 0.20);
+@keyframes brand-float-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(4rem, -3rem, 0) scale(1.12); }
 }
 
-.holographic-border {
-  position: relative;
-  background: linear-gradient(45deg, transparent, rgba(209, 250, 229, 0.35), transparent);
-  border-radius: inherit;
+@keyframes brand-float-b {
+  from { transform: translate3d(0, 0, 0) scale(1.08); }
+  to { transform: translate3d(-3rem, 4rem, 0) scale(0.95); }
 }
 
-.holographic-border::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  background: linear-gradient(45deg, #ffffff, #bbf7d0, #34d399, #16a34a);
-  border-radius: inherit;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.holographic-border:hover::before {
-  opacity: 1;
-}
-
-/* Variables CSS para shadcn/ui */
-@layer base {
-  :root {
-    --background: 148 60% 98%;
-    --foreground: 160 20% 10%;
-    --card: 0 0% 100%;
-    --card-foreground: 160 20% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 160 20% 10%;
-    --primary: 148 65% 35%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 152 41% 94%;
-    --secondary-foreground: 160 20% 15%;
-    --muted: 152 38% 94%;
-    --muted-foreground: 160 18% 30%;
-    --accent: 150 45% 92%;
-    --accent-foreground: 160 20% 12%;
-    --destructive: 4 74% 56%;
-    --destructive-foreground: 148 60% 98%;
-    --border: 152 35% 85%;
-    --input: 152 35% 85%;
-    --ring: 148 65% 35%;
-    --radius: 0.75rem;
-    --chart-1: 148 65% 35%;
-    --chart-2: 156 60% 40%;
-    --chart-3: 163 55% 45%;
-    --chart-4: 165 45% 50%;
-    --chart-5: 168 40% 55%;
+/* ============================================================
+   Reduced motion: frenar animaciones CSS
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 
-  * {
-    border-color: hsl(var(--border));
-  }
-
-  body {
-    background: linear-gradient(180deg, #ffffff 0%, #f3fff8 100%);
-    color: hsl(var(--foreground));
-    font-family: 'Inter', system-ui, sans-serif;
-    /* Optimizaciones de renderizado */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    /* Mejor scroll en móviles */
-    -webkit-overflow-scrolling: touch;
-    /* Prevenir zoom en inputs en iOS */
-    -webkit-text-size-adjust: 100%;
-  }
-  
-  /* Animaciones optimizadas */
-  @keyframes datacef-scanY {
-    0% { transform: translateY(0%); }
-    100% { transform: translateY(100%); }
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 16px rgba(52, 211, 153, 0.25); }
-    50% { box-shadow: 0 0 34px rgba(52, 211, 153, 0.45); }
-  }
-  
-  @keyframes data-flow {
-    0% { transform: translateX(-100%); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateX(100vw); opacity: 0; }
-  }
-  
-  /* Utilidades de animación */
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-  
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-  
-  .animate-data-flow {
-    animation: data-flow 4s linear infinite;
-  }
-  
-  /* Optimizaciones móviles */
-  @media (max-width: 767px) {
-    * {
-      /* Optimizar compositing en móviles */
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      -webkit-perspective: 1000;
-      perspective: 1000;
-    }
-    
-    /* Reducir animaciones complejas en móviles */
-    .animate-pulse {
-      animation: none;
-    }
-    
-    /* Simplificar gradientes para mejor rendimiento */
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #bbf7d0 60%, #16a34a 100%);
-      animation: none;
-    }
-    
-    /* Desactivar efectos pesados */
-    .glass-effect {
-      backdrop-filter: none;
-      background: rgba(236, 253, 245, 0.85);
-    }
-    
-    /* Optimizar transforms para móviles */
-    .will-change-transform {
-      will-change: auto;
-    }
-  }
-  
-  /* Prevent animation on reduced motion preference */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+  html {
+    scroll-behavior: auto;
   }
 }

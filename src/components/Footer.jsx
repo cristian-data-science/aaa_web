@@ -24,7 +24,7 @@ const Footer = () => {
                 alt="DataCEF Logo" 
                 className="h-10 w-10"
               />
-              <span className="text-2xl font-bold text-gradient">
+              <span className="text-2xl font-bold bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent">
                 DataCEF
               </span>
             </div>
