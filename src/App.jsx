@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react'
+import { MotionConfig } from 'framer-motion'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
@@ -69,7 +70,8 @@ function App() {
   }, [isLoaded, isMobile])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-emerald-950 relative overflow-x-hidden">
+    <MotionConfig reducedMotion="user">
+    <div className="min-h-screen bg-gradient-to-b from-white via-brand-50 to-brand-100 text-brand-950 relative overflow-x-hidden">
       {/* Fondo de marca ligero */}
       <BrandBackground />
       
@@ -106,6 +108,7 @@ function App() {
       {/* Footer */}
       <Footer />
     </div>
+    </MotionConfig>
   )
 }
 

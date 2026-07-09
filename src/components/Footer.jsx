@@ -37,7 +37,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center text-gray-300">
                 <Mail className="h-5 w-5 mr-3 text-emerald-400" />
-                <a href="mailto:contacto@datacef.com" className="hover:text-emerald-400 transition-colors">contacto@datacef.com</a>
+                <a href="mailto:contacto@datacef.com" className="hover:text-emerald-400 transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">contacto@datacef.com</a>
               </div>
               <div className="flex items-center text-gray-300">
                 <MapPin className="h-5 w-5 mr-3 text-emerald-400" />
@@ -56,7 +56,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href="#services" 
-                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200"
+                    className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
                   >
                     {service}
                   </a>
@@ -71,11 +71,11 @@ const Footer = () => {
               Navegación
             </h3>
             <ul className="space-y-3">
-              <li><a href="#hero" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200">Inicio</a></li>
-              <li><a href="#services" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200">Servicios</a></li>
-              <li><a href="#about" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200">Nosotros</a></li>
-              <li><a href="#case-studies" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200">Casos de Éxito</a></li>
-              <li><a href="#contact" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200">Contacto</a></li>
+              <li><a href="#hero" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Inicio</a></li>
+              <li><a href="#services" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Servicios</a></li>
+              <li><a href="#about" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Nosotros</a></li>
+              <li><a href="#case-studies" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Casos de Éxito</a></li>
+              <li><a href="#contact" className="text-gray-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Contacto</a></li>
             </ul>
           </div>
         </div>

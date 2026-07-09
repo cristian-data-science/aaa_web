@@ -3,7 +3,11 @@ import * as React from "react"
 const MOBILE_BREAKPOINT = 768
 
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState(undefined)
+  // Estado inicial correcto desde el primer render para evitar el flash
+  // desktop->movil (layout shift) que producia arrancar en undefined
+  const [isMobile, setIsMobile] = React.useState(
+    () => typeof window !== "undefined" && window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches
+  )
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)

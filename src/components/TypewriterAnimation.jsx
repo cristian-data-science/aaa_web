@@ -72,7 +72,7 @@ const TypewriterAnimation = () => {
           <span
             className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
             style={{
-              background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
+              background: 'linear-gradient(45deg, #059669, #0d9488, #047857)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               color: 'transparent',
@@ -93,7 +93,7 @@ const TypewriterAnimation = () => {
         <motion.span
           className="inline-block text-4xl md:text-6xl lg:text-7xl font-black leading-relaxed"
           style={{
-            background: 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
+            background: 'linear-gradient(45deg, #059669, #0d9488, #047857)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
@@ -117,7 +117,7 @@ const TypewriterAnimation = () => {
         <motion.span
           className="inline-block w-1 h-10 md:h-16 lg:h-20 ml-2"
           style={{
-            background: isMobile ? '#059669' : 'linear-gradient(45deg, #059669, #dc2626, #7c3aed)',
+            background: isMobile ? '#059669' : 'linear-gradient(45deg, #059669, #0d9488, #047857)',
           }}
           animate={config.enableAnimation ? {
             opacity: [1, 0.3, 1],
