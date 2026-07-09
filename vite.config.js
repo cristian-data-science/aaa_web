@@ -39,29 +39,18 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // React ecosystem
-          if (id.includes('react') || id.includes('react-dom')) {
-            return 'react-vendor'
-          }
           // Animation libraries
           if (id.includes('framer-motion')) {
             return 'animation-vendor'
           }
-          // Three.js y dependencias 3D
-          if (id.includes('three')) {
-            return 'three-vendor'
-          }
-          // Radix UI components
-          if (id.includes('@radix-ui')) {
-            return 'ui-vendor'
-          }
-          // Utility libraries
-          if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('class-variance-authority')) {
-            return 'utils-vendor'
-          }
           // Lucide icons
           if (id.includes('lucide-react')) {
             return 'icons-vendor'
+          }
+          // React ecosystem (match por path para no capturar otros
+          // paquetes cuyo nombre contiene "react", como lucide-react)
+          if (/node_modules[\\/](react|react-dom|scheduler)[\\/]/.test(id)) {
+            return 'react-vendor'
           }
           // Node modules (resto)
           if (id.includes('node_modules')) {

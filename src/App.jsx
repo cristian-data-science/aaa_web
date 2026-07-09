@@ -3,7 +3,7 @@ import './App.css'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
-import EnhancedVisuals from './components/EnhancedVisuals'
+import BrandBackground from './components/BrandBackground'
 import { useIsMobile } from './hooks/use-mobile'
 
 // Lazy-load optimizado con preload condicional
@@ -71,8 +71,8 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-emerald-50 to-emerald-100 text-emerald-950 relative overflow-x-hidden">
-      {/* Efectos visuales mejorados */}
-      <EnhancedVisuals />
+      {/* Fondo de marca ligero */}
+      <BrandBackground />
       
       {/* Header */}
       <Header />
