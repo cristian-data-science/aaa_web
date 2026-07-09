@@ -1,15 +1,23 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Send, CheckCircle, Gift, Clock, Zap, Code } from 'lucide-react'
+import emailjs from '@emailjs/browser'
+import { Mail, MapPin, Send, CheckCircle, AlertCircle, Gift, Clock, Zap, Code } from 'lucide-react'
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    message: ''
+    message: '',
+    _honeypot: ''
   })
+  const [isSending, setIsSending] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -18,12 +26,40 @@ const Contact = () => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setTimeout(() => {
+
+    // Honeypot: si un bot llena este campo oculto, ignoramos el envío silenciosamente
+    if (formData._honeypot) {
+      return
+    }
+
+    setError('')
+    setIsSending(true)
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          company: formData.company || 'No especificada',
+          message: formData.message,
+          time: new Date().toLocaleString('es-CL')
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+
+      setFormData({ name: '', email: '', company: '', message: '', _honeypot: '' })
       setIsSubmitted(true)
       setTimeout(() => setIsSubmitted(false), 3000)
-    }, 1000)
+    } catch (err) {
+      console.error('Error al enviar el formulario de contacto:', err)
+      setError('No se pudo enviar el mensaje. Intenta nuevamente o escríbenos a contacto@datacef.com')
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const benefits = [
@@ -149,6 +185,18 @@ const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Honeypot anti-spam: campo oculto, invisible para personas */}
+                <input
+                  type="text"
+                  name="_honeypot"
+                  value={formData._honeypot}
+                  onChange={(e) => handleInputChange('_honeypot', e.target.value)}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
                 {/* Name */}
                 <div>
                   <label className="block text-gray-200 text-sm font-medium mb-2">
@@ -211,15 +259,20 @@ const Contact = () => {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
                   
                   whileTap={{ scale: 0.98 }}
-                  disabled={isSubmitted}
+                  disabled={isSending || isSubmitted}
                 >
                   {isSubmitted ? (
                     <span className="flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 mr-2" />
                       ¡Mensaje Enviado!
+                    </span>
+                  ) : isSending ? (
+                    <span className="flex items-center justify-center">
+                      <span className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Enviando...
                     </span>
                   ) : (
                     <span className="flex items-center justify-center">
@@ -228,6 +281,13 @@ const Contact = () => {
                     </span>
                   )}
                 </motion.button>
+
+                {error && (
+                  <p className="flex items-center gap-2 text-red-400 text-sm">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                    {error}
+                  </p>
+                )}
               </form>
               </div>
             </div>
