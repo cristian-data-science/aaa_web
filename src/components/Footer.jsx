@@ -1,5 +1,5 @@
 import { Mail, MapPin } from 'lucide-react'
-import logo1 from '../assets/logos/datacef-logo-1.png'
+import logo1 from '../assets/logos/datacef-logo.webp'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -19,10 +19,14 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <img 
-                src={logo1} 
-                alt="DataCEF Logo" 
+              <img
+                src={logo1}
+                alt="DataCEF Logo"
                 className="h-10 w-10"
+                width="40"
+                height="40"
+                loading="lazy"
+                decoding="async"
               />
               <span className="text-2xl font-bold bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent">
                 DataCEF

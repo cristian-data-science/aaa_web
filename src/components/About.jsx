@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
-import datacefCity from '../assets/images/datacef-city.png'
+import datacefCity from '../assets/images/datacef-city.webp'
 
 const About = () => {
   const values = [
@@ -112,6 +112,8 @@ const About = () => {
                 src={datacefCity}
                 alt="DATACEF - Letras luminosas sobre una ciudad"
                 className="w-full h-full object-cover"
+                width="1024"
+                height="1024"
                 loading="lazy"
                 decoding="async"
               />
