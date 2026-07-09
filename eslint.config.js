@@ -23,7 +23,9 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // 'motion' se usa como <motion.div> en JSX, que este setup sin
+      // eslint-plugin-react no detecta como uso
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]|^motion$' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },

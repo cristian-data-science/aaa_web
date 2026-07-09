@@ -62,6 +62,19 @@ const Contact = () => {
     }
   }
 
+  const focusForm = () => {
+    const form = document.getElementById('contact-form')
+    if (form) {
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      const firstInput = form.querySelector('input:not([type="hidden"]):not([tabindex="-1"])')
+      if (firstInput) {
+        setTimeout(() => firstInput.focus({ preventScroll: true }), 400)
+      }
+    }
+  }
+
+  const inputClasses = "w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/30 transition-all duration-300"
+
   const benefits = [
     {
       icon: Gift,
@@ -87,43 +100,36 @@ const Contact = () => {
 
   return (
     <section id="contact" className="relative py-20 overflow-hidden bg-slate-950">
-      {/* Background estático de contacto */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Grid de comunicación */}
-        <div 
-          className="absolute inset-0 opacity-[0.01]"
+      {/* Decoración sutil en paleta de marca */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
+              linear-gradient(rgba(16, 185, 129, 0.4) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(16, 185, 129, 0.4) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px',
+            backgroundSize: '64px 64px',
           }}
         />
-
-        {/* Efectos estáticos sutiles */}
-        <div className="absolute inset-0 opacity-[0.005]">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-green-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-32 right-20 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-          <div className="absolute bottom-40 left-1/4 w-28 h-28 bg-orange-500/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-1/3 w-20 h-20 bg-purple-500/10 rounded-full blur-2xl"></div>
-        </div>
+        <div className="absolute -top-20 -left-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
-        <motion.div 
+        <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 bg-gradient-to-r from-emerald-400 via-orange-500 to-purple-500 bg-clip-text text-transparent drop-shadow-lg">
+          <h2 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-brand-300 via-accent-300 to-brand-400 bg-clip-text text-transparent">
             Hablemos de tu Proyecto
           </h2>
-          
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+
+          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
             ¿Tienes un proceso manual que te quita horas? ¿Una idea que quieres llevar a la realidad con tecnología? Escríbenos — la primera conversación es sin costo.
           </p>
         </motion.div>
@@ -135,31 +141,28 @@ const Contact = () => {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
+            {benefits.map((benefit) => (
               <div
-                key={index}
-                className="group text-center"
+                key={benefit.title}
+                className="group text-center h-full bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8
+                           border border-white/10 hover:border-brand-400/40 transition-colors duration-300"
               >
-                <div className="gradient-border-wrapper full-width rounded-3xl">
-                  <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 group-hover:shadow-lg">
-                  {/* Icon */}
-                  <div className="mb-6 flex justify-center">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-orange-500 p-4 group-hover:shadow-lg transition-all duration-300">
-                      <benefit.icon className="w-full h-full text-white" />
-                    </div>
-                  </div>
-
-                  {/* Title */}
-                  <h4 className="text-xl font-bold text-white mb-3 group-hover:text-green-300 transition-colors duration-300">
-                    {benefit.title}
-                  </h4>
-
-                  {/* Description */}
-                  <p className="text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                    {benefit.description}
-                  </p>
+                {/* Icon */}
+                <div className="mb-6 flex justify-center">
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-brand-500 to-accent-500 p-4" aria-hidden="true">
+                    <benefit.icon className="w-full h-full text-white" />
                   </div>
                 </div>
+
+                {/* Title */}
+                <h4 className="text-xl font-bold text-white mb-3 group-hover:text-brand-300 transition-colors duration-300">
+                  {benefit.title}
+                </h4>
+
+                {/* Description */}
+                <p className="text-slate-300">
+                  {benefit.description}
+                </p>
               </div>
             ))}
           </div>
@@ -175,16 +178,15 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="gradient-border-wrapper rounded-3xl">
-              <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500">
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="flex items-center mb-8">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-green-500 to-orange-500 p-3 mr-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-brand-500 to-accent-500 p-3 mr-4" aria-hidden="true">
                   <Mail className="w-full h-full text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white">Envíanos un Mensaje</h3>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
                 {/* Honeypot anti-spam: campo oculto, invisible para personas */}
                 <input
                   type="text"
@@ -199,58 +201,65 @@ const Contact = () => {
 
                 {/* Name */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-name" className="block text-slate-200 text-sm font-medium mb-2">
                     Nombre completo *
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     value={formData.name}
                     onChange={(e) => handleInputChange('name', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className={inputClasses}
                     placeholder="Tu nombre"
+                    autoComplete="name"
                     required
                   />
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-email" className="block text-slate-200 text-sm font-medium mb-2">
                     Email *
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className={inputClasses}
                     placeholder="tu@empresa.com"
+                    autoComplete="email"
                     required
                   />
                 </div>
 
                 {/* Company */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-company" className="block text-slate-200 text-sm font-medium mb-2">
                     Empresa
                   </label>
                   <input
+                    id="contact-company"
                     type="text"
                     value={formData.company}
                     onChange={(e) => handleInputChange('company', e.target.value)}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+                    className={inputClasses}
                     placeholder="Nombre de tu empresa"
+                    autoComplete="organization"
                   />
                 </div>
 
                 {/* Message */}
                 <div>
-                  <label className="block text-gray-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-message" className="block text-slate-200 text-sm font-medium mb-2">
                     Mensaje *
                   </label>
                   <textarea
+                    id="contact-message"
                     value={formData.message}
                     onChange={(e) => handleInputChange('message', e.target.value)}
                     rows={4}
-                    className="w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none focus:ring-2 focus:ring-green-400/20 transition-all duration-300 resize-none"
+                    className={`${inputClasses} resize-none`}
                     placeholder="Cuéntanos sobre tu proyecto de automatización..."
                     required
                   />
@@ -259,37 +268,35 @@ const Contact = () => {
                 {/* Submit Button */}
                 <motion.button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden disabled:opacity-70 disabled:cursor-not-allowed"
-                  
+                  className="w-full bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-600 hover:to-accent-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                   whileTap={{ scale: 0.98 }}
                   disabled={isSending || isSubmitted}
                 >
                   {isSubmitted ? (
                     <span className="flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 mr-2" />
+                      <CheckCircle className="w-5 h-5 mr-2" aria-hidden="true" />
                       ¡Mensaje Enviado!
                     </span>
                   ) : isSending ? (
                     <span className="flex items-center justify-center">
-                      <span className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span className="w-5 h-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" aria-hidden="true" />
                       Enviando...
                     </span>
                   ) : (
                     <span className="flex items-center justify-center">
-                      <Send className="w-5 h-5 mr-2" />
+                      <Send className="w-5 h-5 mr-2" aria-hidden="true" />
                       Enviar Mensaje
                     </span>
                   )}
                 </motion.button>
 
                 {error && (
-                  <p className="flex items-center gap-2 text-red-400 text-sm">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  <p className="flex items-center gap-2 text-red-400 text-sm" role="alert">
+                    <AlertCircle className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                     {error}
                   </p>
                 )}
               </form>
-              </div>
             </div>
           </motion.div>
 
@@ -302,26 +309,30 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Contact Info */}
-            <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500">
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <h3 className="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-orange-500 p-2 mr-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-brand-500 to-accent-500 p-2 mr-4" aria-hidden="true">
                     <Mail className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-300 text-sm">Email</p>
-                    <p className="text-white font-semibold">contacto@datacef.com</p>
+                    <p className="text-slate-400 text-sm">Email</p>
+                    <p className="text-white font-semibold">
+                      <a href="mailto:contacto@datacef.com" className="hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded">
+                        contacto@datacef.com
+                      </a>
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-green-500 to-orange-500 p-2 mr-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-brand-500 to-accent-500 p-2 mr-4" aria-hidden="true">
                     <MapPin className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="text-gray-300 text-sm">Ubicación</p>
+                    <p className="text-slate-400 text-sm">Ubicación</p>
                     <p className="text-white font-semibold">Santiago, Chile · Remoto en toda Latinoamérica</p>
                   </div>
                 </div>
@@ -329,12 +340,12 @@ const Contact = () => {
             </div>
 
             {/* Industries */}
-            <div className="bg-slate-800/80 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:border-white/30 transition-all duration-500">
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <h3 className="text-2xl font-bold text-white mb-4">Industrias que Atendemos</h3>
               <div className="grid grid-cols-2 gap-4">
-                {['Retail', 'Transporte', 'Recursos Humanos', 'Operaciones y Logística'].map((industry, i) => (
-                  <div key={i} className="flex items-center gap-2 text-gray-300">
-                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-green-500 to-emerald-400" />
+                {['Retail', 'Transporte', 'Recursos Humanos', 'Operaciones y Logística'].map((industry) => (
+                  <div key={industry} className="flex items-center gap-2 text-slate-300">
+                    <div className="w-2 h-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-400" aria-hidden="true" />
                     <span>{industry}</span>
                   </div>
                 ))}
@@ -342,27 +353,15 @@ const Contact = () => {
             </div>
 
             {/* CTA Button */}
-            <motion.div
-              className="text-center"
-              
-              whileTap={{ scale: 0.95 }}
-            >
-              <button className="bg-gradient-to-r from-green-500 to-orange-500 hover:from-green-600 hover:to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
-                <span className="relative z-10 flex items-center justify-center">
-                  ¿Tienes un proyecto en mente?
-                  <motion.span
-                    className="ml-2"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    🚀
-                  </motion.span>
-                </span>
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-green-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
+            <div className="text-center">
+              <button
+                onClick={focusForm}
+                className="btn-primary px-8 py-4 text-lg font-bold"
+              >
+                ¿Tienes un proyecto en mente?
+                <span aria-hidden="true">🚀</span>
               </button>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -371,4 +370,3 @@ const Contact = () => {
 }
 
 export default Contact
-

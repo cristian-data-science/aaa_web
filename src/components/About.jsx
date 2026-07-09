@@ -1,4 +1,3 @@
-﻿import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
 import datacefCity from '../assets/images/datacef-city.png'
@@ -9,233 +8,42 @@ const About = () => {
       icon: Lightbulb,
       title: 'AI-First',
       description: 'No le tenemos miedo a lo nuevo. Adoptamos las últimas tecnologías apenas demuestran valor real.',
-      color: 'from-emerald-200 to-emerald-500'
+      color: 'from-brand-400 to-brand-600'
     },
     {
       icon: Award,
       title: 'Excelencia Técnica',
       description: 'Background sólido de ingeniería con estándares altos en cada línea de código y cada entrega.',
-      color: 'from-emerald-100 to-teal-400'
+      color: 'from-accent-400 to-accent-600'
     },
     {
       icon: Heart,
       title: 'Transparencia',
       description: 'Te decimos las cosas como son. Si algo no se puede, lo decimos. Si hay una forma mejor, la proponemos.',
-      color: 'from-lime-200 to-emerald-500'
+      color: 'from-brand-500 to-brand-700'
     },
     {
       icon: Target,
       title: 'Resultados Concretos',
       description: 'Cada proyecto tiene métricas claras. Horas ahorradas, procesos automatizados, problemas resueltos.',
-      color: 'from-emerald-300 to-emerald-600'
+      color: 'from-brand-600 to-accent-600'
     },
     {
       icon: Users,
       title: 'Partners, No Proveedores',
       description: 'Trabajamos codo a codo contigo. Entendemos tu negocio antes de escribir la primera línea de código.',
-      color: 'from-teal-200 to-emerald-500'
+      color: 'from-accent-500 to-brand-600'
     },
     {
       icon: Eye,
       title: 'Adaptabilidad',
       description: 'La tecnología cambia rápido. Nosotros también. Nos desacoplamos de lo rígido para innovar ágilmente.',
-      color: 'from-emerald-100 to-emerald-400'
+      color: 'from-brand-400 to-accent-500'
     }
   ]
 
-  // Precompute particle positions once to avoid flicker on re-renders
-  const particleConfigs = useMemo(() => {
-    return Array.from({ length: 8 }).map((_, i) => ({
-      left: 10 + i * 12,
-      top: 15 + Math.random() * 70,
-      size: 1.5 + Math.random() * 2,
-      xOffset: Math.random() * 30 - 15,
-      duration: 12 + Math.random() * 8,
-      delay: Math.random() * 6,
-    }))
-  }, [])
-
   return (
-    <section id="about" className="relative py-20 overflow-hidden bg-gradient-to-b from-emerald-50/20 via-white/98 to-emerald-50/25">
-      {/* Background dinámico mejorado */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* Grid de datos en el fondo */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(16, 185, 129, 0.16) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(16, 185, 129, 0.12) 1px, transparent 1px)
-            `,
-            backgroundSize: '80px 80px',
-          }}
-        />
-
-        {/* Líneas de conexión de datos */}
-        <svg className="absolute inset-0 w-full h-full opacity-[0.02]" viewBox="0 0 1200 800">
-          <defs>
-            <linearGradient id="aboutDataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#bbf7d0" />
-              <stop offset="50%" stopColor="#34d399" />
-              <stop offset="100%" stopColor="#0f766e" />
-            </linearGradient>
-          </defs>
-
-          {/* Líneas de flujo de datos */}
-          <motion.path
-            d="M 0 200 Q 300 150 600 200 T 1200 250"
-            stroke="url(#aboutDataGrad)"
-            strokeWidth="1.5"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.path
-            d="M 0 400 Q 200 350 500 400 T 1200 450"
-            stroke="url(#aboutDataGrad)"
-            strokeWidth="1.5"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 12, repeat: Infinity, ease: 'linear', delay: 3 }}
-          />
-          <motion.path
-            d="M 0 600 Q 400 550 700 600 T 1200 650"
-            stroke="url(#aboutDataGrad)"
-            strokeWidth="1.5"
-            fill="none"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 0.5 }}
-            transition={{ duration: 14, repeat: Infinity, ease: 'linear', delay: 6 }}
-          />
-
-          {/* Nodos de datos pulsantes */}
-          <motion.circle
-            cx="300"
-            cy="200"
-            r="4"
-            fill="#34d399"
-            opacity="0.3"
-            animate={{
-              opacity: 0.5,
-              scale: [1, 1.5, 1]
-            }}
-            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-          />
-          <motion.circle
-            cx="700"
-            cy="400"
-            r="4"
-            fill="#0f766e"
-            opacity="0.3"
-            animate={{
-              opacity: 0.5,
-              scale: [1, 1.5, 1]
-            }}
-            transition={{ duration: 5, repeat: Infinity, delay: 2.5 }}
-          />
-        </svg>
-
-        {/* Partículas flotantes de información */}
-        {particleConfigs.map((particle, i) => (
-          <motion.div
-            key={`about-particle-${i}`}
-            className="absolute"
-            style={{
-              left: `${particle.left}%`,
-              top: `${particle.top}%`,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
-            }}
-            animate={{
-              y: [0, -60, 0],
-              x: [0, particle.xOffset, 0],
-              opacity: [0, 0.4, 0],
-              scale: [0.3, 1, 0.3],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              delay: particle.delay,
-              ease: 'easeInOut',
-            }}
-          >
-            <div
-              className="w-full h-full rounded-full"
-              style={{
-                background: i % 4 === 0
-                  ? 'rgba(110, 231, 183, 0.7)'
-                  : i % 4 === 1
-                    ? 'rgba(52, 211, 153, 0.6)'
-                    : i % 4 === 2
-                      ? 'rgba(34, 197, 94, 0.6)'
-                      : 'rgba(16, 185, 129, 0.5)',
-                boxShadow: '0 0 8px currentColor',
-              }}
-            />
-          </motion.div>
-        ))}
-
-        {/* Ondas de innovación */}
-        {[...Array(2)].map((_, i) => (
-          <motion.div
-            key={`about-wave-${i}`}
-            className="absolute inset-0"
-            style={{
-              background: `radial-gradient(circle at ${30 + i * 40}% ${40 + i * 20}%, 
-                rgba(110, 231, 183, 0.1) 0%, 
-                transparent 70%)`,
-            }}
-            animate={{
-              scale: [1, 1.6, 1],
-              opacity: [0.2, 0.05, 0.2],
-            }}
-            transition={{
-              duration: 8 + i * 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 4,
-            }}
-          />
-        ))}
-
-        {/* Efectos circulares rotantes */}
-        {[...Array(3)].map((_, i) => (
-          <motion.div
-            key={`about-circle-${i}`}
-            className="absolute"
-            style={{
-              left: `${15 + i * 35}%`,
-              top: `${25 + i * 20}%`,
-              width: `${120 + i * 30}px`,
-              height: `${120 + i * 30}px`,
-            }}
-            animate={{
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 25 + i * 8,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            <div
-              className="w-full h-full opacity-[0.03]"
-              style={{
-                background: `conic-gradient(from 0deg, transparent, 
-                  ${i === 0 ? 'rgba(110, 231, 183, 0.35)' :
-                    i === 1 ? 'rgba(52, 211, 153, 0.32)' :
-                    'rgba(34, 197, 94, 0.35)'}, transparent)`,
-                borderRadius: '50%',
-                filter: 'blur(30px)',
-              }}
-            />
-          </motion.div>
-        ))}
-      </div>
-
+    <section id="about" className="relative py-20 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -245,12 +53,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2
-            className="text-4xl md:text-5xl lg:text-6xl font-black mb-8 text-emerald-950"
-            style={{
-              filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.1))'
-            }}
-          >
+          <h2 className="text-4xl md:text-5xl font-black mb-8 text-brand-950">
             Quiénes Somos
           </h2>
         </motion.div>
@@ -266,57 +69,33 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             {/* Mission */}
-            <div className="relative">
-              <div className="gradient-border-wrapper full-width rounded-3xl">
-                <motion.div
-                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
-                >
-                  <h3
-                    className="text-3xl font-bold text-emerald-900 mb-4"
-                  >
-                    Nuestra Misión
-                  </h3>
-                  <p className="text-emerald-700 leading-relaxed text-lg">
-                    Habilitamos la transformación tecnológica de empresas en Chile y Latinoamérica. Combinamos ingeniería de software sólida con lo último en inteligencia artificial para resolver problemas reales de negocio — no para vender humo.
-                  </p>
-                </motion.div>
-              </div>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
+              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+                Nuestra Misión
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Habilitamos la transformación tecnológica de empresas en Chile y Latinoamérica. Combinamos ingeniería de software sólida con lo último en inteligencia artificial para resolver problemas reales de negocio — no para vender humo.
+              </p>
             </div>
 
             {/* Vision */}
-            <div className="relative">
-              <div className="gradient-border-wrapper full-width rounded-3xl">
-                <motion.div
-                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
-                >
-                  <h3
-                    className="text-3xl font-bold text-emerald-900 mb-4"
-                  >
-                    Nuestra Visión
-                  </h3>
-                  <p className="text-emerald-700 leading-relaxed text-lg">
-                    Ser el partner tecnológico de referencia para empresas que quieren innovar de verdad — sin burocracia, con resultados concretos y tecnología de punta. Desde Santiago para todo Chile y Latinoamérica.
-                  </p>
-                </motion.div>
-              </div>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
+              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+                Nuestra Visión
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Ser el partner tecnológico de referencia para empresas que quieren innovar de verdad — sin burocracia, con resultados concretos y tecnología de punta. Desde Santiago para todo Chile y Latinoamérica.
+              </p>
             </div>
 
             {/* Commitment */}
-            <div className="relative">
-              <div className="gradient-border-wrapper full-width rounded-3xl">
-                <motion.div
-                  className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-500"
-                >
-                  <h3
-                    className="text-3xl font-bold text-emerald-900 mb-4"
-                  >
-                    Nuestro Compromiso
-                  </h3>
-                  <p className="text-emerald-700 leading-relaxed text-lg">
-                    Nos comprometemos con cada proyecto como si fuera nuestro. Entendemos tu negocio primero, proponemos después, y entregamos soluciones que funcionan. Así de simple.
-                  </p>
-                </motion.div>
-              </div>
+            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
+              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+                Nuestro Compromiso
+              </h3>
+              <p className="text-slate-600 leading-relaxed text-lg">
+                Nos comprometemos con cada proyecto como si fuera nuestro. Entendemos tu negocio primero, proponemos después, y entregamos soluciones que funcionan. Así de simple.
+              </p>
             </div>
           </motion.div>
 
@@ -328,18 +107,17 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="gradient-border-wrapper full-width rounded-3xl">
-              <div className="relative rounded-3xl overflow-hidden">
-                <motion.img
-                  src={datacefCity}
-                  alt="DATACEF - Letras Luminosas Ciudad"
-                  className="w-full h-full object-cover"
-                  transition={{ duration: 0.5 }}
-                />
+            <div className="relative h-full rounded-2xl overflow-hidden border border-brand-100 shadow-card">
+              <img
+                src={datacefCity}
+                alt="DATACEF - Letras luminosas sobre una ciudad"
+                className="w-full h-full object-cover"
+                loading="lazy"
+                decoding="async"
+              />
 
-                {/* Glassmorphism overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/20 via-transparent to-transparent" />
-              </div>
+              {/* Overlay sutil para integrar la imagen */}
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/20 via-transparent to-transparent" aria-hidden="true" />
             </div>
           </motion.div>
         </div>
@@ -352,48 +130,43 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="text-4xl font-bold text-emerald-900 text-center mb-4">
+          <h3 className="text-4xl font-bold text-brand-950 text-center mb-4">
             Nuestros Valores
           </h3>
-          <p className="text-emerald-700 text-center mb-12 text-lg">
+          <p className="text-slate-600 text-center mb-12 text-lg">
             Cómo trabajamos y qué nos mueve como equipo.
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <motion.div
-                key={index}
+                key={value.title}
                 className="group relative"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className="gradient-border-wrapper full-width rounded-3xl">
-                  <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 group-hover:shadow-xl relative overflow-hidden">
-                    {/* Gradient background on hover */}
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${value.color} opacity-0 group-hover:opacity-5 rounded-3xl transition-opacity duration-300`}
-                    />
-
-                    <div className="relative z-10">
-                      {/* Icon */}
-                      <div className="mb-6">
-                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${value.color} p-3 transition-shadow duration-300`}>
-                          <value.icon className="w-full h-full text-emerald-950" />
-                        </div>
+                <div className="h-full bg-white/90 backdrop-blur-sm rounded-2xl p-8
+                               border border-brand-100 shadow-card group-hover:shadow-card-hover
+                               transition-shadow duration-300 relative overflow-hidden">
+                  <div className="relative z-10">
+                    {/* Icon */}
+                    <div className="mb-6">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-r ${value.color} p-3`} aria-hidden="true">
+                        <value.icon className="w-full h-full text-white" />
                       </div>
-
-                      {/* Title */}
-                      <h4 className="text-xl font-bold text-emerald-900 mb-3 transition-colors duration-300">
-                        {value.title}
-                      </h4>
-
-                      {/* Description */}
-                      <p className="text-emerald-700 transition-colors duration-300">
-                        {value.description}
-                      </p>
                     </div>
+
+                    {/* Title */}
+                    <h4 className="text-xl font-bold text-brand-950 mb-3">
+                      {value.title}
+                    </h4>
+
+                    {/* Description */}
+                    <p className="text-slate-600">
+                      {value.description}
+                    </p>
                   </div>
                 </div>
               </motion.div>
@@ -406,4 +179,3 @@ const About = () => {
 }
 
 export default About
-

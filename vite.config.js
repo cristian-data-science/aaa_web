@@ -82,14 +82,8 @@ export default defineConfig({
     include: [
       'react',
       'react-dom',
-      'framer-motion',
-      '@radix-ui/react-accordion',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      'clsx',
-      'tailwind-merge'
+      'framer-motion'
     ],
-    // Incluir Three.js para mejor optimización de animaciones
     exclude: []
   },
   // Variables globales y configuración avanzada
