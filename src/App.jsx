@@ -22,9 +22,6 @@ const CaseStudies = lazy(() =>
 const Contact = lazy(() => 
   import('./components/Contact').then(module => ({ default: module.default }))
 )
-const WhatsAppWidget = lazy(() => 
-  import('./components/WhatsAppWidget').then(module => ({ default: module.default }))
-)
 
 // Componente de loading sin hooks para evitar problemas
 const SectionSkeleton = ({ height = 'h-32' }) => {
@@ -109,11 +106,6 @@ function App() {
       
       {/* Footer */}
       <Footer />
-      
-      {/* Widget de WhatsApp */}
-      <Suspense fallback={null}>
-        <WhatsAppWidget />
-      </Suspense>
     </div>
   )
 }
