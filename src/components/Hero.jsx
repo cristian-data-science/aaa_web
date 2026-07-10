@@ -80,11 +80,11 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-brand-950 leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-brand-950 leading-tight">
               Transformamos tu negocio
             </h1>
 
-            <div className="text-5xl md:text-6xl lg:text-7xl font-black text-brand-900 mt-6 mb-10">
+            <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-brand-900 mt-6 mb-10">
               con
             </div>
 
