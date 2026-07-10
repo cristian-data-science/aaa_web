@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Gift, Clock, Zap, Code } from 'lucide-react'
+import SpotlightCard from './ui-fx/SpotlightCard'
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -99,8 +100,11 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="relative py-20 overflow-hidden bg-slate-950">
-      {/* Decoración sutil en paleta de marca */}
+    <section id="contact" className="relative py-24 overflow-hidden bg-slate-950 rounded-t-[2.5rem] md:rounded-t-[3rem]">
+      {/* Hairline de luz superior */}
+      <div className="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent" aria-hidden="true" />
+
+      {/* Aurora en paleta de marca */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -112,8 +116,15 @@ const Contact = () => {
             backgroundSize: '64px 64px',
           }}
         />
-        <div className="absolute -top-20 -left-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl" />
+        <div
+          className="absolute -top-32 -left-32 w-[40rem] h-[40rem] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(closest-side, rgb(16 185 129 / 0.18), rgb(45 212 191 / 0.07) 55%, transparent)' }}
+        />
+        <div
+          className="absolute bottom-0 -right-32 w-[40rem] h-[40rem] rounded-full blur-3xl"
+          style={{ background: 'radial-gradient(closest-side, rgb(45 212 191 / 0.14), rgb(16 185 129 / 0.05) 55%, transparent)' }}
+        />
+        <div className="noise-overlay opacity-[0.04]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -125,7 +136,7 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-6 bg-gradient-to-r from-brand-300 via-accent-300 to-brand-400 bg-clip-text text-transparent">
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl mb-6 bg-gradient-to-r from-brand-300 via-accent-300 to-brand-400 bg-clip-text text-transparent">
             Hablemos de tu Proyecto
           </h2>
 
@@ -136,16 +147,15 @@ const Contact = () => {
 
         {/* Benefits Grid */}
         <div className="mb-16">
-          <h3 className="text-3xl font-bold text-white text-center mb-12">
+          <h3 className="font-display font-bold tracking-tight text-3xl text-white text-center mb-12">
             ¿Por qué trabajar con DataCEF?
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit) => (
-              <div
+              <SpotlightCard
                 key={benefit.title}
-                className="group text-center h-full bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8
-                           border border-white/10 hover:border-brand-400/40 transition-colors duration-300"
+                className="spotlight-dark card-lux-dark group text-center h-full rounded-2xl p-8"
               >
                 {/* Icon */}
                 <div className="mb-6 flex justify-center">
@@ -163,7 +173,7 @@ const Contact = () => {
                 <p className="text-slate-300">
                   {benefit.description}
                 </p>
-              </div>
+              </SpotlightCard>
             ))}
           </div>
         </div>
@@ -178,12 +188,12 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+            <div className="card-lux-dark rounded-2xl p-8">
               <div className="flex items-center mb-8">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-brand-500 to-accent-500 p-3 mr-4" aria-hidden="true">
                   <Mail className="w-full h-full text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Envíanos un Mensaje</h3>
+                <h3 className="font-display font-bold tracking-tight text-2xl text-white">Envíanos un Mensaje</h3>
               </div>
 
               <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
@@ -309,8 +319,8 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Contact Info */}
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-6">Información de Contacto</h3>
+            <div className="card-lux-dark rounded-2xl p-8">
+              <h3 className="font-display font-bold tracking-tight text-2xl text-white mb-6">Información de Contacto</h3>
 
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -340,8 +350,8 @@ const Contact = () => {
             </div>
 
             {/* Industries */}
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <h3 className="text-2xl font-bold text-white mb-4">Industrias que Atendemos</h3>
+            <div className="card-lux-dark rounded-2xl p-8">
+              <h3 className="font-display font-bold tracking-tight text-2xl text-white mb-4">Industrias que Atendemos</h3>
               <div className="grid grid-cols-2 gap-4">
                 {['Retail', 'Transporte', 'Recursos Humanos', 'Operaciones y Logística'].map((industry) => (
                   <div key={industry} className="flex items-center gap-2 text-slate-300">

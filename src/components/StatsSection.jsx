@@ -1,33 +1,39 @@
 import { motion } from 'framer-motion';
+import { Clock, Rocket, Factory, Brain } from 'lucide-react';
+import SpotlightCard from './ui-fx/SpotlightCard';
+import CountUp from './ui-fx/CountUp';
 
 const StatsSection = () => {
   const stats = [
     {
-      number: "+10.000",
+      value: 10000,
+      prefix: '+',
       title: "Horas Manuales Ahorradas",
       description: "Automatizando procesos en múltiples industrias",
-      icon: "⏱️",
+      icon: Clock,
       color: "from-brand-500 to-brand-400"
     },
     {
-      number: "+20",
+      value: 20,
+      prefix: '+',
       title: "Proyectos Completados",
       description: "Automatización, software e IA",
-      icon: "🚀",
+      icon: Rocket,
       color: "from-accent-500 to-accent-400"
     },
     {
-      number: "9",
+      value: 9,
       title: "Industrias Atendidas",
       description: "Retail, transporte, RRHH, logística y más",
-      icon: "🏭",
+      icon: Factory,
       color: "from-brand-600 to-accent-500"
     },
     {
-      number: "100%",
+      value: 100,
+      suffix: '%',
       title: "AI-First",
       description: "Tecnología de punta en cada proyecto",
-      icon: "🧠",
+      icon: Brain,
       color: "from-accent-600 to-brand-500"
     }
   ];
@@ -37,31 +43,44 @@ const StatsSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.1
       }
     }
   };
 
   const cardVariants = {
-    hidden: {
-      opacity: 0,
-      y: 50,
-      scale: 0.8
-    },
+    hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
       y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
+      transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
     }
   };
 
   return (
-    <section id="stats" className="py-20 relative overflow-hidden">
+    <section id="stats" className="relative py-24 overflow-hidden bg-slate-950 rounded-[2.5rem] md:rounded-[3rem] mx-2 md:mx-4">
+      {/* Hairlines de luz arriba y abajo */}
+      <div className="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent" aria-hidden="true" />
+      <div className="absolute bottom-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-accent-400/40 to-transparent" aria-hidden="true" />
+
+      {/* Decoración interna */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(16, 185, 129, 0.4) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(16, 185, 129, 0.4) 1px, transparent 1px)
+            `,
+            backgroundSize: '64px 64px',
+          }}
+        />
+        <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full blur-3xl bg-brand-500/15" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full blur-3xl bg-accent-500/10" />
+        <div className="noise-overlay opacity-[0.04]" />
+      </div>
+
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
           className="text-center mb-16"
@@ -70,14 +89,13 @@ const StatsSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="text-2xl" aria-hidden="true">🎯</span>
-            <span className="text-lg font-semibold text-brand-600">Nuestro Impacto</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black text-brand-950 mb-6">
+          <p className="uppercase text-xs md:text-sm font-semibold tracking-[0.2em] text-brand-400 mb-6">
+            Nuestro Impacto
+          </p>
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-white mb-6">
             Lo que hemos logrado
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-400 max-w-3xl mx-auto">
             Números reales de proyectos reales. Así medimos nuestro trabajo.
           </p>
         </motion.div>
@@ -89,47 +107,25 @@ const StatsSection = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {stats.map((stat, index) => (
-            <motion.div
-              key={stat.title}
-              className="min-h-56 flex flex-col justify-center items-center text-center
-                         bg-white/90 backdrop-blur-sm rounded-2xl p-6 w-full
-                         border border-brand-100 shadow-card hover:shadow-card-hover
-                         transition-shadow duration-300"
-              variants={cardVariants}
-              whileHover={{
-                y: -2,
-                transition: {
-                  duration: 0.25,
-                  ease: [0.4, 0, 0.2, 1]
-                }
-              }}
-            >
-              {/* Icono con halo de marca */}
-              <div className="text-5xl mb-4 relative pointer-events-none" aria-hidden="true">
-                {stat.icon}
-                <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-20 rounded-full blur-lg`} />
-              </div>
+          {stats.map((stat) => (
+            <motion.div key={stat.title} variants={cardVariants}>
+              <SpotlightCard className="spotlight-dark card-lux-dark border-beam h-full min-h-56 rounded-2xl p-6 flex flex-col justify-center items-center text-center">
+                {/* Icono en chip gradiente */}
+                <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} p-2.5 mb-5`} aria-hidden="true">
+                  <stat.icon className="w-full h-full text-white" />
+                </div>
 
-              {/* Número destacado */}
-              <motion.div
-                className={`text-4xl md:text-[2.75rem] font-black leading-none mb-3
-                           bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}
-                initial={{ scale: 0 }}
-                whileInView={{ scale: 1 }}
-                transition={{
-                  delay: index * 0.1 + 0.5,
-                  duration: 0.5,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                viewport={{ once: true }}
-              >
-                {stat.number}
-              </motion.div>
+                {/* Contador animado */}
+                <CountUp
+                  value={stat.value}
+                  prefix={stat.prefix}
+                  suffix={stat.suffix}
+                  className="font-display font-bold text-4xl md:text-5xl leading-none mb-3 bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent"
+                />
 
-              <div className="text-xl font-bold text-brand-950 mb-2">{stat.title}</div>
-              <div className="text-sm text-slate-600 leading-relaxed">{stat.description}</div>
+                <div className="font-display font-semibold text-xl text-white mb-2">{stat.title}</div>
+                <div className="text-sm text-slate-400 leading-relaxed">{stat.description}</div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </motion.div>
