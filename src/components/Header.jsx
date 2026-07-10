@@ -1,9 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { scrollToSection } from '@/lib/scroll'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+
+  // Compactar y dar sombra al header al scrollear (listener pasivo + rAF)
+  useEffect(() => {
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 8)
+        ticking = false
+      })
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const navItems = [
     { name: 'Inicio', href: '#hero' },
@@ -12,21 +30,10 @@ const Header = () => {
     { name: 'Contacto', href: '#contact' }
   ]
 
-  // Función para scroll suave
+  // Scroll suave (el offset del header lo compensa scroll-margin-top)
   const handleNavClick = (e, href) => {
     e.preventDefault()
-    const targetId = href.substring(1) // Remover el #
-    const targetElement = document.getElementById(targetId)
-
-    if (targetElement) {
-      const offsetTop = targetElement.offsetTop - 80 // Offset para el header fixed
-      window.scrollTo({
-        top: offsetTop,
-        behavior: 'smooth'
-      })
-    }
-
-    // Cerrar menú móvil si está abierto
+    scrollToSection(href.substring(1))
     setIsMenuOpen(false)
   }
 
@@ -34,18 +41,22 @@ const Header = () => {
 
   return (
     <motion.header
-      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-brand-100 shadow-sm"
+      className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/90 border-brand-100 shadow-[0_4px_20px_rgb(5_150_105_/_0.08)]'
+          : 'bg-white/70 border-transparent'
+      }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className={`container mx-auto px-4 transition-all duration-300 ${scrolled ? 'py-2.5' : 'py-4'}`}>
         <div className="flex items-center justify-between">
           {/* Brand Name con degradado */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
-            className="text-3xl font-black gradient-text rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
+            className="font-display text-3xl font-bold tracking-tight gradient-text rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
           >
             DataCEF
           </a>
