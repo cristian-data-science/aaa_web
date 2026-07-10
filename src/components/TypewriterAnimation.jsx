@@ -70,13 +70,12 @@ const TypewriterAnimation = () => {
       <div className="relative flex items-center justify-center">
         <div className="flex items-center justify-center min-h-[80px] md:min-h-[100px]">
           <span
-            className="inline-block text-4xl md:text-6xl lg:text-7xl font-black"
+            className="inline-block font-display font-bold tracking-tight text-4xl md:text-6xl lg:text-7xl"
             style={{
               background: 'linear-gradient(45deg, #059669, #0d9488, #047857)',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.2))'
+              color: 'transparent'
             }}
           >
             Inteligencia Artificial
@@ -91,14 +90,13 @@ const TypewriterAnimation = () => {
       {/* Contenedor con altura fija para evitar saltos */}
       <div className="flex items-baseline justify-center min-h-[100px] md:min-h-[140px] py-4">
         <motion.span
-          className="inline-block text-4xl md:text-6xl lg:text-7xl font-black leading-relaxed"
+          className="inline-block font-display font-bold tracking-tight text-4xl md:text-6xl lg:text-7xl"
           style={{
             background: 'linear-gradient(45deg, #059669, #0d9488, #047857)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             color: 'transparent',
             backgroundSize: isMobile ? '100% 100%' : '200% 200%',
-            filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.2))',
             lineHeight: '1.3'
           }}
           animate={config.enableAnimation ? {

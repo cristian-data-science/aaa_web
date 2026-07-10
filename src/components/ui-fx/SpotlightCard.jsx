@@ -2,7 +2,7 @@ import { useRef, useCallback } from 'react'
 
 // Tarjeta con foco de luz que sigue al cursor. Escribe las coordenadas en
 // custom properties (--mx/--my) con rAF-throttle: cero re-renders de React.
-const SpotlightCard = ({ as: Tag = 'div', className = '', children, ...rest }) => {
+const SpotlightCard = ({ className = '', children, ...rest }) => {
   const ref = useRef(null)
   const frame = useRef(0)
 
@@ -19,9 +19,9 @@ const SpotlightCard = ({ as: Tag = 'div', className = '', children, ...rest }) =
   }, [])
 
   return (
-    <Tag ref={ref} onMouseMove={onMouseMove} className={`spotlight ${className}`} {...rest}>
+    <div ref={ref} onMouseMove={onMouseMove} className={`spotlight ${className}`} {...rest}>
       {children}
-    </Tag>
+    </div>
   )
 }
 
