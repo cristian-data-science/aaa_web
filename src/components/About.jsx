@@ -143,7 +143,7 @@ const About = () => {
           transition={{ duration: 0.8 }}
         >
           <h3 className="font-display font-bold tracking-tight text-4xl text-brand-950 text-center mb-4">
-            Nuestros Valores
+            Nuestro Compromiso
           </h3>
           <p className="text-slate-600 text-center mb-12 text-lg">
             Cómo trabajamos y qué nos mueve como equipo.

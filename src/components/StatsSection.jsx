@@ -8,7 +8,7 @@ const StatsSection = () => {
     {
       value: 10000,
       prefix: '+',
-      title: "Horas Manuales Ahorradas",
+      title: "Horas Ahorradas",
       description: "Automatizando procesos en múltiples industrias",
       icon: Clock,
       color: "from-brand-500 to-brand-400"
@@ -123,8 +123,8 @@ const StatsSection = () => {
                   className="font-display font-bold text-4xl md:text-5xl leading-none mb-3 bg-gradient-to-r from-brand-300 to-accent-300 bg-clip-text text-transparent"
                 />
 
-                <div className="font-display font-semibold text-xl text-white mb-2">{stat.title}</div>
-                <div className="text-sm text-slate-400 leading-relaxed">{stat.description}</div>
+                <div className="font-display font-semibold text-xl text-white mb-2 min-h-[3.5rem] flex items-center justify-center leading-snug">{stat.title}</div>
+                <div className="text-sm text-slate-400 leading-relaxed min-h-[2.75rem] flex items-center justify-center">{stat.description}</div>
               </SpotlightCard>
             </motion.div>
           ))}
