@@ -1,16 +1,36 @@
 import { useRef, useMemo } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Cloud, BarChart3, Sparkles } from 'lucide-react'
+import {
+  SiPython, SiJavascript, SiReact, SiNextdotjs, SiN8N, SiMake,
+  SiClaude, SiPostgresql, SiSnowflake, SiGooglecloud, SiVercel,
+  SiDocker, SiSupabase
+} from 'react-icons/si'
 import TypewriterAnimation from './TypewriterAnimation'
 import Marquee from './ui-fx/Marquee'
 import RevealText from './ui-fx/RevealText'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { scrollToSection } from '@/lib/scroll'
 
+// AWS, Power BI y OpenAI no tienen logo disponible en simple-icons
+// (restricciones de marca) — usan un ícono genérico en su lugar.
 const TECH_STACK = [
-  'Python', 'JavaScript', 'React', 'Next.js', 'N8N', 'Make',
-  'OpenAI', 'Anthropic Claude', 'PostgreSQL', 'Snowflake', 'Power BI',
-  'AWS', 'Google Cloud', 'Vercel', 'Docker', 'Supabase'
+  { name: 'Python', Icon: SiPython },
+  { name: 'JavaScript', Icon: SiJavascript },
+  { name: 'React', Icon: SiReact },
+  { name: 'Next.js', Icon: SiNextdotjs },
+  { name: 'N8N', Icon: SiN8N },
+  { name: 'Make', Icon: SiMake },
+  { name: 'OpenAI', Icon: Sparkles },
+  { name: 'Anthropic Claude', Icon: SiClaude },
+  { name: 'PostgreSQL', Icon: SiPostgresql },
+  { name: 'Snowflake', Icon: SiSnowflake },
+  { name: 'Power BI', Icon: BarChart3 },
+  { name: 'AWS', Icon: Cloud },
+  { name: 'Google Cloud', Icon: SiGooglecloud },
+  { name: 'Vercel', Icon: SiVercel },
+  { name: 'Docker', Icon: SiDocker },
+  { name: 'Supabase', Icon: SiSupabase }
 ]
 
 const Hero = () => {
