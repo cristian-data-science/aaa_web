@@ -8,8 +8,9 @@ import { useIsMobile } from '@/hooks/use-mobile'
 import { scrollToSection } from '@/lib/scroll'
 
 const TECH_STACK = [
-  'Python', 'JavaScript', 'React', 'N8N', 'Make', 'OpenAI',
-  'PostgreSQL', 'AWS', 'Docker', 'Supabase'
+  'Python', 'JavaScript', 'React', 'Next.js', 'N8N', 'Make',
+  'OpenAI', 'Anthropic Claude', 'PostgreSQL', 'Snowflake', 'Power BI',
+  'AWS', 'Google Cloud', 'Vercel', 'Docker', 'Supabase'
 ]
 
 const Hero = () => {
