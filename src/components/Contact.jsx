@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { Mail, MapPin, Send, CheckCircle, AlertCircle, Gift, Clock, Zap, Code } from 'lucide-react'
 import SpotlightCard from './ui-fx/SpotlightCard'
+import Magnetic from './ui-fx/Magnetic'
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
@@ -74,7 +75,7 @@ const Contact = () => {
     }
   }
 
-  const inputClasses = "w-full bg-slate-700/50 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-slate-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/30 transition-all duration-300"
+  const inputClasses = "w-full bg-input border border-edge rounded-xl px-4 py-3 text-content-1 placeholder-content-3 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-400/30 transition-all duration-300"
 
   const benefits = [
     {
@@ -100,7 +101,7 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="relative py-24 overflow-hidden bg-slate-950 rounded-t-[2.5rem] md:rounded-t-[3rem]">
+    <section id="contact" className="on-contrast relative py-24 overflow-hidden bg-surface-contrast rounded-t-[2.5rem] md:rounded-t-[3rem]">
       {/* Hairline de luz superior */}
       <div className="absolute top-0 inset-x-8 h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent" aria-hidden="true" />
 
@@ -140,14 +141,14 @@ const Contact = () => {
             Hablemos de tu Proyecto
           </h2>
 
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl text-content-2 max-w-3xl mx-auto">
             ¿Tienes un proceso manual que te quita horas? ¿Una idea que quieres llevar a la realidad con tecnología? Escríbenos — la primera conversación es sin costo.
           </p>
         </motion.div>
 
         {/* Benefits Grid */}
         <div className="mb-16">
-          <h3 className="font-display font-bold tracking-tight text-3xl text-white text-center mb-12">
+          <h3 className="font-display font-bold tracking-tight text-3xl text-content-1 text-center mb-12">
             ¿Por qué trabajar con DataCEF?
           </h3>
 
@@ -155,7 +156,8 @@ const Contact = () => {
             {benefits.map((benefit) => (
               <SpotlightCard
                 key={benefit.title}
-                className="spotlight-dark card-lux-dark group text-center h-full rounded-2xl p-8"
+                tilt
+                className="card-lux group text-center h-full rounded-2xl p-8"
               >
                 {/* Icon */}
                 <div className="mb-6 flex justify-center">
@@ -165,12 +167,12 @@ const Contact = () => {
                 </div>
 
                 {/* Title */}
-                <h4 className="text-xl font-bold text-white mb-3 group-hover:text-brand-300 transition-colors duration-300">
+                <h4 className="text-xl font-bold text-content-1 mb-3 group-hover:text-brand-300 transition-colors duration-300">
                   {benefit.title}
                 </h4>
 
                 {/* Description */}
-                <p className="text-slate-300">
+                <p className="text-content-2">
                   {benefit.description}
                 </p>
               </SpotlightCard>
@@ -188,12 +190,12 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="card-lux-dark rounded-2xl p-8">
+            <div className="card-lux rounded-2xl p-8">
               <div className="flex items-center mb-8">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-brand-500 to-accent-500 p-3 mr-4" aria-hidden="true">
                   <Mail className="w-full h-full text-white" />
                 </div>
-                <h3 className="font-display font-bold tracking-tight text-2xl text-white">Envíanos un Mensaje</h3>
+                <h3 className="font-display font-bold tracking-tight text-2xl text-content-1">Envíanos un Mensaje</h3>
               </div>
 
               <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
@@ -211,7 +213,7 @@ const Contact = () => {
 
                 {/* Name */}
                 <div>
-                  <label htmlFor="contact-name" className="block text-slate-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-name" className="block text-content-2 text-sm font-medium mb-2">
                     Nombre completo *
                   </label>
                   <input
@@ -228,7 +230,7 @@ const Contact = () => {
 
                 {/* Email */}
                 <div>
-                  <label htmlFor="contact-email" className="block text-slate-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-email" className="block text-content-2 text-sm font-medium mb-2">
                     Email *
                   </label>
                   <input
@@ -245,7 +247,7 @@ const Contact = () => {
 
                 {/* Company */}
                 <div>
-                  <label htmlFor="contact-company" className="block text-slate-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-company" className="block text-content-2 text-sm font-medium mb-2">
                     Empresa
                   </label>
                   <input
@@ -261,7 +263,7 @@ const Contact = () => {
 
                 {/* Message */}
                 <div>
-                  <label htmlFor="contact-message" className="block text-slate-200 text-sm font-medium mb-2">
+                  <label htmlFor="contact-message" className="block text-content-2 text-sm font-medium mb-2">
                     Mensaje *
                   </label>
                   <textarea
@@ -276,6 +278,7 @@ const Contact = () => {
                 </div>
 
                 {/* Submit Button */}
+                <Magnetic className="w-full" strength={0.15} radius={6}>
                 <motion.button
                   type="submit"
                   className="w-full bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-600 hover:to-accent-600 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
@@ -299,6 +302,7 @@ const Contact = () => {
                     </span>
                   )}
                 </motion.button>
+                </Magnetic>
 
                 {error && (
                   <p className="flex items-center gap-2 text-red-400 text-sm" role="alert">
@@ -319,8 +323,8 @@ const Contact = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Contact Info */}
-            <div className="card-lux-dark rounded-2xl p-8">
-              <h3 className="font-display font-bold tracking-tight text-2xl text-white mb-6">Información de Contacto</h3>
+            <div className="card-lux rounded-2xl p-8">
+              <h3 className="font-display font-bold tracking-tight text-2xl text-content-1 mb-6">Información de Contacto</h3>
 
               <div className="space-y-4">
                 <div className="flex items-center">
@@ -328,9 +332,9 @@ const Contact = () => {
                     <Mail className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm">Email</p>
-                    <p className="text-white font-semibold">
-                      <a href="mailto:contacto@datacef.com" className="hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded">
+                    <p className="text-content-3 text-sm">Email</p>
+                    <p className="text-content-1 font-semibold">
+                      <a href="mailto:contacto@datacef.com" className="hover:text-accent-ink transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded">
                         contacto@datacef.com
                       </a>
                     </p>
@@ -342,19 +346,19 @@ const Contact = () => {
                     <MapPin className="w-full h-full text-white" />
                   </div>
                   <div>
-                    <p className="text-slate-400 text-sm">Ubicación</p>
-                    <p className="text-white font-semibold">Santiago, Chile · Remoto en toda Latinoamérica</p>
+                    <p className="text-content-3 text-sm">Ubicación</p>
+                    <p className="text-content-1 font-semibold">Santiago, Chile · Remoto en toda Latinoamérica</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Industries */}
-            <div className="card-lux-dark rounded-2xl p-8">
-              <h3 className="font-display font-bold tracking-tight text-2xl text-white mb-4">Industrias que Atendemos</h3>
+            <div className="card-lux rounded-2xl p-8">
+              <h3 className="font-display font-bold tracking-tight text-2xl text-content-1 mb-4">Industrias que Atendemos</h3>
               <div className="grid grid-cols-2 gap-4">
                 {['Retail', 'Transporte', 'Recursos Humanos', 'Operaciones y Logística'].map((industry) => (
-                  <div key={industry} className="flex items-center gap-2 text-slate-300">
+                  <div key={industry} className="flex items-center gap-2 text-content-2">
                     <div className="w-2 h-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-400" aria-hidden="true" />
                     <span>{industry}</span>
                   </div>

@@ -4,32 +4,36 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import Footer from './components/Footer'
 import BrandBackground from './components/BrandBackground'
+import ScrollProgress from './components/ui-fx/ScrollProgress'
+import CursorGlow from './components/ui-fx/CursorGlow'
+import { ThemeProvider } from './theme/ThemeContext'
 import { useIsMobile } from './hooks/use-mobile'
+import { useLenis } from './hooks/use-lenis'
 
 // Lazy-load optimizado con preload condicional
-const StatsSection = lazy(() => 
+const StatsSection = lazy(() =>
   import('./components/StatsSection').then(module => ({ default: module.default }))
 )
-const Services = lazy(() => 
+const Services = lazy(() =>
   import('./components/Services').then(module => ({ default: module.default }))
 )
-const About = lazy(() => 
+const About = lazy(() =>
   import('./components/About').then(module => ({ default: module.default }))
 )
-const CaseStudies = lazy(() => 
+const CaseStudies = lazy(() =>
   import('./components/CaseStudies').then(module => ({ default: module.default }))
 )
-const Contact = lazy(() => 
+const Contact = lazy(() =>
   import('./components/Contact').then(module => ({ default: module.default }))
 )
 
 // Componente de loading sin hooks para evitar problemas
 const SectionSkeleton = ({ height = 'h-32' }) => {
   return (
-    <div className={`w-full ${height} bg-emerald-50/70 border border-emerald-100 rounded-lg mx-auto max-w-7xl`}>
+    <div className={`w-full ${height} bg-surface-2 border border-edge rounded-lg mx-auto max-w-7xl`}>
       <div className="flex items-center justify-center h-full">
-        <div className="w-6 h-6 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-        <span className="ml-3 text-emerald-700 hidden md:block">Cargando...</span>
+        <div className="w-6 h-6 border-2 border-brand-400 border-t-transparent rounded-full animate-spin" />
+        <span className="ml-3 text-content-3 hidden md:block">Cargando...</span>
       </div>
     </div>
   )
@@ -38,6 +42,9 @@ const SectionSkeleton = ({ height = 'h-32' }) => {
 function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const isMobile = useIsMobile()
+
+  // Smooth scroll premium (solo desktop, respeta reduced-motion)
+  useLenis()
 
   // Optimizar carga inicial
   useEffect(() => {
@@ -62,7 +69,7 @@ function App() {
           import('./components/Services')
           import('./components/About')
         }
-        
+
         const idleCallback = window.requestIdleCallback(preloadComponents, { timeout: 1000 })
         return () => window.cancelIdleCallback(idleCallback)
       }
@@ -71,13 +78,20 @@ function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-    <div className="min-h-screen bg-gradient-to-b from-white via-brand-50 to-brand-100 text-brand-950 relative overflow-x-hidden">
-      {/* Fondo de marca ligero */}
+    <ThemeProvider>
+    <div className="min-h-screen text-content-1 relative overflow-x-hidden">
+      {/* Fondo del tema activo (el body pone el gradiente base) */}
       <BrandBackground />
-      
+
+      {/* Halo que sigue al cursor (entre fondo y contenido) */}
+      <CursorGlow />
+
+      {/* Barra de progreso de scroll */}
+      <ScrollProgress />
+
       {/* Header */}
       <Header />
-      
+
       {/* Contenido principal */}
       <main className="relative z-10">
         <Hero />
@@ -85,10 +99,10 @@ function App() {
           <StatsSection />
         </Suspense>
         <Suspense fallback={
-          <div className="w-full h-64 md:h-96 bg-emerald-50/80 flex items-center justify-center">
+          <div className="w-full h-64 md:h-96 bg-surface-3 flex items-center justify-center">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
-              <span className="text-emerald-700 text-sm">Cargando servicios...</span>
+              <div className="w-8 h-8 border-2 border-brand-400 border-t-transparent rounded-full animate-spin" />
+              <span className="text-content-3 text-sm">Cargando servicios...</span>
             </div>
           </div>
         }>
@@ -104,10 +118,11 @@ function App() {
           <Contact />
         </Suspense>
       </main>
-      
+
       {/* Footer */}
       <Footer />
     </div>
+    </ThemeProvider>
     </MotionConfig>
   )
 }

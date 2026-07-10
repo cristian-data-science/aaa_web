@@ -1,0 +1,50 @@
+/* ============================================================
+   Tema "Aurora" — evolución premium del look claro esmeralda.
+   Los tokens por defecto viven en :root (index.css); aquí solo
+   va la decoración exclusiva del tema: mesh de gradientes estilo
+   Stripe + barrido de luz diagonal.
+   ============================================================ */
+
+/* Mesh de gradientes animado (4 radiales solapados, pan por transform) */
+.aurora-mesh {
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(38% 42% at 22% 28%, rgb(52 211 153 / 0.16), transparent 70%),
+    radial-gradient(32% 38% at 78% 22%, rgb(45 212 191 / 0.13), transparent 70%),
+    radial-gradient(40% 44% at 68% 78%, rgb(110 231 183 / 0.12), transparent 70%),
+    radial-gradient(30% 34% at 18% 82%, rgb(125 211 252 / 0.10), transparent 70%);
+  filter: blur(40px);
+}
+
+/* Banda diagonal de luz que cruza la pantalla lentamente */
+.aurora-sweep {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -50%;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.6), transparent);
+  opacity: 0.05;
+  transform: rotate(18deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-mesh {
+    animation: aurora-mesh-drift 30s ease-in-out infinite alternate;
+  }
+
+  .aurora-sweep {
+    animation: aurora-sweep-pan 20s linear infinite;
+  }
+}
+
+@keyframes aurora-mesh-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to { transform: translate3d(3%, 3%, 0) scale(1.08); }
+}
+
+@keyframes aurora-sweep-pan {
+  from { transform: translateX(0) rotate(18deg); }
+  to { transform: translateX(500%) rotate(18deg); }
+}

@@ -9,11 +9,11 @@ const Marquee = ({ items, duration = 40, className = '', itemClassName = '' }) =
           {items.map(({ name, Icon }) => (
             <span
               key={name}
-              className={`flex items-center gap-3 pr-10 whitespace-nowrap text-sm font-medium ${itemClassName || 'text-brand-700/70'}`}
+              className={`flex items-center gap-3 pr-10 whitespace-nowrap text-sm font-medium ${itemClassName || 'text-content-3'}`}
             >
               {Icon && <Icon className="h-4 w-4 shrink-0" aria-hidden="true" />}
               <span>{name}</span>
-              <span className="h-1 w-1 rounded-full bg-brand-400/60" aria-hidden="true" />
+              <span className="h-1 w-1 rounded-full bg-accent-ink/60" aria-hidden="true" />
             </span>
           ))}
         </div>

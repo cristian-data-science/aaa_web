@@ -1,0 +1,202 @@
+/* ============================================================
+   Tema "Nebula" — oscuro glass estilo Linear/Vercel.
+   Casi negro azulado, paneles de vidrio, neón esmeralda/cyan,
+   starfield y piso de grid en perspectiva.
+   ============================================================ */
+
+html[data-theme="nebula"] {
+  color-scheme: dark;
+
+  /* Fondo y superficies */
+  --bg-from: #060913;
+  --bg-to: #0a0f1e;
+  --surface-1: rgb(255 255 255 / 0.04);
+  --surface-2: rgb(255 255 255 / 0.06);
+  --surface-3: rgb(255 255 255 / 0.02);
+  --surface-contrast: rgb(255 255 255 / 0.03);
+  --input: rgb(255 255 255 / 0.06);
+  --header-bg: rgb(6 9 19 / 0.55);
+  --header-bg-solid: rgb(6 9 19 / 0.85);
+
+  /* Texto */
+  --content-1: #e6edf6;
+  --content-2: #b7c3d4;
+  --content-3: #8b98ab;
+  --accent-ink: #34d399;
+
+  /* Bordes, chips y brillos */
+  --edge: rgb(255 255 255 / 0.10);
+  --chip: rgb(52 211 153 / 0.12);
+  --glow: rgb(52 211 153 / 0.45);
+  --grad-a: #34d399;
+  --grad-b: #22d3ee;
+  --grad-c: #6ee7b7;
+
+  /* Sombras de tarjeta sobre fondo oscuro */
+  --shadow-card: 0 8px 32px -8px rgb(0 0 0 / 0.55);
+  --shadow-card-hover: 0 16px 40px -8px rgb(0 0 0 / 0.65), 0 0 24px rgb(52 211 153 / 0.10);
+
+  /* Contexto .on-contrast (bandas Stats/Contact/Footer = paneles glass) */
+  --oc-content-1: #e6edf6;
+  --oc-content-2: #b7c3d4;
+  --oc-content-3: #8b98ab;
+  --oc-accent-ink: #5eead4;
+  --oc-edge: rgb(255 255 255 / 0.14);
+  --oc-surface-2: rgb(255 255 255 / 0.07);
+  --oc-chip: rgb(94 234 212 / 0.12);
+  --oc-lux: rgb(255 255 255 / 0.05);
+  --oc-glow: rgb(34 211 238 / 0.35);
+  --oc-input: rgb(255 255 255 / 0.07);
+  --oc-shadow-card: 0 8px 32px -8px rgb(0 0 0 / 0.55);
+  --oc-shadow-card-hover: 0 16px 40px -8px rgb(0 0 0 / 0.65), 0 0 24px rgb(34 211 238 / 0.12);
+
+  /* Acento hue-shift: teal → cyan neón (solo tono, no inversión) */
+  --color-accent-300: #67e8f9;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+  --color-accent-700: #0e7490;
+}
+
+/* Las bandas de contraste se leen como paneles elevados con borde fino */
+html[data-theme="nebula"] .on-contrast {
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+/* ---------- Fondo del tema (NebulaBackground) ---------- */
+
+.nebula-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgb(22 32 58 / 0.55), transparent 60%),
+    radial-gradient(100% 60% at 50% 100%, rgb(6 10 22 / 0.85), transparent 70%);
+}
+
+/* Estrellas: divs de 1px con listas de box-shadow precomputadas */
+.nebula-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  border-radius: 9999px;
+  background: transparent;
+}
+
+/* Piso de grid en perspectiva (horizonte tipo Tron) */
+.nebula-horizon {
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  bottom: -12%;
+  height: 55%;
+  transform: perspective(600px) rotateX(62deg);
+  transform-origin: 50% 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to top, black 30%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to top, black 30%, transparent 95%);
+}
+
+.nebula-horizon-lines {
+  position: absolute;
+  inset: -64px 0 0 0;
+  background-image:
+    linear-gradient(to right, rgb(52 211 153 / 0.13) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(52 211 153 / 0.13) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+/* Beams cónicos gigantes girando durante minutos */
+.nebula-beam-a,
+.nebula-beam-b {
+  position: absolute;
+  width: 80rem;
+  height: 80rem;
+  border-radius: 9999px;
+  filter: blur(30px);
+}
+
+.nebula-beam-a {
+  top: -42rem;
+  left: -28rem;
+  background: conic-gradient(from 0deg,
+    transparent 0deg 250deg,
+    rgb(52 211 153 / 0.09) 295deg,
+    rgb(34 211 238 / 0.07) 325deg,
+    transparent 360deg);
+}
+
+.nebula-beam-b {
+  bottom: -46rem;
+  right: -30rem;
+  background: conic-gradient(from 180deg,
+    transparent 0deg 250deg,
+    rgb(34 211 238 / 0.08) 295deg,
+    rgb(52 211 153 / 0.06) 325deg,
+    transparent 360deg);
+}
+
+/* Estrella fugaz ocasional */
+.nebula-shooting {
+  position: absolute;
+  top: 14%;
+  left: -12%;
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(226 232 255 / 0.9), transparent);
+  opacity: 0;
+  transform: rotate(14deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .nebula-stars-a { animation: nebula-star-drift 90s ease-in-out infinite alternate; }
+  .nebula-stars-b { animation: nebula-star-drift 140s ease-in-out infinite alternate-reverse; }
+  .nebula-horizon-lines { animation: nebula-floor 4s linear infinite; }
+  .nebula-beam-a { animation: nebula-beam-spin 140s linear infinite; }
+  .nebula-beam-b { animation: nebula-beam-spin 180s linear infinite reverse; }
+  .nebula-shooting { animation: nebula-shoot 9s ease-in 4s infinite; }
+}
+
+@keyframes nebula-star-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -40px, 0); }
+}
+
+@keyframes nebula-floor {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, 64px, 0); }
+}
+
+@keyframes nebula-beam-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes nebula-shoot {
+  0% { transform: translate3d(0, 0, 0) rotate(14deg); opacity: 0; }
+  3% { opacity: 0.9; }
+  9% { transform: translate3d(60vw, 16vh, 0) rotate(14deg); opacity: 0; }
+  100% { transform: translate3d(60vw, 16vh, 0) rotate(14deg); opacity: 0; }
+}
+
+/* ---------- Sabor de animación del tema ---------- */
+
+/* Border-beam siempre activo (lento); el hover de index.css lo acelera */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html[data-theme="nebula"] .border-beam::after {
+    opacity: 0.55;
+    animation: beam-spin 6s linear infinite;
+  }
+}
+
+/* Pulso de glow en el botón primario */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme="nebula"] .btn-primary {
+    animation: nebula-btn-pulse 3.5s ease-in-out infinite;
+  }
+}
+
+@keyframes nebula-btn-pulse {
+  0%, 100% { box-shadow: 0 4px 18px rgb(52 211 153 / 0.25); }
+  50% { box-shadow: 0 4px 28px rgb(52 211 153 / 0.45), 0 0 40px rgb(34 211 238 / 0.16); }
+}

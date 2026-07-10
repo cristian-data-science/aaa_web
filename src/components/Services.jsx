@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Code2, Workflow, BarChart3, Users, Wrench, Check } from 'lucide-react';
 import SpotlightCard from './ui-fx/SpotlightCard';
+import ScrambleText from './ui-fx/ScrambleText';
+import Magnetic from './ui-fx/Magnetic';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { scrollToSection } from '@/lib/scroll';
 
@@ -65,22 +67,22 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" data-section="services" className="relative py-20 bg-white/60 overflow-hidden">
+    <section id="services" data-section="services" className="relative py-20 bg-surface-3 overflow-hidden">
       {/* Contenido principal */}
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-16">
           <motion.p
-            className="uppercase text-xs md:text-sm font-semibold tracking-[0.2em] text-brand-600 mb-6"
+            className="eyebrow mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            Lo que hacemos
+            <ScrambleText text="Lo que hacemos" />
           </motion.p>
 
           <motion.h2
-            className="font-display font-bold tracking-tight text-4xl md:text-5xl text-brand-950 mb-6"
+            className="font-display font-bold tracking-tight text-4xl md:text-5xl text-content-1 mb-6"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -90,7 +92,7 @@ const Services = () => {
           </motion.h2>
 
           <motion.p
-            className="text-xl text-slate-600 max-w-3xl mx-auto"
+            className="text-xl text-content-2 max-w-3xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -114,19 +116,19 @@ const Services = () => {
               viewport={{ once: true, margin: '-30px' }}
               className="h-full"
             >
-              <SpotlightCard className="card-lux border-beam group relative h-full p-6 md:p-8 rounded-2xl flex flex-col">
+              <SpotlightCard tilt className="card-lux border-beam group relative h-full p-6 md:p-8 rounded-2xl flex flex-col">
                 {/* Icono en chip gradiente */}
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${service.color} p-2.5 mb-6`} aria-hidden="true">
                   <service.icon className="w-full h-full text-white" />
                 </div>
 
                 {/* Título */}
-                <h3 className="font-display font-semibold text-xl text-brand-950 mb-4">
+                <h3 className="font-display font-semibold text-xl text-content-1 mb-4">
                   {service.title}
                 </h3>
 
                 {/* Descripción */}
-                <p className="text-slate-600 mb-6 leading-relaxed">
+                <p className="text-content-2 mb-6 leading-relaxed">
                   {service.description}
                 </p>
 
@@ -135,14 +137,14 @@ const Services = () => {
                   {service.features.map((feature, featureIndex) => (
                     <motion.li
                       key={featureIndex}
-                      className="flex items-center gap-3 text-sm text-brand-700 font-medium"
+                      className="flex items-center gap-3 text-sm text-accent-ink font-medium"
                       initial={isMobile ? {} : { opacity: 0, x: -12 }}
                       whileInView={isMobile ? {} : { opacity: 1, x: 0 }}
                       transition={isMobile ? {} : { duration: 0.3, delay: Math.min(index * 0.08 + featureIndex * 0.08, 0.6) }}
                       viewport={{ once: true }}
                     >
-                      <span className="rounded-full bg-brand-100 p-0.5" aria-hidden="true">
-                        <Check className="w-3.5 h-3.5 text-brand-600" strokeWidth={3} />
+                      <span className="rounded-full bg-chip p-0.5" aria-hidden="true">
+                        <Check className="w-3.5 h-3.5 text-accent-ink" strokeWidth={3} />
                       </span>
                       <span>{feature}</span>
                     </motion.li>
@@ -152,9 +154,9 @@ const Services = () => {
                 {/* CTA de la tarjeta */}
                 <button
                   onClick={() => scrollToSection('contact')}
-                  className="mt-auto w-full py-3 px-6 rounded-xl border border-brand-200 text-brand-700
+                  className="mt-auto w-full py-3 px-6 rounded-xl border border-edge text-accent-ink
                              font-semibold cursor-pointer inline-flex items-center justify-center gap-2
-                             hover:bg-brand-50 hover:border-brand-300 transition-colors duration-200
+                             hover:bg-chip transition-colors duration-200
                              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2"
                 >
                   Más información
@@ -176,20 +178,22 @@ const Services = () => {
           <div className="card-lux inline-flex flex-col sm:flex-row items-center gap-4 p-6 rounded-2xl">
             <span className="text-2xl" aria-hidden="true">🚀</span>
             <div className="text-left">
-              <p className="text-lg font-semibold text-brand-950 mb-2">
+              <p className="text-lg font-semibold text-content-1 mb-2">
                 ¿Tienes un proceso que te quita tiempo?
               </p>
-              <p className="text-slate-600">
+              <p className="text-content-2">
                 Contáctanos y te mostramos cómo podemos automatizarlo o mejorarlo con tecnología.
               </p>
             </div>
-            <motion.button
-              className="btn-primary"
-              whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection('contact')}
-            >
-              Conversemos
-            </motion.button>
+            <Magnetic>
+              <motion.button
+                className="btn-primary"
+                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollToSection('contact')}
+              >
+                Conversemos
+              </motion.button>
+            </Magnetic>
           </div>
         </motion.div>
       </div>

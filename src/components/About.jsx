@@ -54,7 +54,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl mb-8 text-brand-950">
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl mb-8 text-content-1">
             Quiénes Somos
           </h2>
         </motion.div>
@@ -71,30 +71,30 @@ const About = () => {
           >
             {/* Mission */}
             <div className="card-lux rounded-2xl p-8">
-              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
+              <h3 className="font-display font-semibold text-3xl text-content-1 mb-4">
                 Nuestra Misión
               </h3>
-              <p className="text-slate-600 leading-relaxed text-lg">
+              <p className="text-content-2 leading-relaxed text-lg">
                 Habilitamos la transformación tecnológica de empresas en Chile y Latinoamérica. Combinamos ingeniería de software sólida con lo último en inteligencia artificial para resolver problemas reales de negocio — no para vender humo.
               </p>
             </div>
 
             {/* Vision */}
             <div className="card-lux rounded-2xl p-8">
-              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
+              <h3 className="font-display font-semibold text-3xl text-content-1 mb-4">
                 Nuestra Visión
               </h3>
-              <p className="text-slate-600 leading-relaxed text-lg">
+              <p className="text-content-2 leading-relaxed text-lg">
                 Ser el partner tecnológico de referencia para empresas que quieren innovar de verdad — sin burocracia, con resultados concretos y tecnología de punta. Desde Santiago para todo Chile y Latinoamérica.
               </p>
             </div>
 
             {/* Commitment */}
             <div className="card-lux rounded-2xl p-8">
-              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
+              <h3 className="font-display font-semibold text-3xl text-content-1 mb-4">
                 Nuestro Compromiso
               </h3>
-              <p className="text-slate-600 leading-relaxed text-lg">
+              <p className="text-content-2 leading-relaxed text-lg">
                 Nos comprometemos con cada proyecto como si fuera nuestro. Entendemos tu negocio primero, proponemos después, y entregamos soluciones que funcionan. Así de simple.
               </p>
             </div>
@@ -128,7 +128,7 @@ const About = () => {
               {/* Badge flotante */}
               <div className="!absolute bottom-4 left-4 w-auto card-lux rounded-xl px-4 py-3 backdrop-blur-md">
                 <p className="font-display text-2xl font-bold gradient-text">+20</p>
-                <p className="text-xs text-slate-600">proyectos entregados</p>
+                <p className="text-xs text-content-2">proyectos entregados</p>
               </div>
             </div>
           </motion.div>
@@ -142,10 +142,10 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-brand-950 text-center mb-4">
+          <h3 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-content-1 text-center mb-4">
             Lo Que Nos Mueve
           </h3>
-          <p className="text-slate-600 text-center mb-12 text-lg">
+          <p className="text-content-2 text-center mb-12 text-lg">
             Cómo trabajamos y qué nos mueve como equipo.
           </p>
 
@@ -159,7 +159,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <SpotlightCard className="card-lux h-full rounded-2xl p-8">
+                <SpotlightCard tilt className="card-lux h-full rounded-2xl p-8">
                   <div className="relative z-10">
                     {/* Icon */}
                     <div className="mb-6">
@@ -169,12 +169,12 @@ const About = () => {
                     </div>
 
                     {/* Title */}
-                    <h4 className="font-display font-semibold text-xl text-brand-950 mb-3">
+                    <h4 className="font-display font-semibold text-xl text-content-1 mb-3">
                       {value.title}
                     </h4>
 
                     {/* Description */}
-                    <p className="text-slate-600">
+                    <p className="text-content-2">
                       {value.description}
                     </p>
                   </div>

@@ -13,7 +13,7 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="on-contrast bg-surface-contrast text-content-1">
       {/* Divider de luz que separa del Contact */}
       <div className="h-px bg-gradient-to-r from-transparent via-brand-500/40 to-transparent" aria-hidden="true" />
       <div className="container mx-auto px-4 py-16">
@@ -35,18 +35,18 @@ const Footer = () => {
               </span>
             </div>
             
-            <p className="text-slate-300 mb-6 leading-relaxed">
+            <p className="text-content-2 mb-6 leading-relaxed">
               Empresa AI-first de automatización e ingeniería de software. 
               Resolvemos problemas reales de negocio con tecnología de punta, desde Santiago para toda Latinoamérica.
             </p>
 
             <div className="space-y-3">
-              <div className="flex items-center text-slate-300">
-                <Mail className="h-5 w-5 mr-3 text-emerald-400" />
-                <a href="mailto:contacto@datacef.com" className="hover:text-emerald-400 transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">contacto@datacef.com</a>
+              <div className="flex items-center text-content-2">
+                <Mail className="h-5 w-5 mr-3 text-accent-ink" />
+                <a href="mailto:contacto@datacef.com" className="hover:text-accent-ink transition-colors rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">contacto@datacef.com</a>
               </div>
-              <div className="flex items-center text-slate-300">
-                <MapPin className="h-5 w-5 mr-3 text-emerald-400" />
+              <div className="flex items-center text-content-2">
+                <MapPin className="h-5 w-5 mr-3 text-accent-ink" />
                 <span>Santiago, Chile · Remoto LATAM</span>
               </div>
             </div>
@@ -54,7 +54,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white">
+            <h3 className="text-xl font-bold mb-6 text-content-1">
               Servicios
             </h3>
             <ul className="space-y-3">
@@ -62,7 +62,7 @@ const Footer = () => {
                 <li key={index}>
                   <a 
                     href="#services" 
-                    className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                    className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
                   >
                     {service}
                   </a>
@@ -73,22 +73,22 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-6 text-white">
+            <h3 className="text-xl font-bold mb-6 text-content-1">
               Navegación
             </h3>
             <ul className="space-y-3">
-              <li><a href="#hero" className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Inicio</a></li>
-              <li><a href="#services" className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Servicios</a></li>
-              <li><a href="#about" className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Nosotros</a></li>
-              <li><a href="#case-studies" className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Casos de Éxito</a></li>
-              <li><a href="#contact" className="text-slate-300 hover:text-emerald-400 transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400">Contacto</a></li>
+              <li><a href="#hero" className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">Inicio</a></li>
+              <li><a href="#services" className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">Servicios</a></li>
+              <li><a href="#about" className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">Nosotros</a></li>
+              <li><a href="#case-studies" className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">Casos de Éxito</a></li>
+              <li><a href="#contact" className="text-content-2 hover:text-accent-ink transition-colors duration-200 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400">Contacto</a></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-800 pt-8 mt-12">
-          <div className="text-center text-slate-400 text-sm">
+        <div className="border-t border-edge pt-8 mt-12">
+          <div className="text-center text-content-3 text-sm">
             © {currentYear} DataCEF. Todos los derechos reservados.
           </div>
         </div>

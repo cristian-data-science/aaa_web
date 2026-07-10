@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { FileText, Bot, BarChart3 } from 'lucide-react'
 import SpotlightCard from './ui-fx/SpotlightCard'
 import CountUp from './ui-fx/CountUp'
+import ScrambleText from './ui-fx/ScrambleText'
 
 const CaseStudies = () => {
   const cases = [
@@ -45,7 +46,7 @@ const CaseStudies = () => {
   ]
 
   return (
-    <section id="case-studies" className="relative py-20 overflow-hidden bg-white/60">
+    <section id="case-studies" className="relative py-20 overflow-hidden bg-surface-3">
       <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <motion.div
@@ -55,13 +56,13 @@ const CaseStudies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <p className="uppercase text-xs md:text-sm font-semibold tracking-[0.2em] text-brand-600 mb-6">
-            Casos Reales
+          <p className="eyebrow mb-6">
+            <ScrambleText text="Casos Reales" />
           </p>
-          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-brand-950 mb-6">
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-content-1 mb-6">
             Lo que hemos hecho
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <p className="text-xl text-content-2 max-w-3xl mx-auto">
             Proyectos concretos con resultados medibles. Sin nombres de fantasía, solo trabajo real.
           </p>
         </motion.div>
@@ -77,9 +78,9 @@ const CaseStudies = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <SpotlightCard className="card-lux border-beam h-full rounded-2xl p-8 flex flex-col">
+              <SpotlightCard tilt className="card-lux border-beam h-full rounded-2xl p-8 flex flex-col">
                 {/* Industry Tag */}
-                <span className="inline-block text-xs font-semibold text-brand-800 bg-brand-100 px-3 py-1 rounded-full mb-4 self-start">
+                <span className="inline-block text-xs font-semibold text-accent-ink bg-chip px-3 py-1 rounded-full mb-4 self-start">
                   {caseItem.industry}
                 </span>
 
@@ -89,17 +90,17 @@ const CaseStudies = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="font-display font-semibold text-xl text-brand-950 mb-4">
+                <h3 className="font-display font-semibold text-xl text-content-1 mb-4">
                   {caseItem.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-slate-600 leading-relaxed mb-6 flex-grow">
+                <p className="text-content-2 leading-relaxed mb-6 flex-grow">
                   {caseItem.description}
                 </p>
 
                 {/* Metric */}
-                <div className="border-t border-brand-100 pt-4">
+                <div className="border-t border-edge pt-4">
                   <div className="flex items-baseline gap-2">
                     {caseItem.metric ? (
                       <CountUp
@@ -113,7 +114,7 @@ const CaseStudies = () => {
                         {caseItem.metricStatic}
                       </span>
                     )}
-                    <span className="text-sm text-brand-700 font-medium">
+                    <span className="text-sm text-accent-ink font-medium">
                       {caseItem.metricLabel}
                     </span>
                   </div>
@@ -125,7 +126,7 @@ const CaseStudies = () => {
 
         {/* Bottom note */}
         <motion.p
-          className="text-center text-brand-800 mt-12 text-sm"
+          className="text-center text-content-2 mt-12 text-sm"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
