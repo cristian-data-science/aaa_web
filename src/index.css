@@ -156,27 +156,9 @@
   box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px var(--color-brand-600);
 }
 
-/* ============================================================
-   Anti-parpadeo en la grilla de servicios
-   ============================================================ */
-[data-section="services"] .group {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  contain: layout style paint;
-}
-
-[data-section="services"] {
-  contain: layout;
-}
-
+/* Evita salto de layout mientras carga la grilla lazy de servicios */
 [data-section="services"] .grid {
   min-height: 400px;
-}
-
-@media (max-width: 768px) {
-  [data-section="services"] .group:hover {
-    transform: none;
-  }
 }
 
 /* ============================================================

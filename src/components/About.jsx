@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Target, Eye, Heart, Award, Users, Lightbulb } from 'lucide-react'
+import SpotlightCard from './ui-fx/SpotlightCard'
 import datacefCity from '../assets/images/datacef-city.webp'
 
 const About = () => {
@@ -53,7 +54,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-8 text-brand-950">
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl mb-8 text-brand-950">
             Quiénes Somos
           </h2>
         </motion.div>
@@ -69,8 +70,8 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             {/* Mission */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
-              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+            <div className="card-lux rounded-2xl p-8">
+              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
                 Nuestra Misión
               </h3>
               <p className="text-slate-600 leading-relaxed text-lg">
@@ -79,8 +80,8 @@ const About = () => {
             </div>
 
             {/* Vision */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
-              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+            <div className="card-lux rounded-2xl p-8">
+              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
                 Nuestra Visión
               </h3>
               <p className="text-slate-600 leading-relaxed text-lg">
@@ -89,8 +90,8 @@ const About = () => {
             </div>
 
             {/* Commitment */}
-            <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 border border-brand-100 shadow-card">
-              <h3 className="text-3xl font-bold text-brand-950 mb-4">
+            <div className="card-lux rounded-2xl p-8">
+              <h3 className="font-display font-semibold text-3xl text-brand-950 mb-4">
                 Nuestro Compromiso
               </h3>
               <p className="text-slate-600 leading-relaxed text-lg">
@@ -107,19 +108,28 @@ const About = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
           >
-            <div className="relative h-full rounded-2xl overflow-hidden border border-brand-100 shadow-card">
-              <img
-                src={datacefCity}
-                alt="DATACEF - Letras luminosas sobre una ciudad"
-                className="w-full h-full object-cover"
-                width="1024"
-                height="1024"
-                loading="lazy"
-                decoding="async"
-              />
+            {/* Marco gradiente */}
+            <div className="relative h-full rounded-2xl p-[2px] bg-gradient-to-br from-brand-400 via-accent-400/60 to-brand-200 shadow-card-hover">
+              <div className="relative h-full rounded-[calc(1rem-2px)] overflow-hidden">
+                <img
+                  src={datacefCity}
+                  alt="DATACEF - Letras luminosas sobre una ciudad"
+                  className="w-full h-full object-cover"
+                  width="1024"
+                  height="1024"
+                  loading="lazy"
+                  decoding="async"
+                />
 
-              {/* Overlay sutil para integrar la imagen */}
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/20 via-transparent to-transparent" aria-hidden="true" />
+                {/* Overlay sutil para integrar la imagen */}
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-900/30 via-transparent to-transparent" aria-hidden="true" />
+              </div>
+
+              {/* Badge flotante */}
+              <div className="absolute bottom-4 left-4 card-lux rounded-xl px-4 py-3 backdrop-blur-md">
+                <p className="font-display text-2xl font-bold gradient-text">+20</p>
+                <p className="text-xs text-slate-600">proyectos entregados</p>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -132,7 +142,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="text-4xl font-bold text-brand-950 text-center mb-4">
+          <h3 className="font-display font-bold tracking-tight text-4xl text-brand-950 text-center mb-4">
             Nuestros Valores
           </h3>
           <p className="text-slate-600 text-center mb-12 text-lg">
@@ -149,9 +159,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
               >
-                <div className="h-full bg-white/90 backdrop-blur-sm rounded-2xl p-8
-                               border border-brand-100 shadow-card group-hover:shadow-card-hover
-                               transition-shadow duration-300 relative overflow-hidden">
+                <SpotlightCard className="card-lux h-full rounded-2xl p-8">
                   <div className="relative z-10">
                     {/* Icon */}
                     <div className="mb-6">
@@ -161,7 +169,7 @@ const About = () => {
                     </div>
 
                     {/* Title */}
-                    <h4 className="text-xl font-bold text-brand-950 mb-3">
+                    <h4 className="font-display font-semibold text-xl text-brand-950 mb-3">
                       {value.title}
                     </h4>
 
@@ -170,7 +178,7 @@ const About = () => {
                       {value.description}
                     </p>
                   </div>
-                </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </div>

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { FileText, Bot, BarChart3 } from 'lucide-react'
+import SpotlightCard from './ui-fx/SpotlightCard'
+import CountUp from './ui-fx/CountUp'
 
 const CaseStudies = () => {
   const cases = [
@@ -8,7 +10,7 @@ const CaseStudies = () => {
       industry: 'Transformación Digital',
       title: 'Aplicaciones para digitalizar negocios',
       description: 'Diseñamos y desarrollamos aplicaciones a medida que llevan procesos análogos al mundo digital. Desde sistemas internos hasta plataformas cliente, construimos software que transforma la forma en que las empresas operan día a día.',
-      metric: '100%',
+      metric: { value: 100, suffix: '%' },
       metricLabel: 'procesos digitalizados',
       color: 'from-brand-500 to-brand-700'
     },
@@ -17,7 +19,7 @@ const CaseStudies = () => {
       industry: 'Comercio Exterior',
       title: '800 horas manuales ahorradas',
       description: 'Automatizamos el proceso completo de ingreso de facturas para una empresa de comercio exterior. Lo que antes requería horas de digitación manual, ahora se procesa de forma automática con validación inteligente.',
-      metric: '+800 hrs',
+      metric: { value: 800, prefix: '+', suffix: ' hrs' },
       metricLabel: 'ahorradas al año',
       color: 'from-accent-500 to-brand-600'
     },
@@ -26,7 +28,8 @@ const CaseStudies = () => {
       title: 'Facturación 100% automática',
       industry: 'Multi-industria',
       description: 'Construimos automatizaciones que generan facturas de forma autónoma, liberando a los analistas contables del proceso de facturación manual en múltiples áreas de negocio.',
-      metric: '0',
+      metric: null,
+      metricStatic: '0',
       metricLabel: 'intervención manual',
       color: 'from-brand-600 to-accent-600'
     },
@@ -35,7 +38,7 @@ const CaseStudies = () => {
       title: 'Recolección y análisis de datos automatizado',
       industry: 'Retail · Transporte · Logística',
       description: 'Automatizamos la recolección de datos de distintas fuentes e industrias, transformando información dispersa en análisis accionables para la toma de decisiones.',
-      metric: '4',
+      metric: { value: 4 },
       metricLabel: 'industrias beneficiadas',
       color: 'from-accent-400 to-accent-600'
     }
@@ -52,11 +55,10 @@ const CaseStudies = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="inline-flex items-center gap-2 mb-6">
-            <span className="text-2xl" aria-hidden="true">📋</span>
-            <span className="text-lg font-semibold text-brand-600">Casos Reales</span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-black text-brand-950 mb-6">
+          <p className="uppercase text-xs md:text-sm font-semibold tracking-[0.2em] text-brand-600 mb-6">
+            Casos Reales
+          </p>
+          <h2 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-brand-950 mb-6">
             Lo que hemos hecho
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
@@ -75,9 +77,7 @@ const CaseStudies = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
             >
-              <div className="h-full bg-white/90 backdrop-blur-sm rounded-2xl p-8 flex flex-col
-                             border border-brand-100 shadow-card hover:shadow-card-hover
-                             transition-shadow duration-300">
+              <SpotlightCard className="card-lux border-beam h-full rounded-2xl p-8 flex flex-col">
                 {/* Industry Tag */}
                 <span className="inline-block text-xs font-semibold text-brand-800 bg-brand-100 px-3 py-1 rounded-full mb-4 self-start">
                   {caseItem.industry}
@@ -89,7 +89,7 @@ const CaseStudies = () => {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-xl font-bold text-brand-950 mb-4">
+                <h3 className="font-display font-semibold text-xl text-brand-950 mb-4">
                   {caseItem.title}
                 </h3>
 
@@ -101,15 +101,24 @@ const CaseStudies = () => {
                 {/* Metric */}
                 <div className="border-t border-brand-100 pt-4">
                   <div className="flex items-baseline gap-2">
-                    <span className={`text-3xl font-black bg-gradient-to-r ${caseItem.color} bg-clip-text text-transparent`}>
-                      {caseItem.metric}
-                    </span>
+                    {caseItem.metric ? (
+                      <CountUp
+                        value={caseItem.metric.value}
+                        prefix={caseItem.metric.prefix}
+                        suffix={caseItem.metric.suffix}
+                        className={`font-display text-3xl font-bold bg-gradient-to-r ${caseItem.color} bg-clip-text text-transparent`}
+                      />
+                    ) : (
+                      <span className={`font-display text-3xl font-bold bg-gradient-to-r ${caseItem.color} bg-clip-text text-transparent`}>
+                        {caseItem.metricStatic}
+                      </span>
+                    )}
                     <span className="text-sm text-brand-700 font-medium">
                       {caseItem.metricLabel}
                     </span>
                   </div>
                 </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
