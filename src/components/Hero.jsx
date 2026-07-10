@@ -189,7 +189,7 @@ const Hero = () => {
         transition={{ delay: 1.1, duration: 0.8 }}
       >
         <p className="text-center uppercase text-xs font-semibold tracking-[0.2em] text-brand-600/80 mb-4">
-          Tecnología que dominamos
+          Nuestro stack tecnológico
         </p>
         <Marquee items={TECH_STACK} duration={38} className="max-w-4xl mx-auto" />
       </motion.div>

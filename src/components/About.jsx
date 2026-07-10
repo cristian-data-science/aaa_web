@@ -142,7 +142,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h3 className="font-display font-bold tracking-tight text-4xl text-brand-950 text-center mb-4">
+          <h3 className="font-display font-bold tracking-tight text-4xl md:text-5xl text-brand-950 text-center mb-4">
             Nuestro Compromiso
           </h3>
           <p className="text-slate-600 text-center mb-12 text-lg">
