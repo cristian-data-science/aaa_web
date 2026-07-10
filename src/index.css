@@ -197,30 +197,6 @@
   to { transform: translate3d(-3rem, 4rem, 0) scale(0.95); }
 }
 
-/* Particulas sutiles del fondo de marca */
-.brand-particle {
-  background: color-mix(in srgb, var(--color-brand-500) 55%, transparent);
-  opacity: 0.35;
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .brand-particle {
-    animation: brand-particle-float ease-in-out infinite alternate;
-  }
-}
-
-@keyframes brand-particle-float {
-  from {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.15;
-  }
-  to {
-    transform: translate3d(0, -1.5rem, 0);
-    opacity: 0.4;
-  }
-}
-
 /* ============================================================
    FX primitives — efectos premium reutilizables
    ============================================================ */
