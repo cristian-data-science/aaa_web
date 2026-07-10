@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Clock, Rocket, Factory, Brain } from 'lucide-react';
+import { Clock, Rocket, Factory, Award } from 'lucide-react';
 import SpotlightCard from './ui-fx/SpotlightCard';
 import CountUp from './ui-fx/CountUp';
 
@@ -29,11 +29,11 @@ const StatsSection = () => {
       color: "from-brand-600 to-accent-500"
     },
     {
-      value: 100,
-      suffix: '%',
-      title: "AI-First",
-      description: "Tecnología de punta en cada proyecto",
-      icon: Brain,
+      value: 10,
+      prefix: '+',
+      title: "Años de Trayectoria",
+      description: "Experiencia combinada del equipo",
+      icon: Award,
       color: "from-accent-600 to-brand-500"
     }
   ];
