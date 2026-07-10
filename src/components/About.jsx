@@ -126,7 +126,7 @@ const About = () => {
               </div>
 
               {/* Badge flotante */}
-              <div className="absolute bottom-4 left-4 card-lux rounded-xl px-4 py-3 backdrop-blur-md">
+              <div className="!absolute bottom-4 left-4 w-auto card-lux rounded-xl px-4 py-3 backdrop-blur-md">
                 <p className="font-display text-2xl font-bold gradient-text">+20</p>
                 <p className="text-xs text-slate-600">proyectos entregados</p>
               </div>
