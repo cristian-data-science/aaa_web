@@ -104,3 +104,6 @@ Icon?
 # Vite
 dist-ssr
 *.local
+
+# ZCode (config local del IDE)
+.zcode/

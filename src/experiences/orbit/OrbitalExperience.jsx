@@ -63,8 +63,8 @@ const OBackground = () => {
     return () => window.removeEventListener('pointermove', onMove)
   }, [fine, reduced, mx, my])
 
-  const starsFar = useMemo(() => makeStars(80, 1, '215, 220, 255'), [])
-  const starsNear = useMemo(() => makeStars(45, 7, '190, 230, 255'), [])
+  const starsFar = useMemo(() => makeStars(80, 1, '210, 245, 230'), [])
+  const starsNear = useMemo(() => makeStars(45, 7, '170, 240, 215'), [])
 
   return (
     <div className="fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
@@ -84,7 +84,7 @@ const OBackground = () => {
 const OBrand = () => (
   <motion.button
     onClick={() => scrollToSection('hero')}
-    className="fixed top-3 left-4 z-[60] o-glass !rounded-full px-4 py-1.5 font-display font-bold text-lg gradient-text cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ink"
+    className="fixed top-3 left-4 z-[60] o-glass !rounded-full px-4 py-1.5 font-display font-bold text-lg o-holo-text cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-ink"
     initial={{ opacity: 0, x: -16 }}
     animate={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.5, delay: 0.3 }}
@@ -151,7 +151,7 @@ const Flip3D = ({ words, interval = 2600 }) => {
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={words[i]}
-          className="gradient-text inline-block whitespace-nowrap [grid-area:1/1] origin-bottom"
+          className="o-holo-text inline-block whitespace-nowrap [grid-area:1/1] origin-bottom"
           initial={{ rotateX: 90, opacity: 0, y: 8 }}
           animate={{ rotateX: 0, opacity: 1, y: 0 }}
           exit={{ rotateX: -90, opacity: 0, y: -8 }}
@@ -557,7 +557,7 @@ const OAbout = () => (
             <SpotlightCard className="o-glass h-full p-6 rounded-2xl flex gap-4">
               <span
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-accent-ink"
-                style={{ borderColor: 'var(--edge)', boxShadow: 'inset 0 0 14px rgb(124 108 255 / 0.15)' }}
+                style={{ borderColor: 'var(--edge)', boxShadow: 'inset 0 0 14px rgb(52 211 153 / 0.15)' }}
                 aria-hidden="true"
               >
                 <value.icon className="h-5 w-5" />

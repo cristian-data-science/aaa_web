@@ -8,32 +8,32 @@ html[data-experience="orbit"] {
   color-scheme: dark;
 
   /* Fondo y superficies */
-  --bg-from: #050510;
-  --bg-to: #0b0b22;
+  --bg-from: #021410;
+  --bg-to: #042018;
   --surface-1: rgb(255 255 255 / 0.045);
   --surface-2: rgb(255 255 255 / 0.06);
   --surface-3: rgb(255 255 255 / 0.02);
   --surface-contrast: rgb(255 255 255 / 0.03);
   --input: rgb(255 255 255 / 0.05);
-  --header-bg: rgb(5 5 16 / 0.6);
-  --header-bg-solid: rgb(5 5 16 / 0.85);
+  --header-bg: rgb(2 20 16 / 0.6);
+  --header-bg-solid: rgb(2 20 16 / 0.85);
 
   /* Texto */
-  --content-1: #ecebfb;
-  --content-2: #b8badd;
-  --content-3: #8083ab;
-  --accent-ink: #9aa8ff;
+  --content-1: #e8f5ee;
+  --content-2: #9fc4b0;
+  --content-3: #6a8a7a;
+  --accent-ink: #34d399;
 
   /* Bordes, chips y brillos */
-  --edge: rgb(154 168 255 / 0.16);
-  --chip: rgb(154 168 255 / 0.10);
-  --glow: rgb(124 108 255 / 0.40);
-  --grad-a: #7c6cff;
-  --grad-b: #22d3ee;
-  --grad-c: #34d399;
+  --edge: rgb(52 211 153 / 0.18);
+  --chip: rgb(52 211 153 / 0.10);
+  --glow: rgb(52 211 153 / 0.40);
+  --grad-a: #059669;
+  --grad-b: #0d9488;
+  --grad-c: #047857;
 
   --shadow-card: 0 8px 32px -8px rgb(0 0 0 / 0.55);
-  --shadow-card-hover: 0 16px 40px -8px rgb(0 0 0 / 0.65), 0 0 28px rgb(124 108 255 / 0.14);
+  --shadow-card-hover: 0 16px 40px -8px rgb(0 0 0 / 0.65), 0 0 28px rgb(52 211 153 / 0.14);
 }
 
 /* ---------- Fondo espacial ---------- */
@@ -52,7 +52,7 @@ html[data-experience="orbit"] {
   left: -18rem;
   width: 60rem;
   height: 60rem;
-  background: radial-gradient(closest-side, rgb(124 108 255 / 0.16), rgb(124 108 255 / 0.05) 55%, transparent);
+  background: radial-gradient(closest-side, rgb(52 211 153 / 0.16), rgb(52 211 153 / 0.05) 55%, transparent);
 }
 
 .o-nebula-b {
@@ -60,7 +60,7 @@ html[data-experience="orbit"] {
   right: -20rem;
   width: 64rem;
   height: 64rem;
-  background: radial-gradient(closest-side, rgb(34 211 238 / 0.12), rgb(52 211 153 / 0.04) 55%, transparent);
+  background: radial-gradient(closest-side, rgb(13 148 136 / 0.12), rgb(52 211 153 / 0.04) 55%, transparent);
 }
 
 /* Estrella: punto de 1px cuyo campo se pinta con box-shadow (JS) */
@@ -79,7 +79,7 @@ html[data-experience="orbit"] {
 .o-ring {
   position: absolute;
   inset: 0;
-  border: 1px solid rgb(154 168 255 / 0.18);
+  border: 1px solid rgb(52 211 153 / 0.18);
   border-radius: 9999px;
 }
 
@@ -101,17 +101,22 @@ html[data-experience="orbit"] {
 }
 
 /* Núcleo luminoso central (glow estático + halo que pulsa por
-   opacidad/escala: solo propiedades compositables, nada de repaint) */
+   opacidad/escala: solo propiedades compositables, nada de repaint).
+   Conic holográfico multicolor: recorre el espectro fresco (esmeralda →
+   cian → teal → azul cielo → violeta) para un toque iridiscente. */
 .o-core {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
-  background: conic-gradient(from 0deg, var(--grad-a), var(--grad-b), var(--grad-c), var(--grad-a));
+  background: conic-gradient(
+    from 0deg,
+    #34d399, #22d3ee, #0d9488, #38bdf8, #818cf8, #34d399
+  );
   box-shadow:
-    0 0 40px rgb(124 108 255 / 0.55),
-    0 0 120px rgb(34 211 238 / 0.25),
+    0 0 40px rgb(52 211 153 / 0.55),
+    0 0 120px rgb(56 189 248 / 0.25),
     inset 0 0 30px rgb(255 255 255 / 0.35);
 }
 
@@ -120,7 +125,7 @@ html[data-experience="orbit"] {
   position: absolute;
   inset: -70%;
   border-radius: inherit;
-  background: radial-gradient(closest-side, rgb(124 108 255 / 0.35), rgb(34 211 238 / 0.12) 55%, transparent 75%);
+  background: radial-gradient(closest-side, rgb(52 211 153 / 0.35), rgb(56 189 248 / 0.14) 50%, rgb(129 140 248 / 0.10) 70%, transparent 80%);
   opacity: 0.6;
 }
 
@@ -151,7 +156,7 @@ html[data-experience="orbit"] {
   border: 1px solid var(--edge);
   background: rgb(10 10 30 / 0.85);
   color: var(--content-2);
-  box-shadow: 0 0 16px rgb(124 108 255 / 0.25);
+  box-shadow: 0 0 16px rgb(52 211 153 / 0.25);
   backdrop-filter: blur(4px);
 }
 
@@ -195,7 +200,7 @@ html[data-experience="orbit"] {
   inset-inline: 0;
   top: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgb(34 211 238 / 0.6), transparent);
+  background: linear-gradient(90deg, transparent, rgb(13 148 136 / 0.6), transparent);
   opacity: 0;
   pointer-events: none;
 }
@@ -222,7 +227,7 @@ html[data-experience="orbit"] {
   background: rgb(8 8 22 / 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 12px 40px rgb(0 0 0 / 0.5), 0 0 24px rgb(124 108 255 / 0.10);
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.5), 0 0 24px rgb(52 211 153 / 0.10);
 }
 
 .o-dock-item {
@@ -336,7 +341,7 @@ html[data-experience="orbit"] {
 .o-input:focus {
   outline: none;
   border-color: var(--accent-ink);
-  box-shadow: 0 0 0 1px var(--accent-ink), 0 0 22px rgb(124 108 255 / 0.2);
+  box-shadow: 0 0 0 1px var(--accent-ink), 0 0 22px rgb(52 211 153 / 0.2);
 }
 
 /* Chip de dato (features, industrias) */
@@ -359,7 +364,39 @@ html[data-experience="orbit"] {
   bottom: -55%;
   height: 100%;
   border-radius: 50% 50% 0 0;
-  background: radial-gradient(ellipse at 50% 0%, rgb(124 108 255 / 0.22), rgb(34 211 238 / 0.08) 40%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgb(52 211 153 / 0.22), rgb(13 148 136 / 0.08) 40%, transparent 70%);
   filter: blur(20px);
   pointer-events: none;
+}
+
+/* ---------- Texto holográfico iridiscente ---------- */
+
+/* Variante de .gradient-text específica de Orbit: gradiente multicolor
+   del espectro fresco que se desplaza y rota para un efecto holográfico.
+   No toca .gradient-text global (lo usan Kernel/Folio). */
+.o-holo-text {
+  background: linear-gradient(
+    100deg,
+    #34d399 0%,
+    #22d3ee 22%,
+    #38bdf8 44%,
+    #818cf8 66%,
+    #34d399 100%
+  );
+  background-size: 250% 250%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .o-holo-text {
+    animation: o-holo-flow 7s ease-in-out infinite;
+  }
+}
+
+@keyframes o-holo-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
 }

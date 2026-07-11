@@ -15,7 +15,7 @@ const ExperienceSwitcher = () => {
   const { experience, setExperience } = useExperience()
 
   return (
-    <div className="fixed top-3 left-1/2 -translate-x-1/2 z-[80]">
+    <div className="fixed top-16 right-4 z-[80]">
       <motion.div
         role="radiogroup"
         aria-label="Experiencia visual"
@@ -33,9 +33,10 @@ const ExperienceSwitcher = () => {
               type="button"
               role="radio"
               aria-checked={active}
+              aria-label={`Experiencia ${label}`}
               title={`Experiencia ${label}`}
               onClick={() => setExperience(id)}
-              className={`relative flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] cursor-pointer transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current ${
+              className={`relative flex items-center justify-center rounded-full p-1.5 cursor-pointer transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current ${
                 active ? 'xp-switcher-active' : 'xp-switcher-idle'
               }`}
             >
@@ -47,8 +48,7 @@ const ExperienceSwitcher = () => {
                   aria-hidden="true"
                 />
               )}
-              <Icon className="relative z-10 h-3.5 w-3.5" aria-hidden="true" />
-              <span className="relative z-10 hidden sm:inline">{label}</span>
+              <Icon className="relative z-10 h-4 w-4" aria-hidden="true" />
             </button>
           )
         })}

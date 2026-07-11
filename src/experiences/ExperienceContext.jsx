@@ -5,7 +5,7 @@ import { flushSync } from 'react-dom'
 // colores, cada una es un árbol de componentes completo: misma información,
 // contada con estructura, layout y animaciones radicalmente distintas.
 export const EXPERIENCES = [
-  { id: 'orbit', label: 'Orbital', metaColor: '#050510' },
+  { id: 'orbit', label: 'Orbital', metaColor: '#021410' },
   { id: 'kernel', label: 'Kernel', metaColor: '#030905' },
   { id: 'folio', label: 'Folio', metaColor: '#f5f1e8' },
 ]
