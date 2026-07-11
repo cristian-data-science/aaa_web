@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DataCEF">
+  <defs>
+    <!-- Paleta exacta del logo principal (tokens del tema por defecto) -->
+    <!-- Fondo esmeralda/teal: --grad-a #059669 · --grad-b #0d9488 · --grad-c #047857 -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#059669"/>
+      <stop offset="0.5" stop-color="#0d9488"/>
+      <stop offset="1" stop-color="#047857"/>
+    </linearGradient>
+    <!-- "D" con brillo holográfico: brand-200 #a7f3d0 -->
+    <linearGradient id="letter" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#a7f3d0"/>
+    </linearGradient>
+    <!-- Glow brand-300 #6ee7b7 -->
+    <radialGradient id="glow" cx="0.3" cy="0.22" r="0.95">
+      <stop offset="0" stop-color="#6ee7b7" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#6ee7b7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Lienzo redondeado -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect width="64" height="64" rx="14" fill="url(#glow)"/>
+
+  <!-- Inicial "D": barra vertical + bowl (recortado con evenodd) -->
+  <path fill-rule="evenodd" fill="url(#letter)"
+    d="M18 12 H33 C46 12 52 22 52 32 C52 42 46 52 33 52 H18 Z
+       M26 20 V44 H33 C40 44 44 38 44 32 C44 26 40 20 33 20 Z"/>
+
+  <!-- Nodos de datos (toque AI/data) -->
+  <circle cx="36.5" cy="25.5" r="2.1" fill="#047857"/>
+  <circle cx="40.5" cy="32"   r="2.1" fill="#047857"/>
+  <circle cx="36.5" cy="38.5" r="2.1" fill="#047857"/>
+</svg>
