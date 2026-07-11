@@ -1,0 +1,377 @@
+/* ============================================================
+   Experiencia "Kernel" — command deck / terminal CRT.
+   Fósforo verde sobre negro, monospace, scanlines, glitch,
+   secuencia de boot y secciones contadas como módulos de sistema.
+   ============================================================ */
+
+html[data-experience="kernel"] {
+  color-scheme: dark;
+
+  /* Fondo y superficies */
+  --bg-from: #020604;
+  --bg-to: #04100a;
+  --surface-1: rgb(5 22 13 / 0.78);
+  --surface-2: rgb(61 255 143 / 0.05);
+  --surface-3: rgb(2 9 5 / 0.55);
+  --surface-contrast: rgb(61 255 143 / 0.04);
+  --input: rgb(61 255 143 / 0.05);
+  --header-bg: rgb(2 6 4 / 0.72);
+  --header-bg-solid: rgb(2 6 4 / 0.92);
+
+  /* Texto */
+  --content-1: #d9ffe9;
+  --content-2: #9fd8b8;
+  --content-3: #629a7c;
+  --accent-ink: #3dff8f;
+
+  /* Bordes, chips y brillos */
+  --edge: rgb(61 255 143 / 0.18);
+  --chip: rgb(61 255 143 / 0.09);
+  --glow: rgb(61 255 143 / 0.30);
+  --grad-a: #3dff8f;
+  --grad-b: #16e8b8;
+  --grad-c: #b8ffd9;
+
+  --shadow-card: 0 8px 32px -8px rgb(0 0 0 / 0.6), inset 0 0 24px rgb(61 255 143 / 0.03);
+  --shadow-card-hover: 0 16px 40px -8px rgb(0 0 0 / 0.7), 0 0 24px rgb(61 255 143 / 0.12);
+
+  /* Tipografía de la experiencia */
+  --k-mono: 'Cascadia Code', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html[data-experience="kernel"] body {
+  font-family: var(--k-mono);
+}
+
+/* ---------- Capas de fondo CRT ---------- */
+
+/* Scanlines horizontales sutiles sobre todo el viewport */
+.k-scanlines {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgb(0 0 0 / 0.16) 2px 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Vignette de tubo catódico */
+.k-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 100% at 50% 45%, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+}
+
+/* Grid de fondo tenue */
+.k-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgb(61 255 143 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(61 255 143 / 0.045) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 85% at 50% 40%, black 30%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 85% at 50% 40%, black 30%, transparent 100%);
+}
+
+/* Barrido de luz vertical lento (haz del monitor) */
+.k-sweep {
+  position: fixed;
+  inset-inline: 0;
+  top: -20%;
+  height: 18%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, rgb(61 255 143 / 0.045), transparent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .k-sweep {
+    animation: k-sweep-down 9s linear infinite;
+  }
+}
+
+@keyframes k-sweep-down {
+  from { transform: translateY(0); }
+  to { transform: translateY(760%); }
+}
+
+/* Flicker de fósforo, casi imperceptible */
+@media (prefers-reduced-motion: no-preference) {
+  .k-flicker {
+    animation: k-flicker 7s steps(1) infinite;
+  }
+}
+
+@keyframes k-flicker {
+  0%, 100% { opacity: 1; }
+  92.2% { opacity: 1; }
+  92.4% { opacity: 0.93; }
+  92.6% { opacity: 1; }
+  97.1% { opacity: 1; }
+  97.2% { opacity: 0.96; }
+  97.3% { opacity: 1; }
+}
+
+/* ---------- Overlay de boot ---------- */
+.k-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020604;
+}
+
+/* ---------- Piezas de terminal ---------- */
+
+/* Marco de ventana terminal */
+.k-window {
+  border: 1px solid var(--edge);
+  border-radius: 0.75rem;
+  background: var(--surface-1);
+  box-shadow: var(--shadow-card), 0 0 60px rgb(61 255 143 / 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  overflow: hidden;
+}
+
+.k-window-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--edge);
+  background: rgb(61 255 143 / 0.04);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--content-3);
+}
+
+/* Cursor de bloque parpadeante */
+.k-caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent-ink);
+  box-shadow: 0 0 8px var(--glow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .k-caret {
+    animation: k-blink 1.05s steps(1) infinite;
+  }
+}
+
+@keyframes k-blink {
+  0%, 55% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+/* Texto con glow de fósforo */
+.k-phosphor {
+  text-shadow: 0 0 14px rgb(61 255 143 / 0.35), 0 0 42px rgb(61 255 143 / 0.14);
+}
+
+/* Glitch RGB en títulos: pseudo-capas desplazadas que se activan
+   por hover y en ráfagas automáticas cortas */
+.k-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.k-glitch::before,
+.k-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.k-glitch::before {
+  color: #22e0ff;
+  z-index: -1;
+}
+
+.k-glitch::after {
+  color: #ff4d6d;
+  z-index: -2;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .k-glitch::before {
+    animation: k-glitch-a 6s steps(1) infinite;
+  }
+
+  .k-glitch::after {
+    animation: k-glitch-b 6s steps(1) infinite;
+  }
+
+  .k-glitch:hover::before {
+    animation: k-glitch-a 0.5s steps(1) infinite;
+  }
+
+  .k-glitch:hover::after {
+    animation: k-glitch-b 0.5s steps(1) infinite;
+  }
+}
+
+@keyframes k-glitch-a {
+  0%, 100% { opacity: 0; transform: none; }
+  71% { opacity: 0; }
+  71.5% { opacity: 0.75; transform: translate(-3px, 1px); clip-path: inset(12% 0 58% 0); }
+  72.2% { opacity: 0; }
+  73% { opacity: 0.6; transform: translate(2px, -1px); clip-path: inset(62% 0 8% 0); }
+  73.6% { opacity: 0; }
+}
+
+@keyframes k-glitch-b {
+  0%, 100% { opacity: 0; transform: none; }
+  71.2% { opacity: 0; }
+  71.7% { opacity: 0.7; transform: translate(3px, -1px); clip-path: inset(48% 0 22% 0); }
+  72.4% { opacity: 0; }
+  73.2% { opacity: 0.55; transform: translate(-2px, 2px); clip-path: inset(4% 0 78% 0); }
+  73.8% { opacity: 0; }
+}
+
+/* Barra de progreso ASCII: el fill avanza a saltos (steps) */
+.k-bar {
+  height: 14px;
+  border: 1px solid var(--edge);
+  background:
+    repeating-linear-gradient(to right, transparent 0 8px, rgb(61 255 143 / 0.06) 8px 10px);
+  overflow: hidden;
+}
+
+.k-bar-fill {
+  height: 100%;
+  width: 0%;
+  background:
+    repeating-linear-gradient(to right, var(--accent-ink) 0 8px, transparent 8px 10px);
+  box-shadow: 0 0 12px var(--glow);
+  transition: width 1.4s steps(18, end);
+}
+
+.k-bar.is-on .k-bar-fill {
+  width: var(--k-bar-pct, 80%);
+}
+
+/* Fila de módulo (listing de servicios) */
+.k-row {
+  border: 1px solid var(--edge);
+  border-radius: 0.5rem;
+  background: var(--surface-3);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.k-row:hover,
+.k-row.is-open {
+  background: rgb(61 255 143 / 0.05);
+  border-color: rgb(61 255 143 / 0.35);
+  box-shadow: 0 0 24px rgb(61 255 143 / 0.07);
+}
+
+/* Inputs de terminal */
+.k-input {
+  width: 100%;
+  border: 1px solid var(--edge);
+  border-radius: 0.375rem;
+  background: var(--input);
+  padding: 0.7rem 0.9rem;
+  color: var(--content-1);
+  caret-color: var(--accent-ink);
+  font-family: var(--k-mono);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.k-input::placeholder {
+  color: var(--content-3);
+}
+
+.k-input:focus {
+  outline: none;
+  border-color: var(--accent-ink);
+  box-shadow: 0 0 0 1px var(--accent-ink), 0 0 18px rgb(61 255 143 / 0.15);
+}
+
+/* Botones estilo comando */
+.k-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--accent-ink);
+  border-radius: 0.375rem;
+  font-family: var(--k-mono);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  color: #021207;
+  background: var(--accent-ink);
+  box-shadow: 0 0 18px rgb(61 255 143 / 0.25);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.k-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgb(61 255 143 / 0.45);
+}
+
+.k-btn-ghost {
+  color: var(--accent-ink);
+  background: transparent;
+  box-shadow: none;
+}
+
+.k-btn-ghost:hover {
+  background: var(--chip);
+  box-shadow: 0 0 22px rgb(61 255 143 / 0.18);
+}
+
+.k-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-from), 0 0 0 4px var(--accent-ink);
+}
+
+/* LED de estado parpadeante */
+.k-led {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--accent-ink);
+  box-shadow: 0 0 8px var(--glow);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .k-led {
+    animation: k-led-pulse 2.2s ease-in-out infinite;
+  }
+}
+
+@keyframes k-led-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+/* Oculta scrollbar en la nav móvil horizontal */
+.k-nav-scroll {
+  scrollbar-width: none;
+}
+
+.k-nav-scroll::-webkit-scrollbar {
+  display: none;
+}

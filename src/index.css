@@ -1,6 +1,7 @@
 @import "tailwindcss";
-@import "./styles/themes/aurora.css";
-@import "./styles/themes/nebula.css";
+@import "./experiences/kernel/kernel.css";
+@import "./experiences/folio/folio.css";
+@import "./experiences/orbit/orbit.css";
 
 /* ============================================================
    Design system DataCEF — tokens Tailwind v4
@@ -465,15 +466,59 @@ html.lenis body {
   }
 }
 
-/* Glow que sigue al cursor (mezcla distinta según tema) */
+/* Glow que sigue al cursor (mezcla distinta según experiencia) */
 .cursor-glow {
   mix-blend-mode: soft-light;
   opacity: 0.5;
 }
 
-[data-theme="nebula"] .cursor-glow {
+[data-experience="orbit"] .cursor-glow,
+[data-experience="kernel"] .cursor-glow {
   mix-blend-mode: screen;
-  opacity: 0.28;
+  opacity: 0.25;
+}
+
+/* ============================================================
+   Switcher de experiencias (cápsula flotante arriba-centro)
+   ============================================================ */
+.xp-switcher {
+  border: 1px solid rgb(255 255 255 / 0.14);
+  background: rgb(8 8 16 / 0.62);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 0.35);
+}
+
+.xp-switcher-idle {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.xp-switcher-idle:hover {
+  color: rgb(255 255 255 / 0.9);
+}
+
+.xp-switcher-active {
+  color: #ffffff;
+}
+
+.xp-switcher-pill {
+  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
+  box-shadow: 0 2px 14px var(--glow);
+}
+
+/* En Folio (papel claro) la cápsula se lee como objeto de tinta */
+[data-experience="folio"] .xp-switcher {
+  border-color: rgb(20 20 16 / 0.2);
+  background: rgb(246 242 234 / 0.82);
+  box-shadow: 0 8px 28px rgb(20 20 16 / 0.14);
+}
+
+[data-experience="folio"] .xp-switcher-idle {
+  color: rgb(20 20 16 / 0.5);
+}
+
+[data-experience="folio"] .xp-switcher-idle:hover {
+  color: rgb(20 20 16 / 0.92);
 }
 
 /* Auroras del fondo de marca (tema Aurora) */

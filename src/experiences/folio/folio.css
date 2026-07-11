@@ -1,0 +1,237 @@
+/* ============================================================
+   Experiencia "Folio" — editorial brutalista de lujo.
+   Papel cálido, tinta casi negra, tipografía display gigante,
+   índices numerados, hairlines y reveals por línea.
+   ============================================================ */
+
+html[data-experience="folio"] {
+  color-scheme: light;
+
+  /* Fondo y superficies */
+  --bg-from: #f7f3ea;
+  --bg-to: #efe9db;
+  --surface-1: #fffdf7;
+  --surface-2: rgb(255 253 247 / 0.72);
+  --surface-3: #f2ecdf;
+  --surface-contrast: #16150f;
+  --input: transparent;
+  --header-bg: rgb(247 243 234 / 0.82);
+  --header-bg-solid: rgb(247 243 234 / 0.95);
+
+  /* Texto */
+  --content-1: #16150f;
+  --content-2: #4c4a40;
+  --content-3: #8b887a;
+  --accent-ink: #0b7a4b;
+
+  /* Bordes, chips y brillos */
+  --edge: rgb(22 21 15 / 0.18);
+  --chip: rgb(11 122 75 / 0.08);
+  --glow: rgb(11 122 75 / 0.16);
+  --grad-a: #0b7a4b;
+  --grad-b: #0d9488;
+  --grad-c: #064e3b;
+
+  --shadow-card: 0 4px 24px -6px rgb(22 21 15 / 0.10);
+  --shadow-card-hover: 0 14px 36px -10px rgb(22 21 15 / 0.18);
+}
+
+/* ---------- Tipografía editorial ---------- */
+
+.f-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+/* Texto solo contorno (tinta hueca) */
+.f-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--content-1);
+}
+
+.f-outline-soft {
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(22 21 15 / 0.35);
+}
+
+/* Hairline editorial */
+.f-rule {
+  height: 1px;
+  background: var(--content-1);
+  opacity: 0.25;
+}
+
+/* Máscara para reveals por línea (el hijo entra desde abajo) */
+.f-mask {
+  overflow: hidden;
+  display: block;
+}
+
+/* ---------- Marquee gigante ---------- */
+
+.f-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.f-marquee-track {
+  display: inline-flex;
+  align-items: baseline;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .f-marquee-track {
+    animation: f-marquee-scroll 36s linear infinite;
+  }
+}
+
+@keyframes f-marquee-scroll {
+  to { transform: translateX(-50%); }
+}
+
+/* ---------- Tarjetas sticky apiladas (servicios) ---------- */
+
+.f-stack-card {
+  position: sticky;
+  background: var(--surface-1);
+  border: 2px solid var(--content-1);
+  box-shadow: 0 -12px 32px -18px rgb(22 21 15 / 0.35);
+}
+
+/* ---------- Índice de casos: fila que se expande al hover ---------- */
+
+.f-case-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.f-case-body > div {
+  overflow: hidden;
+}
+
+.f-case:hover .f-case-body,
+.f-case:focus-within .f-case-body {
+  grid-template-rows: 1fr;
+}
+
+.f-case {
+  transition: background-color 0.3s ease;
+}
+
+.f-case:hover {
+  background: var(--surface-1);
+}
+
+/* En táctil/móvil las filas viven expandidas */
+@media (hover: none), (max-width: 767px) {
+  .f-case-body {
+    grid-template-rows: 1fr;
+  }
+}
+
+/* ---------- Filas de valores ---------- */
+
+.f-value-row {
+  transition: background-color 0.25s ease, padding-left 0.25s ease;
+}
+
+@media (hover: hover) {
+  .f-value-row:hover {
+    background: var(--chip);
+    padding-left: 1.25rem;
+  }
+}
+
+/* ---------- Formulario editorial ---------- */
+
+.f-input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid rgb(22 21 15 / 0.3);
+  background: transparent;
+  padding: 0.7rem 0.1rem;
+  color: var(--content-1);
+  caret-color: var(--accent-ink);
+  border-radius: 0;
+  transition: border-color 0.25s ease;
+}
+
+.f-input::placeholder {
+  color: var(--content-3);
+}
+
+.f-input:focus {
+  outline: none;
+  border-bottom-color: var(--accent-ink);
+}
+
+/* ---------- Botones de tinta ---------- */
+
+.f-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.2rem;
+  border: 2px solid var(--content-1);
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  color: var(--bg-from);
+  background: var(--content-1);
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.f-btn:hover {
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  transform: translateY(-2px);
+}
+
+.f-btn-ghost {
+  color: var(--content-1);
+  background: transparent;
+}
+
+.f-btn-ghost:hover {
+  color: var(--bg-from);
+  background: var(--content-1);
+  border-color: var(--content-1);
+}
+
+.f-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-from), 0 0 0 4px var(--accent-ink);
+}
+
+/* Link con subrayado que crece (efecto editorial clásico) */
+.f-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: 2px;
+}
+
+.f-underline:hover,
+.f-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
+/* Sello circular giratorio (hero) */
+@media (prefers-reduced-motion: no-preference) {
+  .f-stamp {
+    animation: f-stamp-spin 18s linear infinite;
+  }
+}
+
+@keyframes f-stamp-spin {
+  to { transform: rotate(360deg); }
+}
