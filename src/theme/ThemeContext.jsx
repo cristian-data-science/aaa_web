@@ -1,12 +1,11 @@
 import { createContext, useCallback, useContext, useState } from 'react'
 import { flushSync } from 'react-dom'
 
-// Los tres temas visuales del sitio. El id se refleja en
+// Los dos temas visuales del sitio. El id se refleja en
 // html[data-theme] y las hojas de styles/themes/ hacen el resto.
 export const THEMES = [
   { id: 'aurora', label: 'Aurora', metaColor: '#059669' },
   { id: 'nebula', label: 'Nebula', metaColor: '#060913' },
-  { id: 'chroma', label: 'Chroma', metaColor: '#0b0a10' },
 ]
 
 const STORAGE_KEY = 'datacef-theme'

@@ -1,14 +1,13 @@
 import { motion } from 'framer-motion'
-import { Sun, MoonStar, Sparkles } from 'lucide-react'
+import { Sun, MoonStar } from 'lucide-react'
 import { useTheme, THEMES } from '@/theme/ThemeContext'
 
 const ICONS = {
   aurora: Sun,
   nebula: MoonStar,
-  chroma: Sparkles,
 }
 
-// Pill segmentada para alternar entre los 3 temas visuales.
+// Pill segmentada para alternar entre los 2 temas visuales.
 // El indicador activo se desliza con layoutId (spring estilo Linear).
 // instanceId evita que las copias desktop/móvil compartan layoutId.
 const ThemeSwitcher = ({ showLabels = false, instanceId = 'desktop', className = '' }) => {

@@ -12,7 +12,7 @@
       (function () {
         var t = null
         try { t = localStorage.getItem('datacef-theme') } catch (e) { /* almacenamiento bloqueado */ }
-        if (t !== 'aurora' && t !== 'nebula' && t !== 'chroma') t = 'aurora'
+        if (t !== 'aurora' && t !== 'nebula') t = 'aurora'
         document.documentElement.setAttribute('data-theme', t)
       })()
     </script>

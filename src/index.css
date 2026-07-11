@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "./styles/themes/aurora.css";
 @import "./styles/themes/nebula.css";
-@import "./styles/themes/chroma.css";
 
 /* ============================================================
    Design system DataCEF — tokens Tailwind v4
@@ -472,8 +471,7 @@ html.lenis body {
   opacity: 0.5;
 }
 
-[data-theme="nebula"] .cursor-glow,
-[data-theme="chroma"] .cursor-glow {
+[data-theme="nebula"] .cursor-glow {
   mix-blend-mode: screen;
   opacity: 0.28;
 }
