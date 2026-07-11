@@ -16,18 +16,26 @@ import datacefCity from '@/assets/images/datacef-city.webp'
 const EASE = [0.22, 1, 0.36, 1]
 
 // Línea que entra desde abajo de una máscara (reveal editorial clásico)
+// Ojo: el trigger whileInView/viewport va en el wrapper (.f-mask), que
+// nunca se transforma y por tanto siempre es "visible" para el
+// IntersectionObserver. Si se pusiera en el hijo trasladado, quedaría
+// recortado por el overflow:hidden del padre y nunca se detectaría en
+// viewport (círculo vicioso: nunca entra porque nunca se revela).
 const Line = ({ children, delay = 0, className = '' }) => (
-  <span className="f-mask">
+  <motion.span
+    className="f-mask"
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: '-40px' }}
+  >
     <motion.span
       className={`inline-block ${className}`}
-      initial={{ y: '110%' }}
-      whileInView={{ y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
+      variants={{ hidden: { y: '110%' }, visible: { y: 0 } }}
       transition={{ duration: 0.8, ease: EASE, delay }}
     >
       {children}
     </motion.span>
-  </span>
+  </motion.span>
 )
 
 // Palabra rotativa con flip vertical dentro de una máscara
@@ -43,14 +51,17 @@ const FlipWord = ({ words, interval = 2600, className = '' }) => {
 
   return (
     <span className={`inline-grid overflow-hidden align-bottom ${className}`}>
-      <AnimatePresence mode="popLayout" initial={false}>
+      {/* mode="wait": la palabra saliente termina de desvanecerse y se
+          desmonta antes de que entre la siguiente, para que nunca convivan
+          dos palabras a la vez dentro del mismo recorte (se veía amontonado). */}
+      <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={words[i]}
           className="inline-block whitespace-nowrap [grid-area:1/1]"
-          initial={{ y: '105%' }}
-          animate={{ y: 0 }}
-          exit={{ y: '-105%' }}
-          transition={{ duration: 0.55, ease: EASE }}
+          initial={{ y: '105%', opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: '-40%', opacity: 0 }}
+          transition={{ duration: 0.4, ease: EASE }}
         >
           {reduced ? words[2] : words[i]}
         </motion.span>
